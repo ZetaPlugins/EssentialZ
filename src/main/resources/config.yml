@@ -1,0 +1,19 @@
+styles:
+  default:
+    accentColor: "#ba7cf8"
+    prefix: "&8[<gradient:#ba7cf8:#ba7cf8>EssentialZ&8] "
+  error:
+    accentColor: "#FF1744"
+    prefix: "&8[<#FF1744>⚠&8] "
+  warning:
+    accentColor: "#E9D502"
+    prefix: "&8[<#E9D502>⚠&8] "
+  movement:
+    accentColor: "#6EC6FF"
+    prefix: "&8[<#6EC6FF>☁&8] "
+  combat:
+    accentColor: "#FF1A1A"
+    prefix: "&8[<#FF1A1A>⚔&8] "
+  moderation:
+    accentColor: "#00E5FF"
+    prefix: "&8[<#00E5FF>☯&8] "

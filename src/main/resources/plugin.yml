@@ -1,0 +1,31 @@
+name: EssentialZ
+version: '${project.version}'
+main: org.strassburger.essentialz.EssentialZ
+api-version: '1.21'
+load: STARTUP
+authors: [ Kartoffelchipss ]
+description: A modern essentials plugin for Minecraft
+website: https://strassburger.org
+
+softdepend:
+  - PlaceholderAPI
+
+commands:
+  essentialz:
+    description: Main command for EssentialZ
+    aliases:
+      - esz
+  playtime:
+    description: Get the playtime of a player
+    permission: essentialz.playtime
+  skull:
+    description: Get the skull of a player
+    permission: essentialz.skull
+
+permissions:
+  essentialz.playtime:
+    default: true
+    description: Allows the user to see the playtime of a player
+  essentialz.skull:
+    default: op
+    description: Allows the user to get the skull of a player
