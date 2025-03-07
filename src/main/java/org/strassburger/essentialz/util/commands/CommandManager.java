@@ -4,10 +4,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
 import org.strassburger.essentialz.EssentialZ;
-import org.strassburger.essentialz.commands.movement.FlyCommand;
-import org.strassburger.essentialz.commands.movement.FlySpeedCommand;
-import org.strassburger.essentialz.commands.movement.GamemodeShortcutCommand;
-import org.strassburger.essentialz.commands.movement.WalkSpeedCommand;
+import org.strassburger.essentialz.commands.movement.*;
 import org.strassburger.essentialz.util.MessageManager;
 import org.strassburger.essentialz.commands.*;
 
@@ -33,6 +30,7 @@ public class CommandManager {
         registerCommand(new GamemodeShortcutCommand("gms", plugin));
         registerCommand(new GamemodeShortcutCommand("gma", plugin));
         registerCommand(new GamemodeShortcutCommand("gmsp", plugin));
+        registerCommand(new GamemodeCommand("gamemode", plugin));
     }
 
     /**
