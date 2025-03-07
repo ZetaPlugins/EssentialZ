@@ -29,6 +29,9 @@ commands:
     permission: essentialz.itemlore
     aliases:
       - lore
+  fly:
+    description: Allow the player to fly
+    permission: essentialz.fly
 
 permissions:
   essentialz.playtime:
@@ -43,3 +46,9 @@ permissions:
   essentialz.itemlore:
     default: op
     description: Allows the user to change the lore of an item
+  essentialz.fly:
+    default: op
+    description: Allows the user to fly
+  myplugin.fly.others:
+    default: op
+    description: Allows the user to give other players flight

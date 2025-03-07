@@ -4,6 +4,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
 import org.strassburger.essentialz.EssentialZ;
+import org.strassburger.essentialz.commands.movement.FlyCommand;
 import org.strassburger.essentialz.util.MessageManager;
 import org.strassburger.essentialz.commands.*;
 
@@ -22,6 +23,7 @@ public class CommandManager {
         registerCommand(new SkullCommand("skull", plugin));
         registerCommand(new ItemNameCommand("itemname", plugin));
         registerCommand(new ItemLoreCommand("itemlore", plugin));
+        registerCommand(new FlyCommand("fly", plugin));
     }
 
     /**
