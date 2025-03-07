@@ -35,6 +35,11 @@ commands:
   flyspeed:
     description: Change the fly speed of a player
     permission: essentialz.flyspeed
+  walkspeed:
+    description: Change the walk speed of a player
+    permission: essentialz.walkspeed
+    aliases:
+      - speed
 
 permissions:
   essentialz.playtime:
@@ -61,3 +66,9 @@ permissions:
   essentialz.flyspeed.others:
     default: op
     description: Allows the user to change the fly speed of other players
+  essentialz.walkspeed:
+    default: op
+    description: Allows the user to change the walk speed of a player
+  essentialz.walkspeed.others:
+    default: op
+    description: Allows the user to change the walk speed of other players
