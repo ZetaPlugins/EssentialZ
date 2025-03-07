@@ -72,6 +72,8 @@ public class MessageManager {
 
         msg = style.getPrefix(plugin) + msg;
 
+        msg = msg.replace("{prefix}", style.getPrefix(plugin));
+
         msg = replaceReplaceables(msg, replaceables);
 
         msg = replaceColorCodes(msg, style);

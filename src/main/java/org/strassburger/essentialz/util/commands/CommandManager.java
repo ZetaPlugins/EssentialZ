@@ -4,6 +4,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
 import org.strassburger.essentialz.EssentialZ;
+import org.strassburger.essentialz.commands.moderation.ClearChatCommand;
 import org.strassburger.essentialz.commands.moderation.GodModeCommand;
 import org.strassburger.essentialz.commands.movement.*;
 import org.strassburger.essentialz.util.MessageManager;
@@ -33,6 +34,7 @@ public class CommandManager {
         registerCommand(new GamemodeShortcutCommand("gmsp", plugin));
         registerCommand(new GamemodeCommand("gamemode", plugin));
         registerCommand(new GodModeCommand("godmode", plugin));
+        registerCommand(new ClearChatCommand("clearchat", plugin));
     }
 
     /**

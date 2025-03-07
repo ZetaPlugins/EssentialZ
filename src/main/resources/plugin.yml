@@ -62,6 +62,11 @@ commands:
     permission: essentialz.godmode
     aliases:
       - god
+  clearchat:
+    description: Clear the chat
+    permission: essentialz.clearchat
+    aliases:
+      - cc
 
 permissions:
   essentialz.playtime:
@@ -106,3 +111,6 @@ permissions:
   essentialz.godmode.others:
     default: op
     description: Allows the user to enable godmode for other players
+  essentialz.clearchat:
+    default: op
+    description: Allows the user to clear the chat
