@@ -40,6 +40,23 @@ commands:
     permission: essentialz.walkspeed
     aliases:
       - speed
+  gmc:
+    description: Change the gamemode of a player to creative
+    permission: essentialz.gamemode
+  gms:
+    description: Change the gamemode of a player to survival
+    permission: essentialz.gamemode
+  gma:
+    description: Change the gamemode of a player to adventure
+    permission: essentialz.gamemode
+  gmsp:
+    description: Change the gamemode of a player to spectator
+    permission: essentialz.gamemode
+  gamemode:
+    description: Change the gamemode of a player
+    permission: essentialz.gamemode
+    aliases:
+      - gm
 
 permissions:
   essentialz.playtime:
@@ -72,3 +89,9 @@ permissions:
   essentialz.walkspeed.others:
     default: op
     description: Allows the user to change the walk speed of other players
+  essentialz.gamemode:
+    default: op
+    description: Allows the user to change the gamemode of a player
+  essentialz.gamemode.others:
+    default: op
+    description: Allows the user to change the gamemode of other players

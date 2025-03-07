@@ -92,7 +92,7 @@ public class FlyCommand extends CustomCommand {
 
     @Override
     public List<String> tabComplete(CommandSender sender, Command command, ArgumentList args) {
-        if (args.getCurrentArgIndex() == 0) {
+        if (args.getCurrentArgIndex() == 0 && sender.hasPermission("essentialz.fly.others")) {
             return getPlayerOptions(getPlugin(), args.getCurrentArg());
         }
         return List.of();

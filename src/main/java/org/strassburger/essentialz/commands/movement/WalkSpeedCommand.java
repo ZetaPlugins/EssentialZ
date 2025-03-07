@@ -79,7 +79,7 @@ public class WalkSpeedCommand extends CustomCommand {
     @Override
     public List<String> tabComplete(CommandSender sender, Command command, ArgumentList args) {
         if (args.getCurrentArgIndex() == 0) return List.of("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
-        if (args.getCurrentArgIndex() == 1) return getPlayerOptions(getPlugin(), args.getCurrentArg());
+        if (args.getCurrentArgIndex() == 1 && sender.hasPermission("essentialz.walkspeed.others")) return getPlayerOptions(getPlugin(), args.getCurrentArg());
         return List.of();
     }
 }
