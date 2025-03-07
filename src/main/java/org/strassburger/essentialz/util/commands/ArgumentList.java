@@ -53,6 +53,17 @@ public class ArgumentList implements Iterable<String> {
     }
 
     /**
+     * Get an integer at the specified index
+     * @param index The index of the integer
+     * @return The integer at the specified index
+     * @throws NumberFormatException When the argument is not an integer
+     */
+    public int getInt(int index) throws NumberFormatException {
+        if (!hasArg(index)) throw new NumberFormatException();
+        return Integer.parseInt(args[index]);
+    }
+
+    /**
      * Get the last argument index
      * @return The last argument index
      */

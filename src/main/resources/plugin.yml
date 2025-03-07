@@ -32,6 +32,9 @@ commands:
   fly:
     description: Allow the player to fly
     permission: essentialz.fly
+  flyspeed:
+    description: Change the fly speed of a player
+    permission: essentialz.flyspeed
 
 permissions:
   essentialz.playtime:
@@ -49,6 +52,12 @@ permissions:
   essentialz.fly:
     default: op
     description: Allows the user to fly
-  myplugin.fly.others:
+  essentialz.fly.others:
     default: op
     description: Allows the user to give other players flight
+  essentialz.flyspeed:
+    default: op
+    description: Allows the user to change the fly speed of a player
+  essentialz.flyspeed.others:
+    default: op
+    description: Allows the user to change the fly speed of other players
