@@ -1,3 +1,10 @@
+# The max length an item name can be. Set to -1 to disable.
+maxItemNameLength: 100
+
+# The max amount of lines a lore can have. Set to -1 to disable. (128 is the max amount of lines an item can have in Minecraft)
+maxLoreLines: 10
+
+# Set the message styles for each message type.
 styles:
   default:
     accentColor: "#ba7cf8"

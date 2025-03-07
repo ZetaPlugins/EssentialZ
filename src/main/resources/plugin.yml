@@ -21,6 +21,14 @@ commands:
   skull:
     description: Get the skull of a player
     permission: essentialz.skull
+  itemname:
+    description: change the name of an item
+    permission: essentialz.itemname
+  itemlore:
+    description: change the lore of an item
+    permission: essentialz.itemlore
+    aliases:
+      - lore
 
 permissions:
   essentialz.playtime:
@@ -29,3 +37,9 @@ permissions:
   essentialz.skull:
     default: op
     description: Allows the user to get the skull of a player
+  essentialz.itemname:
+    default: op
+    description: Allows the user to change the name of an item
+  essentialz.itemlore:
+    default: op
+    description: Allows the user to change the lore of an item

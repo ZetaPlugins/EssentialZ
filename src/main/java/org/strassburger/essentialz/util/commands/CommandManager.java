@@ -20,6 +20,8 @@ public class CommandManager {
     public void registerCommands() {
         registerCommand(new PlayTimeCommand("playtime", plugin));
         registerCommand(new SkullCommand("skull", plugin));
+        registerCommand(new ItemNameCommand("itemname", plugin));
+        registerCommand(new ItemLoreCommand("itemlore", plugin));
     }
 
     /**

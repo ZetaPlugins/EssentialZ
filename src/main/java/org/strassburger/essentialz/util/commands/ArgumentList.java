@@ -1,14 +1,17 @@
 package org.strassburger.essentialz.util.commands;
 
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 import org.strassburger.essentialz.EssentialZ;
 
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 /**
  * Represents a list of command arguments
  */
-public class ArgumentList {
+public class ArgumentList implements Iterable<String> {
     private final String[] args;
 
     /**
@@ -87,5 +90,10 @@ public class ArgumentList {
      */
     public List<String> getAllArgs() {
         return List.of(args);
+    }
+
+    @Override
+    public @NotNull Iterator<String> iterator() {
+        return Arrays.asList(args).iterator();
     }
 }
