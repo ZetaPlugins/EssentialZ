@@ -22,5 +22,5 @@ styles:
     accentColor: "#FF1A1A"
     prefix: "&8[<#FF1A1A>⚔&8] "
   moderation:
-    accentColor: "#00E5FF"
-    prefix: "&8[<#00E5FF>☯&8] "
+    accentColor: "#8F9BFF"
+    prefix: "&8[<#8F9BFF>☯&8] "

@@ -57,6 +57,11 @@ commands:
     permission: essentialz.gamemode
     aliases:
       - gm
+  godmode:
+    description: Enable godmode
+    permission: essentialz.godmode
+    aliases:
+      - god
 
 permissions:
   essentialz.playtime:
@@ -95,3 +100,9 @@ permissions:
   essentialz.gamemode.others:
     default: op
     description: Allows the user to change the gamemode of other players
+  essentialz.godmode:
+    default: op
+    description: Allows the user to enable godmode
+  essentialz.godmode.others:
+    default: op
+    description: Allows the user to enable godmode for other players

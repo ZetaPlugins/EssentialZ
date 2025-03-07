@@ -2,6 +2,8 @@ package org.strassburger.essentialz;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.strassburger.essentialz.features.GodModeManager;
+import org.strassburger.essentialz.util.EventManager;
 import org.strassburger.essentialz.util.commands.CommandManager;
 import org.strassburger.essentialz.util.LanguageManager;
 import org.strassburger.essentialz.util.MessageManager;
@@ -9,6 +11,9 @@ import org.strassburger.essentialz.util.MessageManager;
 public final class EssentialZ extends JavaPlugin {
     private LanguageManager languageManager;
     private MessageManager messageManager;
+
+    private GodModeManager godModeManager;
+
     private final boolean hasPlaceholderApi = Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
 
     @Override
@@ -18,8 +23,10 @@ public final class EssentialZ extends JavaPlugin {
 
         languageManager = new LanguageManager(this);
         messageManager = new MessageManager(this);
+        godModeManager = new GodModeManager();
 
         new CommandManager(this).registerCommands();
+        new EventManager(this).registerListeners();
 
         getLogger().info("EssentialZ enabled!");
     }
@@ -35,5 +42,9 @@ public final class EssentialZ extends JavaPlugin {
 
     public MessageManager getMessageManager() {
         return messageManager;
+    }
+
+    public GodModeManager getGodModeManager() {
+        return godModeManager;
     }
 }
