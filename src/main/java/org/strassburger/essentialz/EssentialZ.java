@@ -4,7 +4,9 @@ import com.zetaplugins.zetacore.services.commands.AutoCommandRegistrar;
 import com.zetaplugins.zetacore.services.events.AutoEventRegistrar;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.strassburger.essentialz.features.GiveMaterialManager;
 import org.strassburger.essentialz.features.GodModeManager;
+import org.strassburger.essentialz.util.ConfigManager;
 import org.strassburger.essentialz.util.LanguageManager;
 import org.strassburger.essentialz.util.MessageManager;
 
@@ -15,8 +17,10 @@ public final class EssentialZ extends JavaPlugin {
 
     private LanguageManager languageManager;
     private MessageManager messageManager;
+    private ConfigManager configManager;
 
     private GodModeManager godModeManager;
+    private GiveMaterialManager giveMaterialManager;
 
     private final boolean hasPlaceholderApi = Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
 
@@ -27,7 +31,10 @@ public final class EssentialZ extends JavaPlugin {
 
         languageManager = new LanguageManager(this);
         messageManager = new MessageManager(this);
+        configManager = new ConfigManager(this);
+
         godModeManager = new GodModeManager();
+        giveMaterialManager = new GiveMaterialManager(this);
 
         //new CommandManager(this).registerCommands();
         List<String> registeredCommands = new AutoCommandRegistrar(this, PACKAGE_PREFIX).registerAllCommands();
@@ -49,6 +56,14 @@ public final class EssentialZ extends JavaPlugin {
 
     public MessageManager getMessageManager() {
         return messageManager;
+    }
+
+    public ConfigManager getConfigManager() {
+        return configManager;
+    }
+
+    public GiveMaterialManager getGiveMaterialManager() {
+        return giveMaterialManager;
     }
 
     public GodModeManager getGodModeManager() {

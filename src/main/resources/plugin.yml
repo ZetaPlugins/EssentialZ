@@ -67,6 +67,12 @@ commands:
     permission: essentialz.clearchat
     aliases:
       - cc
+  give:
+    description: Give an item to a player
+    permission: essentialz.give
+  i:
+    description: Give yourself an item
+    permission: essentialz.give
 
 permissions:
   essentialz.playtime:
@@ -114,3 +120,6 @@ permissions:
   essentialz.clearchat:
     default: op
     description: Allows the user to clear the chat
+  essentialz.give:
+    default: op
+    description: Allows the user to give items to players

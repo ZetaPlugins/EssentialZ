@@ -1,5 +1,6 @@
 package org.strassburger.essentialz.util.commands;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.strassburger.essentialz.EssentialZ;
@@ -61,6 +62,21 @@ public class ArgumentList implements Iterable<String> {
     public int getInt(int index) throws NumberFormatException {
         if (!hasArg(index)) throw new NumberFormatException();
         return Integer.parseInt(args[index]);
+    }
+
+    /**
+     * Get an integer at the specified index, with a default value
+     * @param index The index of the integer
+     * @param defaultValue The default value to return if the argument is not an integer or does not exist
+     * @return The integer at the specified index, or the default value
+     */
+    public int getInt(int index, int defaultValue) {
+        if (!hasArg(index)) return defaultValue;
+        try {
+            return Integer.parseInt(args[index]);
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
     }
 
     /**
