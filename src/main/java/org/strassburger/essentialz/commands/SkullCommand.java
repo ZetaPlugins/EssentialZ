@@ -1,5 +1,6 @@
 package org.strassburger.essentialz.commands;
 
+import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -9,17 +10,14 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.strassburger.essentialz.EssentialZ;
 import org.strassburger.essentialz.util.MessageManager;
-import org.strassburger.essentialz.util.commands.ArgumentList;
-import org.strassburger.essentialz.util.commands.CommandPermissionException;
-import org.strassburger.essentialz.util.commands.CommandUsageException;
-import org.strassburger.essentialz.util.commands.CustomCommand;
+import org.strassburger.essentialz.util.commands.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
+@AutoRegisterCommand(commands = "skull")
 public class SkullCommand extends CustomCommand {
-    public SkullCommand(String name, EssentialZ plugin) {
-        super(name, plugin);
+    public SkullCommand(EssentialZ plugin) {
+        super(plugin);
     }
 
     @Override

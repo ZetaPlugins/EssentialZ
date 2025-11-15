@@ -1,5 +1,6 @@
 package org.strassburger.essentialz.commands.moderation;
 
+import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -12,9 +13,10 @@ import org.strassburger.essentialz.util.commands.CustomCommand;
 
 import java.util.List;
 
+@AutoRegisterCommand(commands = "clearchat")
 public class ClearChatCommand extends CustomCommand {
-    public ClearChatCommand(String name, EssentialZ plugin) {
-        super(name, plugin);
+    public ClearChatCommand(EssentialZ plugin) {
+        super(plugin);
     }
 
     @Override

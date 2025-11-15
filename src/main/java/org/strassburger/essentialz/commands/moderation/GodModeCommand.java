@@ -1,5 +1,6 @@
 package org.strassburger.essentialz.commands.moderation;
 
+import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -12,9 +13,10 @@ import org.strassburger.essentialz.util.commands.CustomCommand;
 
 import java.util.List;
 
+@AutoRegisterCommand(commands = "godmode")
 public class GodModeCommand extends CustomCommand {
-    public GodModeCommand(String name, EssentialZ plugin) {
-        super(name, plugin);
+    public GodModeCommand(EssentialZ plugin) {
+        super(plugin);
     }
 
     @Override

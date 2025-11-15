@@ -1,5 +1,6 @@
 package org.strassburger.essentialz.commands.movement;
 
+import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -13,9 +14,10 @@ import org.strassburger.essentialz.util.commands.CustomCommand;
 
 import java.util.List;
 
+@AutoRegisterCommand(commands = "gamemode")
 public class GamemodeCommand extends CustomCommand {
-    public GamemodeCommand(String name, EssentialZ plugin) {
-        super(name, plugin);
+    public GamemodeCommand(EssentialZ plugin) {
+        super(plugin);
     }
 
     @Override

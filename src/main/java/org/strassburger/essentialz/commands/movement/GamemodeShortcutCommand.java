@@ -1,5 +1,6 @@
 package org.strassburger.essentialz.commands.movement;
 
+import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -13,9 +14,10 @@ import org.strassburger.essentialz.util.commands.CustomCommand;
 
 import java.util.List;
 
+@AutoRegisterCommand(commands = {"gmc", "gms", "gma", "gmsp"})
 public class GamemodeShortcutCommand extends CustomCommand {
-    public GamemodeShortcutCommand(String name, EssentialZ plugin) {
-        super(name, plugin);
+    public GamemodeShortcutCommand(EssentialZ plugin) {
+        super(plugin);
     }
 
     @Override
@@ -32,10 +34,10 @@ public class GamemodeShortcutCommand extends CustomCommand {
                     "gamemodeSetOther",
                     "&7Set {ac}{player}&7's gamemode to {ac}{gamemode}&7.",
                     new MessageManager.Replaceable<>("{player}", targetPlayer.getName()),
-                    new MessageManager.Replaceable<>("{gamemode}", commandNameToGamemode(getName()))
+                    new MessageManager.Replaceable<>("{gamemode}", commandNameToGamemode(command.getName()))
             ));
 
-            setGamemode(targetPlayer);
+            setGamemode(targetPlayer, command.getName());
             return true;
         }
 
@@ -48,7 +50,7 @@ public class GamemodeShortcutCommand extends CustomCommand {
             return false;
         }
 
-        return setGamemode(player);
+        return setGamemode(player, command.getName());
     }
 
     private String commandNameToGamemode(String commandName) {
@@ -61,9 +63,9 @@ public class GamemodeShortcutCommand extends CustomCommand {
         };
     }
 
-    private boolean setGamemode(Player player) {
-        String gameMode = commandNameToGamemode(getName());
-        switch (getName()) {
+    private boolean setGamemode(Player player, String commandName) {
+        String gameMode = commandNameToGamemode(commandName);
+        switch (commandName) {
             case "gmc":
                 player.setGameMode(GameMode.CREATIVE);
                 sendConfirmationMessage(player, gameMode);

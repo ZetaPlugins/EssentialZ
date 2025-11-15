@@ -15,30 +15,18 @@ import java.util.stream.Collectors;
 
 public abstract class CustomCommand implements CommandExecutor, TabCompleter {
     private final EssentialZ plugin;
-    private final String name;
 
     /**
      * Constructor for the CustomCommand class
      *
-     * @param name The name of the command
      * @param plugin The instance of the plugin
      */
-    public CustomCommand(String name, EssentialZ plugin) {
+    public CustomCommand(EssentialZ plugin) {
         this.plugin = plugin;
-        this.name = name;
     }
 
     protected EssentialZ getPlugin() {
         return plugin;
-    }
-
-    /**
-     * Get the name of the command
-     *
-     * @return The name of the command
-     */
-    public String getName() {
-        return name;
     }
 
     /**

@@ -1,5 +1,6 @@
 package org.strassburger.essentialz.commands;
 
+import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -15,9 +16,10 @@ import org.strassburger.essentialz.util.commands.CustomCommand;
 
 import java.util.List;
 
+@AutoRegisterCommand(commands = "itemname")
 public class ItemNameCommand extends CustomCommand {
-    public ItemNameCommand(String name, EssentialZ plugin) {
-        super(name, plugin);
+    public ItemNameCommand(EssentialZ plugin) {
+        super(plugin);
     }
 
     @Override

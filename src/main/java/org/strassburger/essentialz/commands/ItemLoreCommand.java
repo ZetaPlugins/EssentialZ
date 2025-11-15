@@ -1,5 +1,6 @@
 package org.strassburger.essentialz.commands;
 
+import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -7,7 +8,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.strassburger.essentialz.EssentialZ;
 import org.strassburger.essentialz.util.MessageManager;
 import org.strassburger.essentialz.util.commands.ArgumentList;
@@ -19,9 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+@AutoRegisterCommand(commands = "itemlore")
 public class ItemLoreCommand extends CustomCommand {
-    public ItemLoreCommand(String name, EssentialZ plugin) {
-        super(name, plugin);
+    public ItemLoreCommand(EssentialZ plugin) {
+        super(plugin);
     }
 
     @Override

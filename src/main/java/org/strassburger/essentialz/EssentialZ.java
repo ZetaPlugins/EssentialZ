@@ -1,10 +1,10 @@
 package org.strassburger.essentialz;
 
+import com.zetaplugins.zetacore.services.commands.AutoCommandRegistrar;
 import com.zetaplugins.zetacore.services.events.AutoEventRegistrar;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.strassburger.essentialz.features.GodModeManager;
-import org.strassburger.essentialz.util.commands.CommandManager;
 import org.strassburger.essentialz.util.LanguageManager;
 import org.strassburger.essentialz.util.MessageManager;
 
@@ -29,7 +29,9 @@ public final class EssentialZ extends JavaPlugin {
         messageManager = new MessageManager(this);
         godModeManager = new GodModeManager();
 
-        new CommandManager(this).registerCommands();
+        //new CommandManager(this).registerCommands();
+        List<String> registeredCommands = new AutoCommandRegistrar(this, PACKAGE_PREFIX).registerAllCommands();
+        getLogger().info("Registered " + registeredCommands.size() + " commands.");
         List<String> registeredEvents = new AutoEventRegistrar(this, PACKAGE_PREFIX).registerAllListeners();
         getLogger().info("Registered " + registeredEvents.size() + " event listeners.");
 
