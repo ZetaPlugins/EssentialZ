@@ -1,11 +1,13 @@
 package org.strassburger.essentialz.events;
 
+import com.zetaplugins.zetacore.annotations.AutoRegisterListener;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.strassburger.essentialz.EssentialZ;
 
+@AutoRegisterListener
 public class EntityDamageListener implements Listener {
     private final EssentialZ plugin;
 
