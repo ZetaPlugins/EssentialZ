@@ -1,4 +1,9 @@
+# Here you can define custom material mappings for your application. They follow the format:
+# yourcustomname: "MATERIAL_NAME"
+# You can find a list of valid MATERIAL_NAME values here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+
 steak: "COOKED_BEEF"
 netherite: "NETHERITE_INGOT"
 gold: "GOLD_INGOT"
 iron: "IRON_INGOT"
+grass: "SHORT_GRASS"
