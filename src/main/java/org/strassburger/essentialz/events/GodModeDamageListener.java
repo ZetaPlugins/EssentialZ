@@ -8,10 +8,10 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.strassburger.essentialz.EssentialZ;
 
 @AutoRegisterListener
-public class EntityDamageListener implements Listener {
+public class GodModeDamageListener implements Listener {
     private final EssentialZ plugin;
 
-    public EntityDamageListener(EssentialZ plugin) {
+    public GodModeDamageListener(EssentialZ plugin) {
         this.plugin = plugin;
     }
 
