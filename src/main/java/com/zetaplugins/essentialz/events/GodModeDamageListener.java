@@ -1,0 +1,24 @@
+package com.zetaplugins.essentialz.events;
+
+import com.zetaplugins.zetacore.annotations.AutoRegisterListener;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
+import com.zetaplugins.essentialz.EssentialZ;
+
+@AutoRegisterListener
+public class GodModeDamageListener implements Listener {
+    private final EssentialZ plugin;
+
+    public GodModeDamageListener(EssentialZ plugin) {
+        this.plugin = plugin;
+    }
+
+    @EventHandler
+    public void onEntityDamage(EntityDamageEvent event) {
+        if (event.getEntity() instanceof Player player) {
+            if (plugin.getGodModeManager().isInGodMode(player)) event.setCancelled(true);
+        }
+    }
+}

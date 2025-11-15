@@ -1,6 +1,6 @@
 name: EssentialZ
 version: '${project.version}'
-main: org.strassburger.essentialz.EssentialZ
+main: com.zetaplugins.essentialz.EssentialZ
 api-version: '1.21'
 load: STARTUP
 authors: [ Kartoffelchipss ]
