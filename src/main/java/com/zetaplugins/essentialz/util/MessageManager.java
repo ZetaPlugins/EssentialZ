@@ -148,6 +148,7 @@ public class MessageManager {
         ITEMS("items"),
         STATS("stats"),
         COMMUNICATION("communication"),
+        TEAMCHAT("teamchat"),
         WORLDCONTROL("worldcontrol")
         ;
 

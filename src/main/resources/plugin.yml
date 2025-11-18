@@ -86,6 +86,11 @@ commands:
     permission: essentialz.msg
     aliases:
       - r
+  teamchat:
+    description: Send a message to your team
+    permission: essentialz.teamchat
+    aliases:
+      - tc
 
 permissions:
   essentialz.playtime:
@@ -141,4 +146,10 @@ permissions:
     description: Allows the user to send private messages to other players
   essentialz.msg.color:
     default: op
-    description: Allows the user to use colors in private messages if enabled in the config
+    description: Allows the user to use colors in private messages
+  essentialz.teamchat:
+    default: op
+    description: Allows the user to use team chat
+  essentialz.teamchat.color:
+    default: op
+    description: Allows the user to use colors in team chat

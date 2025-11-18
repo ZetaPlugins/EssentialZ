@@ -33,6 +33,9 @@ styles:
   communication:
     accentColor: "#81C784"
     prefix: "&8[<#81C784>✉&8] "
+  teamchat:
+    accentColor: "#FF8A65"
+    prefix: "&8[<#FF8A65>👥&8] "
   worldcontrol:
     accentColor: "#BA68C8"
     prefix: "&8[<#BA68C8>🌐&8] "
