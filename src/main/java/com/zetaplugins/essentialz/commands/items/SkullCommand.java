@@ -1,4 +1,4 @@
-package com.zetaplugins.essentialz.commands;
+package com.zetaplugins.essentialz.commands.items;
 
 import com.zetaplugins.essentialz.util.commands.ArgumentList;
 import com.zetaplugins.essentialz.util.commands.CommandPermissionException;
@@ -14,7 +14,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
-import com.zetaplugins.essentialz.util.commands.*;
 
 import java.util.List;
 
@@ -47,7 +46,7 @@ public class SkullCommand extends CustomCommand {
             targetPlayer.getInventory().addItem(getSkull(skullPlayer));
 
             sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.DEFAULT,
+                    MessageManager.Style.ITEMS,
                     "skullGiven",
                     "&7Seccessfully gave {ac}{player}&7's head to {ac}{receiver}&7.",
                     new MessageManager.Replaceable<>("{receiver}", targetPlayer.getName()),
@@ -68,7 +67,7 @@ public class SkullCommand extends CustomCommand {
         targetPlayer.getInventory().addItem(getSkull(skullPlayer));
 
         sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
-                MessageManager.Style.DEFAULT,
+                MessageManager.Style.ITEMS,
                 "skullReceived",
                 "&7You received {ac}{player}&7's head.",
                 new MessageManager.Replaceable<>("{player}", skullPlayer.getName())

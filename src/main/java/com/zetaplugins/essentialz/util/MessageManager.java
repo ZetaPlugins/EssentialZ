@@ -120,6 +120,10 @@ public class MessageManager {
         MOVEMENT("movement"),
         COMBAT("combat"),
         MODERATION("moderation"),
+        ITEMS("items"),
+        STATS("stats"),
+        COMMUNICATION("communication"),
+        WORLDCONTROL("worldcontrol")
         ;
 
         public final String id;

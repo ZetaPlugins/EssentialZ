@@ -1,4 +1,4 @@
-package com.zetaplugins.essentialz.commands;
+package com.zetaplugins.essentialz.commands.items;
 
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import net.kyori.adventure.text.Component;
@@ -126,7 +126,7 @@ public class ItemLoreCommand extends CustomCommand {
         setItemLore(item, currentLore);
 
         player.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
-                MessageManager.Style.DEFAULT,
+                MessageManager.Style.ITEMS,
                 "loreAdded",
                 "&7Added '{lore}&r&7' to the lore.",
                 new MessageManager.Replaceable<>("{lore}", lore)
@@ -176,7 +176,7 @@ public class ItemLoreCommand extends CustomCommand {
         setItemLore(item, currentLore);
 
         player.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
-                MessageManager.Style.DEFAULT,
+                MessageManager.Style.ITEMS,
                 "loreRemoved",
                 "&7Removed lore line {ac}{line}&7.",
                 new MessageManager.Replaceable<>("{line}", String.valueOf(line + 1))
@@ -212,7 +212,7 @@ public class ItemLoreCommand extends CustomCommand {
         setItemLore(item, currentLore);
 
         player.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
-                MessageManager.Style.DEFAULT,
+                MessageManager.Style.ITEMS,
                 "loreInserted",
                 "&7Inserted '{lore}&r&7' at line {ac}{line}&7.",
                 new MessageManager.Replaceable<>("{line}", String.valueOf(line + 1)),

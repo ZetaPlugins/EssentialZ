@@ -1,4 +1,4 @@
-package com.zetaplugins.essentialz.commands;
+package com.zetaplugins.essentialz.commands.items;
 
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import org.bukkit.Material;
@@ -52,7 +52,7 @@ public class ICommand extends CustomCommand {
         player.getInventory().addItem(itemStack);
 
         sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
-                MessageManager.Style.DEFAULT,
+                MessageManager.Style.ITEMS,
                 "giveYourselfConfirmation",
                 "&7You have been given {ac}{amount}x {material}&7.",
                 new MessageManager.Replaceable<>("{amount}", String.valueOf(amount)),

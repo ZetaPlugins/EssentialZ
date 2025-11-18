@@ -24,3 +24,15 @@ styles:
   moderation:
     accentColor: "#8F9BFF"
     prefix: "&8[<#8F9BFF>☯&8] "
+  items:
+    accentColor: "#FFD54F"
+    prefix: "&8[<#FFD54F>🎒&8] "
+  stats:
+    accentColor: "#4CAF50"
+    prefix: "&8[<#4CAF50>★&8] "
+  communication:
+    accentColor: "#81C784"
+    prefix: "&8[<#81C784>✉&8] "
+  worldcontrol:
+    accentColor: "#BA68C8"
+    prefix: "&8[<#BA68C8>🌐&8] "

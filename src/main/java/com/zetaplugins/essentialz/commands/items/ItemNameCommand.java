@@ -1,4 +1,4 @@
-package com.zetaplugins.essentialz.commands;
+package com.zetaplugins.essentialz.commands.items;
 
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import org.bukkit.Material;
@@ -69,7 +69,7 @@ public class ItemNameCommand extends CustomCommand {
         item.setItemMeta(newMeta);
 
         sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
-                MessageManager.Style.DEFAULT,
+                MessageManager.Style.ITEMS,
                 "itemNameSet",
                 "&7Item name set to '{name}&r&7'.",
                 new MessageManager.Replaceable<>("{name}", newName.toString())
