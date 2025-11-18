@@ -17,6 +17,10 @@ public final class ConfigManager {
         return getCustomConfig("materials");
     }
 
+    public FileConfiguration getChatConfig() {
+        return getCustomConfig("chat");
+    }
+
     public FileConfiguration getStorageConfig() {
         return getCustomConfig("storage");
     }

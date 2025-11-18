@@ -102,6 +102,12 @@ commands:
     permission: essentialz.teamchat
     aliases:
       - tctoggle
+  broadcast:
+    description: Broadcast a message to the server
+    permission: essentialz.broadcast
+    aliases:
+      - bc
+      - bcast
 
 permissions:
   essentialz.playtime:
@@ -167,3 +173,6 @@ permissions:
   essentialz.teamchat.color:
     default: op
     description: Allows the user to use colors in team chat
+  essentialz.broadcast:
+    default: op
+    description: Allows the user to broadcast messages to the server
