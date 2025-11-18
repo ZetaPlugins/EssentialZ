@@ -42,6 +42,23 @@ public class ArgumentList implements Iterable<String> {
     }
 
     /**
+     * Get the joined string of arguments starting from the specified index
+     * @param startIndex The index to start joining from
+     * @return The joined string of arguments
+     */
+    public String getJoinedString(int startIndex) {
+        if (!hasArg(startIndex)) return "";
+        StringBuilder joined = new StringBuilder();
+        for (int i = startIndex; i < args.length; i++) {
+            joined.append(args[i]);
+            if (i < args.length - 1) {
+                joined.append(" ");
+            }
+        }
+        return joined.toString();
+    }
+
+    /**
      * Get the player at the specified index
      * @param index The index of the player
      * @param plugin The instance of the plugin

@@ -73,6 +73,19 @@ commands:
   i:
     description: Give yourself an item
     permission: essentialz.give
+  msg:
+    description: Send a private message to a player
+    permission: essentialz.msg
+    aliases:
+      - tell
+      - whisper
+      - pm
+      - dm
+  reply:
+    description: Reply to the last private message
+    permission: essentialz.msg
+    aliases:
+      - r
 
 permissions:
   essentialz.playtime:
@@ -123,3 +136,9 @@ permissions:
   essentialz.give:
     default: op
     description: Allows the user to give items to players
+  essentialz.msg:
+    default: true
+    description: Allows the user to send private messages to other players
+  essentialz.msg.color:
+    default: op
+    description: Allows the user to use colors in private messages if enabled in the config

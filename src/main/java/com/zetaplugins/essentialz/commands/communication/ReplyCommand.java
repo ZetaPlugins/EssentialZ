@@ -1,0 +1,87 @@
+package com.zetaplugins.essentialz.commands.communication;
+
+import com.zetaplugins.essentialz.EssentialZ;
+import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.commands.ArgumentList;
+import com.zetaplugins.essentialz.util.commands.CommandPermissionException;
+import com.zetaplugins.essentialz.util.commands.CommandUsageException;
+import com.zetaplugins.essentialz.util.commands.CustomCommand;
+import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import java.util.List;
+import java.util.UUID;
+
+@AutoRegisterCommand(commands = "reply")
+public class ReplyCommand extends CustomCommand {
+
+    public ReplyCommand(EssentialZ plugin) {
+        super(plugin);
+    }
+
+    @Override
+    public boolean execute(CommandSender sender, Command command, ArgumentList args) throws CommandPermissionException, CommandUsageException {
+        if (!(sender instanceof Player player)) {
+            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+                    MessageManager.Style.ERROR,
+                    "bePlayerError",
+                    "{ac}You must be a player to use this command."
+            ));
+            return false;
+        }
+
+        UUID lastMsgUUID = getPlugin().getLastMsgManager().getLastMsg(player.getUniqueId());
+        if (lastMsgUUID == null) {
+            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+                    MessageManager.Style.ERROR,
+                    "noRecentMessages",
+                    "{ac}You have no recent messages to reply to."
+            ));
+            return false;
+        }
+
+        Player targetPlayer = getPlugin().getServer().getPlayer(lastMsgUUID);
+        if (targetPlayer == null || !targetPlayer.isOnline()) {
+            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+                    MessageManager.Style.ERROR,
+                    "playerNotFound",
+                    "{ac}Player not found."
+            ));
+            return false;
+        }
+
+        String message = args.getJoinedString(0);
+
+        boolean allowToUseColor = sender.hasPermission("essentialz.msg.color");
+
+        sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+                MessageManager.Style.COMMUNICATION,
+                "privateMessageSent",
+                "&7&8[&7To &r{ac}{recipient}&7&8]&7: {message}",
+                new MessageManager.Replaceable<>("{recipient}", targetPlayer.getName()),
+                new MessageManager.Replaceable<>("{message}", message, allowToUseColor)
+        ));
+
+        targetPlayer.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+                MessageManager.Style.COMMUNICATION,
+                "privateMessageReceived",
+                "&7&8[&7From &r{ac}{sender}&7&8]&7: {message}",
+                new MessageManager.Replaceable<>("{sender}", sender.getName()),
+                new MessageManager.Replaceable<>("{message}", message, allowToUseColor)
+        ));
+
+        return false;
+    }
+
+    @Override
+    public boolean isAuthorized(CommandSender sender) {
+        return sender.hasPermission("essentialz.msg");
+    }
+
+    @Override
+    public List<String> tabComplete(CommandSender sender, Command command, ArgumentList args) {
+        return List.of();
+    }
+}

@@ -2,9 +2,13 @@ package com.zetaplugins.essentialz.util;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.Tag;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import com.zetaplugins.essentialz.EssentialZ;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -47,12 +51,13 @@ public class MessageManager {
      * @return The formatted message
      */
     public Component formatMsg(String msg, Replaceable<?>... replaceables) {
-        msg = replaceReplaceables(msg, replaceables);
+        MiniMessage mm = MiniMessage.miniMessage();
 
         msg = replaceColorCodes(msg);
 
-        MiniMessage mm = MiniMessage.miniMessage();
-        return mm.deserialize("<!i>" + msg);
+        ResolverResult result = buildResolvers(mm, msg, Style.NONE, replaceables);
+
+        return mm.deserialize("<!i>" + result.msg(), result.resolvers());
     }
 
     /**
@@ -68,24 +73,38 @@ public class MessageManager {
         if (path.startsWith("messages.")) path = path.substring("messages.".length());
 
         MiniMessage mm = MiniMessage.miniMessage();
-        String msg = "<!i>" + plugin.getLanguageManager().getString(path, fallback);
+        String msg = plugin.getLanguageManager().getString(path, fallback);
 
         msg = style.getPrefix(plugin) + msg;
 
         msg = msg.replace("{prefix}", style.getPrefix(plugin));
 
-        msg = replaceReplaceables(msg, replaceables);
-
         msg = replaceColorCodes(msg, style);
 
-        return mm.deserialize(msg);
+        ResolverResult result = buildResolvers(mm, msg, style, replaceables);
+
+        return mm.deserialize("<!i>" + result.msg(), result.resolvers());
     }
 
-    private String replaceReplaceables(String msg, Replaceable<?>... replaceables) {
-        for (Replaceable<?> replaceable : replaceables) {
-            msg = msg.replace(replaceable.placeholder(), replaceable.value().toString());
+    private ResolverResult buildResolvers(MiniMessage mm, String msg, Style valueStyle, Replaceable<?>... replaceables) {
+        List<TagResolver> resolvers = new ArrayList<>();
+        Style replacementStyle = valueStyle == null ? Style.NONE : valueStyle;
+
+        for (Replaceable<?> r : replaceables) {
+            String tagName = r.placeholder().replaceAll("^\\{?|\\}?$", "");
+            String tagToken = "<" + tagName + ">";
+
+            msg = msg.replace(r.placeholder(), tagToken);
+
+            String valueStr = Objects.toString(r.value());
+            Component replacementComponent = r.deserialize()
+                    ? mm.deserialize(replaceColorCodes(valueStr, replacementStyle))
+                    : Component.text(valueStr);
+
+            resolvers.add(TagResolver.resolver(tagName, Tag.inserting(replacementComponent)));
         }
-        return msg;
+
+        return new ResolverResult(msg, resolvers.toArray(TagResolver[]::new));
     }
 
     private String replaceColorCodes(String msg) {
@@ -107,7 +126,13 @@ public class MessageManager {
         return msg;
     }
 
-    public record Replaceable<T>(String placeholder, T value) {}
+    public record Replaceable<T>(String placeholder, T value, boolean deserialize) {
+        public Replaceable(String placeholder, T value) {
+            this(placeholder, value, false);
+        }
+    }
+
+    private record ResolverResult(String msg, TagResolver[] resolvers) {}
 
     /**
      * The style of a message

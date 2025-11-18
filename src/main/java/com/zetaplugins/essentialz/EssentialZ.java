@@ -1,5 +1,6 @@
 package com.zetaplugins.essentialz;
 
+import com.zetaplugins.essentialz.features.LastMsgManager;
 import com.zetaplugins.zetacore.services.commands.AutoCommandRegistrar;
 import com.zetaplugins.zetacore.services.events.AutoEventRegistrar;
 import org.bukkit.Bukkit;
@@ -21,6 +22,7 @@ public final class EssentialZ extends JavaPlugin {
 
     private GodModeManager godModeManager;
     private GiveMaterialManager giveMaterialManager;
+    private LastMsgManager lastMsgManager;
 
     private final boolean hasPlaceholderApi = Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
 
@@ -35,8 +37,8 @@ public final class EssentialZ extends JavaPlugin {
 
         godModeManager = new GodModeManager();
         giveMaterialManager = new GiveMaterialManager(this);
+        lastMsgManager = new LastMsgManager();
 
-        //new CommandManager(this).registerCommands();
         List<String> registeredCommands = new AutoCommandRegistrar(this, PACKAGE_PREFIX).registerAllCommands();
         getLogger().info("Registered " + registeredCommands.size() + " commands.");
         List<String> registeredEvents = new AutoEventRegistrar(this, PACKAGE_PREFIX).registerAllListeners();
@@ -68,5 +70,9 @@ public final class EssentialZ extends JavaPlugin {
 
     public GodModeManager getGodModeManager() {
         return godModeManager;
+    }
+
+    public LastMsgManager getLastMsgManager() {
+        return lastMsgManager;
     }
 }
