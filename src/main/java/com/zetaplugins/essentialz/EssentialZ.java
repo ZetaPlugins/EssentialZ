@@ -1,6 +1,9 @@
 package com.zetaplugins.essentialz;
 
 import com.zetaplugins.essentialz.features.LastMsgManager;
+import com.zetaplugins.essentialz.storage.MySQLStorage;
+import com.zetaplugins.essentialz.storage.SQLiteStorage;
+import com.zetaplugins.essentialz.storage.Storage;
 import com.zetaplugins.zetacore.services.commands.AutoCommandRegistrar;
 import com.zetaplugins.zetacore.services.events.AutoEventRegistrar;
 import org.bukkit.Bukkit;
@@ -24,16 +27,21 @@ public final class EssentialZ extends JavaPlugin {
     private GiveMaterialManager giveMaterialManager;
     private LastMsgManager lastMsgManager;
 
+    private Storage storage;
+
     private final boolean hasPlaceholderApi = Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
 
     @Override
     public void onEnable() {
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
+        configManager = new ConfigManager(this);
+
+        storage = createPlayerDataStorage();
+        storage.init();
 
         languageManager = new LanguageManager(this);
         messageManager = new MessageManager(this);
-        configManager = new ConfigManager(this);
 
         godModeManager = new GodModeManager();
         giveMaterialManager = new GiveMaterialManager(this);
@@ -50,6 +58,24 @@ public final class EssentialZ extends JavaPlugin {
     @Override
     public void onDisable() {
         getLogger().info("EssentialZ disabled!");
+    }
+
+    private Storage createPlayerDataStorage() {
+        switch (getConfigManager().getStorageConfig().getString("type").toLowerCase()) {
+            case "mysql":
+                getLogger().info("Using MySQL storage");
+                return new MySQLStorage(this);
+            case "sqlite":
+                getLogger().info("Using SQLite storage");
+                return new SQLiteStorage(this);
+            default:
+                getLogger().warning("Invalid storage type in config.yml! Using SQLite storage as fallback.");
+                return new SQLiteStorage(this);
+        }
+    }
+
+    public Storage getStorage() {
+        return storage;
     }
 
     public LanguageManager getLanguageManager() {

@@ -1,6 +1,7 @@
 package com.zetaplugins.essentialz.commands.communication;
 
 import com.zetaplugins.essentialz.EssentialZ;
+import com.zetaplugins.essentialz.storage.PlayerData;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.commands.ArgumentList;
 import com.zetaplugins.essentialz.util.commands.CommandPermissionException;
@@ -32,6 +33,30 @@ public class MsgCommand extends CustomCommand {
                     "cannotMessageYourself",
                     "{ac}You cannot send a private message to yourself."
             ));
+            return false;
+        }
+
+        if (sender instanceof Player senderPlayer) {
+            PlayerData senderPlayerData = getPlugin().getStorage().load(senderPlayer.getUniqueId());
+            if (!senderPlayerData.isEnableDms()) {
+                sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+                        MessageManager.Style.ERROR,
+                        "yourDmsDisabled",
+                        "{ac}You have disabled private messages. Enable them using /msgtoggle to send messages."
+                ));
+                return false;
+            }
+        }
+
+        PlayerData targetPlayerData = getPlugin().getStorage().load(targetPlayer.getUniqueId());
+        if (!targetPlayerData.isEnableDms()) {
+            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+                    MessageManager.Style.ERROR,
+                    "playerDmsDisabled",
+                    "{ac}{player} has disabled private messages.",
+                    new MessageManager.Replaceable<>("{player}", targetPlayer.getName())
+            ));
+            return false;
         }
 
         boolean allowToUseColor = sender.hasPermission("essentialz.msg.color");

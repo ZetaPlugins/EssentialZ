@@ -17,6 +17,10 @@ public final class ConfigManager {
         return getCustomConfig("materials");
     }
 
+    public FileConfiguration getStorageConfig() {
+        return getCustomConfig("storage");
+    }
+
     public FileConfiguration getCustomConfig(String fileName) {
         File configFile = new File(plugin.getDataFolder(), fileName + ".yml");
         if (!configFile.exists()) {

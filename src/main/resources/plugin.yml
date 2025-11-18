@@ -81,6 +81,12 @@ commands:
       - whisper
       - pm
       - dm
+  msgtoggle:
+    description: Toggle private messages on or off
+    permission: essentialz.msg.toggle
+    aliases:
+      - dmtoggle
+      - pmtoggle
   reply:
     description: Reply to the last private message
     permission: essentialz.msg
@@ -91,6 +97,11 @@ commands:
     permission: essentialz.teamchat
     aliases:
       - tc
+  teamchattoggle:
+    description: Toggle team chat on or off
+    permission: essentialz.teamchat
+    aliases:
+      - tctoggle
 
 permissions:
   essentialz.playtime:
@@ -147,6 +158,9 @@ permissions:
   essentialz.msg.color:
     default: op
     description: Allows the user to use colors in private messages
+  essentialz.msg.toggle:
+    default: true
+    description: Allows the user to toggle private messages on or off
   essentialz.teamchat:
     default: op
     description: Allows the user to use team chat

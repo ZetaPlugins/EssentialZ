@@ -142,6 +142,7 @@ public class MessageManager {
         DEFAULT("default"),
         ERROR("error"),
         WARNING("warning"),
+        SUCCESS("success"),
         MOVEMENT("movement"),
         COMBAT("combat"),
         MODERATION("moderation"),

@@ -15,6 +15,9 @@ styles:
   warning:
     accentColor: "#E9D502"
     prefix: "&8[<#E9D502>⚠&8] "
+  success:
+    accentColor: "#4CAF50"
+    prefix: "&8[<#4CAF50>✔&8] "
   movement:
     accentColor: "#6EC6FF"
     prefix: "&8[<#6EC6FF>☁&8] "

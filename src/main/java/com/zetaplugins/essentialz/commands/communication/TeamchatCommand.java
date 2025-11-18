@@ -1,6 +1,7 @@
 package com.zetaplugins.essentialz.commands.communication;
 
 import com.zetaplugins.essentialz.EssentialZ;
+import com.zetaplugins.essentialz.storage.PlayerData;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.commands.ArgumentList;
 import com.zetaplugins.essentialz.util.commands.CommandPermissionException;
@@ -29,9 +30,16 @@ public class TeamchatCommand extends CustomCommand {
                 .filter(p -> p.hasPermission("essentialz.teamchat"))
                 .toList();
 
-        if (playersWithPerm.isEmpty()) {
-            sender.sendMessage("No staff members are currently online.");
-            return true;
+        if (sender instanceof Player senderPlayer) {
+            PlayerData senderPlayerData = getPlugin().getStorage().load(senderPlayer.getUniqueId());
+            if (!senderPlayerData.isEnableTeamchat()) {
+                sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+                        MessageManager.Style.ERROR,
+                        "yourTeamchatDisabled",
+                        "{ac}You have disabled team chat. Enable it using /tctoggle to send messages."
+                ));
+                return false;
+            }
         }
 
         String message = args.getJoinedString(0);
@@ -39,6 +47,9 @@ public class TeamchatCommand extends CustomCommand {
         boolean allowToUseColor = sender.hasPermission("essentialz.teamchat.color");
 
         for (Player p : playersWithPerm) {
+            PlayerData playerData = getPlugin().getStorage().load(p.getUniqueId());
+            if (playerData != null && !playerData.isEnableTeamchat()) continue;
+
             p.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
                     MessageManager.Style.TEAMCHAT,
                     "teamChatMessage",
@@ -47,6 +58,14 @@ public class TeamchatCommand extends CustomCommand {
                     new MessageManager.Replaceable<>("{message}", message, allowToUseColor)
             ));
         }
+
+        Bukkit.getConsoleSender().sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+                MessageManager.Style.TEAMCHAT,
+                "teamChatMessage",
+                "&8[&7From {ac}{player}&8]&7: &7{message}",
+                new MessageManager.Replaceable<>("{player}", sender.getName()),
+                new MessageManager.Replaceable<>("{message}", message, allowToUseColor)
+        ));
 
         return true;
     }
