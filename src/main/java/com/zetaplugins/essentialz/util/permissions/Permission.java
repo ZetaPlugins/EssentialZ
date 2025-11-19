@@ -24,7 +24,10 @@ public enum Permission implements PermissionNode {
     MSG_TOGGLE("msg.toggle", PermissionDefault.TRUE, "Allows the user to toggle private messages on or off"),
     TEAMCHAT("teamchat", PermissionDefault.OP, "Allows the user to use team chat"),
     TEAMCHAT_COLOR("teamchat.color", PermissionDefault.OP, "Allows the user to use colors in team chat"),
-    BROADCAST("broadcast", PermissionDefault.OP, "Allows the user to broadcast messages to the server");
+    BROADCAST("broadcast", PermissionDefault.OP, "Allows the user to broadcast messages to the server"),
+    CHAT("chat", PermissionDefault.TRUE, "Allows the user to use chat (only works if custom chat is enabled)"),
+    CHAT_COLOR("chat.color", PermissionDefault.OP, "Allows the user to use colors in chat (only works if custom chat is enabled)")
+    ;
 
     private final String node;
     private final PermissionDefault permissionDefault;

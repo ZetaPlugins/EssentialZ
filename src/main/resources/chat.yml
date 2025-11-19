@@ -1,1 +1,7 @@
+# Wether or not to enable custom chat formatting
+enableCustomChat: true
+# Format for regular chat messages
+chatFormat: "&7{player} &8» &f{message}"
+
+# Format for broadcast messages
 broadcastFormat: "&8[<#F06292>Broadcast&8] &7{message}"
