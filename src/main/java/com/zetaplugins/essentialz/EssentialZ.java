@@ -4,6 +4,7 @@ import com.zetaplugins.essentialz.features.LastMsgManager;
 import com.zetaplugins.essentialz.storage.MySQLStorage;
 import com.zetaplugins.essentialz.storage.SQLiteStorage;
 import com.zetaplugins.essentialz.storage.Storage;
+import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.services.commands.AutoCommandRegistrar;
 import com.zetaplugins.zetacore.services.events.AutoEventRegistrar;
 import org.bukkit.Bukkit;
@@ -33,6 +34,8 @@ public final class EssentialZ extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        Permission.registerAll();
+
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
         configManager = new ConfigManager(this);

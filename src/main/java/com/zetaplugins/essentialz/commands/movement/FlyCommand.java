@@ -1,5 +1,6 @@
 package com.zetaplugins.essentialz.commands.movement;
 
+import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -29,8 +30,8 @@ public class FlyCommand extends CustomCommand {
         Player targetPlayer = args.getPlayer(0, getPlugin());
 
         if (targetPlayer != null && !(sender instanceof Player player && player.getUniqueId().equals(targetPlayer.getUniqueId()))) {
-            if (!sender.hasPermission("essentialz.fly.others")) {
-                throw new CommandPermissionException("essentialz.fly.others");
+            if (!Permission.FLY_OTHERS.has(sender)) {
+                throw new CommandPermissionException(Permission.FLY_OTHERS.getNode());
             }
 
             targetPlayer.setAllowFlight(!targetPlayer.getAllowFlight());
@@ -94,12 +95,12 @@ public class FlyCommand extends CustomCommand {
 
     @Override
     public boolean isAuthorized(CommandSender sender) {
-        return sender.hasPermission("essentialz.fly");
+        return Permission.FLY.has(sender);
     }
 
     @Override
     public List<String> tabComplete(CommandSender sender, Command command, ArgumentList args) {
-        if (args.getCurrentArgIndex() == 0 && sender.hasPermission("essentialz.fly.others")) {
+        if (args.getCurrentArgIndex() == 0 && Permission.FLY_OTHERS.has(sender)) {
             return getPlayerOptions(getPlugin(), args.getCurrentArg());
         }
         return List.of();

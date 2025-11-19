@@ -1,5 +1,6 @@
 package com.zetaplugins.essentialz.commands.movement;
 
+import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
@@ -30,8 +31,8 @@ public class GamemodeShortcutCommand extends CustomCommand {
         Player targetPlayer = args.getPlayer(0, getPlugin());
 
         if (targetPlayer != null && !(sender instanceof Player player && player.getUniqueId().equals(targetPlayer.getUniqueId()))) {
-            if (!sender.hasPermission("essentialz.gamemode.others")) {
-                throw new CommandPermissionException("essentialz.gamemode.others");
+            if (!Permission.GAMEMODE_OTHERS.has(sender)) {
+                throw new CommandPermissionException(Permission.GAMEMODE_OTHERS.getNode());
             }
 
             sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
@@ -103,12 +104,12 @@ public class GamemodeShortcutCommand extends CustomCommand {
 
     @Override
     public boolean isAuthorized(CommandSender sender) {
-        return sender.hasPermission("essentialz.gamemode");
+        return Permission.GAMEMODE.has(sender);
     }
 
     @Override
     public List<String> tabComplete(CommandSender sender, Command command, ArgumentList args) {
-        if (args.getCurrentArgIndex() == 0 && sender.hasPermission("essentialz.gamemode.others")) {
+        if (args.getCurrentArgIndex() == 0 && Permission.GAMEMODE_OTHERS.has(sender)) {
             return getPlayerOptions(getPlugin(), args.getCurrentArg());
         }
         return List.of();

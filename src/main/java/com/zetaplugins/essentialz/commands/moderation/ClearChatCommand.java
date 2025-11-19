@@ -1,5 +1,6 @@
 package com.zetaplugins.essentialz.commands.moderation;
 
+import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -40,7 +41,7 @@ public class ClearChatCommand extends CustomCommand {
 
     @Override
     public boolean isAuthorized(CommandSender sender) {
-        return sender.hasPermission("essentialz.clearchat");
+        return Permission.CLEARCHAT.has(sender);
     }
 
     @Override

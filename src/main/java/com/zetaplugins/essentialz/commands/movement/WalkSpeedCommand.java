@@ -1,5 +1,6 @@
 package com.zetaplugins.essentialz.commands.movement;
 
+import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -40,8 +41,8 @@ public class WalkSpeedCommand extends CustomCommand {
         Player targetPlayer = args.getPlayer(1, getPlugin());
 
         if (targetPlayer != null && !(sender instanceof Player player && player.getUniqueId().equals(targetPlayer.getUniqueId()))) {
-            if (!sender.hasPermission("essentialz.walkspeed.others")) {
-                throw new CommandPermissionException("essentialz.walkspeed.others");
+            if (!Permission.WALKSPEED_OTHERS.has(sender)) {
+                throw new CommandPermissionException(Permission.WALKSPEED_OTHERS.getNode());
             }
 
             targetPlayer.setWalkSpeed((float) speed / 10);
@@ -81,13 +82,13 @@ public class WalkSpeedCommand extends CustomCommand {
 
     @Override
     public boolean isAuthorized(CommandSender sender) {
-        return sender.hasPermission("essentialz.walkspeed");
+        return Permission.WALKSPEED.has(sender);
     }
 
     @Override
     public List<String> tabComplete(CommandSender sender, Command command, ArgumentList args) {
         if (args.getCurrentArgIndex() == 0) return List.of("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
-        if (args.getCurrentArgIndex() == 1 && sender.hasPermission("essentialz.walkspeed.others")) return getPlayerOptions(getPlugin(), args.getCurrentArg());
+        if (args.getCurrentArgIndex() == 1 && Permission.WALKSPEED_OTHERS.has(sender)) return getPlayerOptions(getPlugin(), args.getCurrentArg());
         return List.of();
     }
 }

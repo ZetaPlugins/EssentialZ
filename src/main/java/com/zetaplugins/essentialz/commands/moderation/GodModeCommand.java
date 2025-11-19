@@ -1,5 +1,6 @@
 package com.zetaplugins.essentialz.commands.moderation;
 
+import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -29,8 +30,8 @@ public class GodModeCommand extends CustomCommand {
         Player targetPlayer = args.getPlayer(0, getPlugin());
 
         if (targetPlayer != null && !(sender instanceof Player player && player.getUniqueId().equals(targetPlayer.getUniqueId()))) {
-            if (!sender.hasPermission("essentialz.godmode.others")) {
-                throw new CommandPermissionException("essentialz.godmode.others");
+            if (!Permission.GODMODE_OTHERS.has(sender)) {
+                throw new CommandPermissionException(Permission.GODMODE_OTHERS.getNode());
             }
 
             boolean isInGodMode = getPlugin().getGodModeManager().isInGodMode(targetPlayer);
@@ -74,12 +75,12 @@ public class GodModeCommand extends CustomCommand {
 
     @Override
     public boolean isAuthorized(CommandSender sender) {
-        return sender.hasPermission("essentialz.godmode");
+        return Permission.GODMODE.has(sender);
     }
 
     @Override
     public List<String> tabComplete(CommandSender sender, Command command, ArgumentList args) {
-        if (args.getCurrentArgIndex() == 0 && sender.hasPermission("essentialz.godmode.others")) {
+        if (args.getCurrentArgIndex() == 0 && Permission.GODMODE_OTHERS.has(sender)) {
             return getPlayerOptions(getPlugin(), args.getCurrentArg());
         }
         return List.of();

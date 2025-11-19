@@ -1,5 +1,6 @@
 package com.zetaplugins.essentialz.commands;
 
+import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import org.bukkit.Statistic;
 import org.bukkit.command.Command;
@@ -79,7 +80,7 @@ public class PlayTimeCommand extends CustomCommand {
 
     @Override
     public boolean isAuthorized(CommandSender sender) {
-        return sender.hasPermission("essentialz.playtime");
+        return Permission.PLAYTIME.has(sender);
     }
 
     @Override
