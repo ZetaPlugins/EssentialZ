@@ -1,6 +1,7 @@
 package com.zetaplugins.essentialz.storage;
 
 import com.zetaplugins.essentialz.EssentialZ;
+import com.zetaplugins.essentialz.storage.model.PlayerData;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,8 +17,8 @@ public abstract class MySQLSyntaxStorage extends SQLStorage {
 
     @Override
     public void save(PlayerData playerData) {
-        String insertOrUpdateQuery = "INSERT INTO players (uuid, enableTeamchat, enableDms) " +
-                "VALUES (?, ?, ?) " +
+        String insertOrUpdateQuery = "INSERT INTO players (uuid, enableTeamchat, enableDms, ignoredPlayers) " +
+                "VALUES (?, ?, ?, ?) " +
                 "ON DUPLICATE KEY UPDATE " +
                 "enableTeamchat = VALUES(enableTeamchat), " +
                 "enableDms = VALUES(enableDms)";
@@ -44,8 +45,8 @@ public abstract class MySQLSyntaxStorage extends SQLStorage {
 
     @Override
     protected String getInserOrReplaceStatement() {
-        return "INSERT INTO players (uuid, enableTeamchat, enableDms) " +
-                "VALUES (?, ?, ?) " +
+        return "INSERT INTO players (uuid, enableTeamchat, enableDms, ignoredPlayers) " +
+                "VALUES (?, ?, ?, ?) " +
                 "ON DUPLICATE KEY UPDATE " +
                 "enableTeamchat = VALUES(enableTeamchat), " +
                 "enableDms = VALUES(enableDms)";

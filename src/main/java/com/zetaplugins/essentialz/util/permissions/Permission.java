@@ -26,7 +26,8 @@ public enum Permission implements PermissionNode {
     TEAMCHAT_COLOR("teamchat.color", PermissionDefault.OP, "Allows the user to use colors in team chat"),
     BROADCAST("broadcast", PermissionDefault.OP, "Allows the user to broadcast messages to the server"),
     CHAT("chat", PermissionDefault.TRUE, "Allows the user to use chat (only works if custom chat is enabled)"),
-    CHAT_COLOR("chat.color", PermissionDefault.OP, "Allows the user to use colors in chat (only works if custom chat is enabled)")
+    CHAT_COLOR("chat.color", PermissionDefault.OP, "Allows the user to use colors in chat (only works if custom chat is enabled)"),
+    IGNORE("ignore", PermissionDefault.TRUE, "Allows the user to ignore other players"),
     ;
 
     private final String node;

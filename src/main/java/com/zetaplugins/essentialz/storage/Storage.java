@@ -1,6 +1,7 @@
 package com.zetaplugins.essentialz.storage;
 
 import com.zetaplugins.essentialz.EssentialZ;
+import com.zetaplugins.essentialz.storage.model.PlayerData;
 
 import java.util.UUID;
 
@@ -56,4 +57,20 @@ public abstract class Storage {
      * Migrate the database to the latest version.
      */
     protected abstract void migrateDatabase();
+
+    /**
+     * Toggles the ignore status of a target player for a specific player.
+     * @param playerUuid The UUID of the player who is toggling the ignore status.
+     * @param targetUuid The UUID of the target player to be ignored or unignored.
+     * @return true if the target player is now ignored, false if unignored.
+     */
+    public abstract boolean togglePlayerIgnore(UUID playerUuid, UUID targetUuid);
+
+    /**
+     * Checks if a player is ignoring a target player.
+     * @param playerUuid The UUID of the player.
+     * @param targetUuid The UUID of the target player.
+     * @return true if the player is ignoring the target player, false otherwise.
+     */
+    public abstract boolean isPlayerIgnoring(UUID playerUuid, UUID targetUuid);
 }

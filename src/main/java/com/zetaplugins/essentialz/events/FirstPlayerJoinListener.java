@@ -1,7 +1,7 @@
 package com.zetaplugins.essentialz.events;
 
 import com.zetaplugins.essentialz.EssentialZ;
-import com.zetaplugins.essentialz.storage.PlayerData;
+import com.zetaplugins.essentialz.storage.model.PlayerData;
 import com.zetaplugins.zetacore.annotations.AutoRegisterListener;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

@@ -7,6 +7,7 @@ import com.zetaplugins.essentialz.util.commands.ArgumentList;
 import com.zetaplugins.essentialz.util.commands.CommandPermissionException;
 import com.zetaplugins.essentialz.util.commands.CommandUsageException;
 import com.zetaplugins.essentialz.util.commands.CustomCommand;
+import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -15,15 +16,14 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 @AutoRegisterCommand(
-        commands = "teamchattoggle",
-        description = "Toggle team chat on or off.",
-        usage = "/teamchattoggle",
-        aliases = {"tctoggle", "toggleteamchat"},
-        permission = "essentialz.teamchat"
+        commands = "ignore",
+        description = "Ignore messages from a specific player.",
+        usage = "/ignore <player>",
+        permission = "essentialz.ignore"
 )
-public class ToggleTeamchatCommand extends CustomCommand {
+public class IgnoreCommand extends CustomCommand {
 
-    public ToggleTeamchatCommand(EssentialZ plugin) {
+    public IgnoreCommand(EssentialZ plugin) {
         super(plugin);
     }
 
@@ -32,34 +32,44 @@ public class ToggleTeamchatCommand extends CustomCommand {
         if (!(sender instanceof Player player)) {
             sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
-                    "bePlayerError",
+                    "playerOnly",
                     "{ac}You must be a player to use this command."
             ));
             return false;
         }
 
-        PlayerData playerData = getPlugin().getStorage().load(player.getUniqueId());
-        boolean newStatus = !playerData.isEnableTeamchat();
-        playerData.setEnableTeamchat(newStatus);
-        getPlugin().getStorage().save(playerData);
+        Player targetPlayer = args.getPlayer(0, getPlugin());
+        if (targetPlayer == null) throw new CommandUsageException("/ignore <player>");
 
-        String statusMsgKey = newStatus ? "tcEnabled" : "tcDisabled";
-        String statusMsgDefault = newStatus ? "&7You have {ac}enabled &7the team chat." : "&7You have {ac}disabled &7the team chat.";
-        player.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+        if (player.getUniqueId().equals(targetPlayer.getUniqueId())) {
+            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+                    MessageManager.Style.ERROR,
+                    "cannotIgnoreYourself",
+                    "{ac}You cannot ignore yourself."
+            ));
+            return false;
+        }
+
+        boolean isIgnoringNow = getPlugin().getStorage().togglePlayerIgnore(player.getUniqueId(), targetPlayer.getUniqueId());
+        sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
                 MessageManager.Style.SUCCESS,
-                statusMsgKey,
-                statusMsgDefault
+                isIgnoringNow ? "ignoreAdded" : "ignoreRemoved",
+                isIgnoringNow ? "&7You are now ignoring {ac}{player}&7." : "&7You have unignored {ac}{player}&7.",
+                new MessageManager.Replaceable<>("{player}", targetPlayer.getName())
         ));
         return true;
     }
 
     @Override
     public boolean isAuthorized(CommandSender sender) {
-        return sender.hasPermission("essentialz.teamchat");
+        return Permission.IGNORE.has(sender);
     }
 
     @Override
     public List<String> tabComplete(CommandSender sender, Command command, ArgumentList args) {
+        if (args.getCurrentArgIndex() == 0) {
+            return getPlayerOptions(getPlugin(), args.getCurrentArg());
+        }
         return List.of();
     }
 }

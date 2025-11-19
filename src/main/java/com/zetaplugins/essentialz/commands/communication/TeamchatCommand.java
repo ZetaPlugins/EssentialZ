@@ -1,7 +1,7 @@
 package com.zetaplugins.essentialz.commands.communication;
 
 import com.zetaplugins.essentialz.EssentialZ;
-import com.zetaplugins.essentialz.storage.PlayerData;
+import com.zetaplugins.essentialz.storage.model.PlayerData;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.commands.ArgumentList;
 import com.zetaplugins.essentialz.util.commands.CommandPermissionException;

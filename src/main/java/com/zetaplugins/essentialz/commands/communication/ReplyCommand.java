@@ -1,7 +1,7 @@
 package com.zetaplugins.essentialz.commands.communication;
 
 import com.zetaplugins.essentialz.EssentialZ;
-import com.zetaplugins.essentialz.storage.PlayerData;
+import com.zetaplugins.essentialz.storage.model.PlayerData;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.commands.ArgumentList;
 import com.zetaplugins.essentialz.util.commands.CommandPermissionException;
@@ -70,7 +70,31 @@ public class ReplyCommand extends CustomCommand {
             return false;
         }
 
+        boolean isIgnoring = getPlugin().getStorage().isPlayerIgnoring(targetPlayer.getUniqueId(), player.getUniqueId());
+        if (isIgnoring) {
+            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+                    MessageManager.Style.ERROR,
+                    "playerIsIgnoringYou",
+                    "{ac}{player} is ignoring you. Your message was not sent.",
+                    new MessageManager.Replaceable<>("{player}", targetPlayer.getName())
+            ));
+            return false;
+        }
+
+        boolean youAreIgnoring = getPlugin().getStorage().isPlayerIgnoring(player.getUniqueId(), targetPlayer.getUniqueId());
+        if (youAreIgnoring) {
+            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+                    MessageManager.Style.ERROR,
+                    "youAreIgnoringPlayer",
+                    "{ac}You are ignoring {player}. Unignore them to send messages.",
+                    new MessageManager.Replaceable<>("{player}", targetPlayer.getName())
+            ));
+            return false;
+        }
+
         String message = args.getJoinedString(0);
+
+        if (message.isEmpty()) throw new CommandUsageException("/" + command.getName() + " <message>");
 
         boolean allowToUseColor = sender.hasPermission("essentialz.msg.color");
 
