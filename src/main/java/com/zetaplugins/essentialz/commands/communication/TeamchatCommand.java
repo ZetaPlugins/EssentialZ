@@ -16,7 +16,13 @@ import org.bukkit.entity.Player;
 import java.util.Collection;
 import java.util.List;
 
-@AutoRegisterCommand(commands = "teamchat")
+@AutoRegisterCommand(
+        commands = "teamchat",
+        description = "Send a message to all staff members online.",
+        usage = "/teamchat <message>",
+        aliases = {"tc"},
+        permission = "essentialz.teamchat"
+)
 public class TeamchatCommand extends CustomCommand {
 
     public TeamchatCommand(EssentialZ plugin) {

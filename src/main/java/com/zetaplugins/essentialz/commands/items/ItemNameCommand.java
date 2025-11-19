@@ -16,7 +16,12 @@ import com.zetaplugins.essentialz.util.commands.CustomCommand;
 
 import java.util.List;
 
-@AutoRegisterCommand(commands = "itemname")
+@AutoRegisterCommand(
+        commands = "itemname",
+        description = "Set the name of the item you are holding.",
+        usage = "/itemname <name>",
+        permission = "essentialz.itemname"
+)
 public class ItemNameCommand extends CustomCommand {
     public ItemNameCommand(EssentialZ plugin) {
         super(plugin);

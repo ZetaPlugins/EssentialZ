@@ -14,7 +14,12 @@ import com.zetaplugins.essentialz.util.commands.CustomCommand;
 
 import java.util.List;
 
-@AutoRegisterCommand(commands = {"gmc", "gms", "gma", "gmsp"})
+@AutoRegisterCommand(
+        commands = {"gmc", "gms", "gma", "gmsp"},
+        description = "Shortcut commands to change gamemodes.",
+        usage = "/<command> [player]",
+        permission = "essentialz.gamemode"
+)
 public class GamemodeShortcutCommand extends CustomCommand {
     public GamemodeShortcutCommand(EssentialZ plugin) {
         super(plugin);

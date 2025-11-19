@@ -17,7 +17,12 @@ import com.zetaplugins.essentialz.util.MessageManager;
 
 import java.util.List;
 
-@AutoRegisterCommand(commands = "skull")
+@AutoRegisterCommand(
+        commands = "skull",
+        description = "Gives a player head of the specified player.",
+        usage = "/skull <player> [player]",
+        permission = "essentialz.skull"
+)
 public class SkullCommand extends CustomCommand {
     public SkullCommand(EssentialZ plugin) {
         super(plugin);

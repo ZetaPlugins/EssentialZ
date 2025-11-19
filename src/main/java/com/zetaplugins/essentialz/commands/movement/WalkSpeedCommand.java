@@ -13,7 +13,13 @@ import com.zetaplugins.essentialz.util.commands.CustomCommand;
 
 import java.util.List;
 
-@AutoRegisterCommand(commands = "walkspeed")
+@AutoRegisterCommand(
+        commands = "walkspeed",
+        description = "Set your or another player's walk speed.",
+        usage = "/walkspeed <speed> [player]",
+        permission = "essentialz.walkspeed",
+        aliases = {"speed"}
+)
 public class WalkSpeedCommand extends CustomCommand {
     public WalkSpeedCommand(EssentialZ plugin) {
         super(plugin);

@@ -15,7 +15,13 @@ import org.bukkit.entity.Player;
 import java.util.List;
 import java.util.UUID;
 
-@AutoRegisterCommand(commands = "reply")
+@AutoRegisterCommand(
+        commands = "reply",
+        description = "Reply to the last player who messaged you.",
+        usage = "/reply <message>",
+        aliases = {"r"},
+        permission = "essentialz.msg"
+)
 public class ReplyCommand extends CustomCommand {
 
     public ReplyCommand(EssentialZ plugin) {

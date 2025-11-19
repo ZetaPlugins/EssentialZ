@@ -14,7 +14,12 @@ import com.zetaplugins.essentialz.util.commands.CustomCommand;
 
 import java.util.List;
 
-@AutoRegisterCommand(commands = "playtime")
+@AutoRegisterCommand(
+        commands = "playtime",
+        description = "Get the playtime of a player",
+        permission = "essentialz.playtime",
+        usage = "/playtime [player]"
+)
 public class PlayTimeCommand extends CustomCommand {
     public PlayTimeCommand(EssentialZ plugin) {
         super(plugin);

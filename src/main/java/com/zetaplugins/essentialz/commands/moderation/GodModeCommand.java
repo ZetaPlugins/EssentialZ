@@ -13,7 +13,12 @@ import com.zetaplugins.essentialz.util.commands.CustomCommand;
 
 import java.util.List;
 
-@AutoRegisterCommand(commands = "godmode")
+@AutoRegisterCommand(
+        commands = "godmode",
+        description = "Toggles god mode for yourself or another player.",
+        usage = "/godmode [player]",
+        aliases = {"god"}
+)
 public class GodModeCommand extends CustomCommand {
     public GodModeCommand(EssentialZ plugin) {
         super(plugin);

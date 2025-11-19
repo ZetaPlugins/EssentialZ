@@ -13,7 +13,12 @@ import com.zetaplugins.essentialz.util.commands.CustomCommand;
 
 import java.util.List;
 
-@AutoRegisterCommand(commands = "fly")
+@AutoRegisterCommand(
+        commands = "fly",
+        description = "Allow players to fly.",
+        usage = "/fly <player>",
+        permission = "essentialz.fly"
+)
 public class FlyCommand extends CustomCommand {
     public FlyCommand(EssentialZ plugin) {
         super(plugin);

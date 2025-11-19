@@ -20,7 +20,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-@AutoRegisterCommand(commands = "itemlore")
+@AutoRegisterCommand(
+        commands = "itemlore",
+        description = "Manage the lore of the item in your hand",
+        usage = "/itemlore <add|set|remove|insert> <line> [lore]",
+        permission = "essentialz.itemlore",
+        aliases = {"lore"}
+)
 public class ItemLoreCommand extends CustomCommand {
     public ItemLoreCommand(EssentialZ plugin) {
         super(plugin);
@@ -150,7 +156,7 @@ public class ItemLoreCommand extends CustomCommand {
         setItemLore(item, currentLore);
 
         player.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
-                MessageManager.Style.DEFAULT,
+                MessageManager.Style.ITEMS,
                 "loreSet",
                 "&7Set lore line {ac}{line}&7 to '{lore}&r&7'.",
                 new MessageManager.Replaceable<>("{line}", String.valueOf(line + 1)),

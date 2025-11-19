@@ -15,7 +15,12 @@ import com.zetaplugins.essentialz.util.commands.CustomCommand;
 
 import java.util.List;
 
-@AutoRegisterCommand(commands = "i")
+@AutoRegisterCommand(
+        commands = "i",
+        description = "Gives yourself an item.",
+        usage = "/i <item> [amount]",
+        permission = "essentialz.give"
+)
 public class ICommand extends CustomCommand {
 
     public ICommand(EssentialZ plugin) {

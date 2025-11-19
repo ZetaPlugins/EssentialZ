@@ -13,7 +13,12 @@ import com.zetaplugins.essentialz.util.commands.CustomCommand;
 
 import java.util.List;
 
-@AutoRegisterCommand(commands = "flyspeed")
+@AutoRegisterCommand(
+        commands = "flyspeed",
+        description = "Set your or another player's fly speed (1-10).",
+        usage = "/flyspeed <speed> [player]",
+        permission = "essentialz.flyspeed"
+)
 public class FlySpeedCommand extends CustomCommand {
     public FlySpeedCommand(EssentialZ plugin) {
         super(plugin);

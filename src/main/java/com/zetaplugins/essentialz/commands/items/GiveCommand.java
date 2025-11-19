@@ -15,7 +15,12 @@ import com.zetaplugins.essentialz.util.commands.CustomCommand;
 
 import java.util.List;
 
-@AutoRegisterCommand(commands = "give")
+@AutoRegisterCommand(
+        commands = "give",
+        description = "Gives a player a specified item.",
+        usage = "/give [player] <item> [amount]",
+        permission = "essentialz.give"
+)
 public class GiveCommand extends CustomCommand {
 
     public GiveCommand(EssentialZ plugin) {

@@ -14,7 +14,13 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-@AutoRegisterCommand(commands = "teamchattoggle")
+@AutoRegisterCommand(
+        commands = "teamchattoggle",
+        description = "Toggle team chat on or off.",
+        usage = "/teamchattoggle",
+        aliases = {"tctoggle", "toggleteamchat"},
+        permission = "essentialz.teamchat"
+)
 public class ToggleTeamchatCommand extends CustomCommand {
 
     public ToggleTeamchatCommand(EssentialZ plugin) {

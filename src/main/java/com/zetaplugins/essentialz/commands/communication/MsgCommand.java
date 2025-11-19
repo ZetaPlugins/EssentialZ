@@ -14,7 +14,13 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-@AutoRegisterCommand(commands = "msg")
+@AutoRegisterCommand(
+        commands = "msg",
+        description = "Send a private message to another player.",
+        usage = "/msg <player> <message>",
+        aliases = {"message", "tell", "whisper", "pm", "dm"},
+        permission = "essentialz.msg"
+)
 public class MsgCommand extends CustomCommand {
 
     public MsgCommand(EssentialZ plugin) {

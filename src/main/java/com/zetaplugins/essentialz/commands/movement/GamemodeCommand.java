@@ -14,7 +14,13 @@ import com.zetaplugins.essentialz.util.commands.CustomCommand;
 
 import java.util.List;
 
-@AutoRegisterCommand(commands = "gamemode")
+@AutoRegisterCommand(
+        commands = "gamemode",
+        description = "Change your or another player's gamemode.",
+        usage = "/gamemode <mode> [player]",
+        permission = "essentialz.gamemode",
+        aliases = {"gm"}
+)
 public class GamemodeCommand extends CustomCommand {
     public GamemodeCommand(EssentialZ plugin) {
         super(plugin);

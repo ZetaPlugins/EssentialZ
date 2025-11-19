@@ -14,7 +14,13 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-@AutoRegisterCommand(commands = "msgtoggle")
+@AutoRegisterCommand(
+        commands = "msgtoggle",
+        description = "Toggle receiving private messages.",
+        usage = "/msgtoggle",
+        aliases = {"togglemsg", "dmtoggle", "pmtoggle"},
+        permission = "essentialz.msg.toggle"
+)
 public class ToggleMsgCommand extends CustomCommand {
 
     public ToggleMsgCommand(EssentialZ plugin) {

@@ -13,7 +13,13 @@ import com.zetaplugins.essentialz.util.commands.CustomCommand;
 
 import java.util.List;
 
-@AutoRegisterCommand(commands = "clearchat")
+@AutoRegisterCommand(
+        commands = "clearchat",
+        description = "Clears the chat for all players.",
+        usage = "/clearchat",
+        permission = "essentialz.clearchat",
+        aliases = {"cc"}
+)
 public class ClearChatCommand extends CustomCommand {
     public ClearChatCommand(EssentialZ plugin) {
         super(plugin);

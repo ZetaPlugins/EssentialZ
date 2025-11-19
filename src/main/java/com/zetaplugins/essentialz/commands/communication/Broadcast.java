@@ -12,7 +12,12 @@ import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
-@AutoRegisterCommand(commands = "broadcast")
+@AutoRegisterCommand(
+        commands = "broadcast",
+        description = "Broadcast a message to the server",
+        permission = "essentialz.broadcast",
+        aliases = {"bc", "bcast"}
+)
 public class Broadcast extends CustomCommand {
 
     public Broadcast(EssentialZ plugin) {
