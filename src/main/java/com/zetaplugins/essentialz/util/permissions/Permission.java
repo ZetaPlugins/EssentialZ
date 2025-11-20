@@ -36,7 +36,8 @@ public enum Permission implements PermissionNode {
     HEAL("heal", PermissionDefault.OP, "Allows the user to heal themselves"),
     HEAL_OTHERS("heal.others", PermissionDefault.OP, "Allows the user to heal other players"),
     FEED("feed", PermissionDefault.OP, "Allows the user to feed themselves"),
-    FEED_OTHERS("feed.others", PermissionDefault.OP, "Allows the user to feed other players")
+    FEED_OTHERS("feed.others", PermissionDefault.OP, "Allows the user to feed other players"),
+    MORE("more", PermissionDefault.OP, "Allows the user to fill their held item to its max stack size"),
     ;
 
     private final String node;
