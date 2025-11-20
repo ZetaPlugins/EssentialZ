@@ -28,6 +28,9 @@ public enum Permission implements PermissionNode {
     CHAT("chat", PermissionDefault.TRUE, "Allows the user to use chat (only works if custom chat is enabled)"),
     CHAT_COLOR("chat.color", PermissionDefault.OP, "Allows the user to use colors in chat (only works if custom chat is enabled)"),
     IGNORE("ignore", PermissionDefault.TRUE, "Allows the user to ignore other players"),
+    NICK("nick", PermissionDefault.OP, "Allows the user to set their nickname"),
+    NICK_OTHERS("nick.others", PermissionDefault.OP, "Allows the user to set the nickname of other players"),
+    WHOIS("whois", PermissionDefault.TRUE, "Allows the user to find out what nickname a player has or what nickname is used by a player"),
     ;
 
     private final String node;

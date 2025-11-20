@@ -38,12 +38,15 @@ public class CustomChatListener implements Listener {
         boolean allowColors = Permission.CHAT_COLOR.has(event.getPlayer());
 
         String rawText = PlainTextComponentSerializer.plainText().serialize(event.message());
-        String format = plugin.getConfigManager().getChatConfig().getString("chatFormat", "&7{player} &8» &f{message}");
+        String format = plugin.getConfigManager().getChatConfig().getString("chatFormat", "&7{player_displayname} &8» &f{message}");
+
+        String rawDisplayName = PlainTextComponentSerializer.plainText().serialize(player.displayName());
 
         for (var onlinePlayer : Bukkit.getOnlinePlayers()) {
             onlinePlayer.sendMessage(plugin.getMessageManager().formatMsg(
                     format,
-                    new MessageManager.Replaceable<>("{player}", event.getPlayer().getName()),
+                    new MessageManager.Replaceable<>("{player_displayname}", rawDisplayName),
+                    new MessageManager.Replaceable<>("{player_name}", event.getPlayer().getName()),
                     new MessageManager.Replaceable<>("{message}", rawText, allowColors)
             ));
         }
