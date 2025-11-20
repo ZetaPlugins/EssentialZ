@@ -81,6 +81,18 @@ public class ArgumentList implements Iterable<String> {
     }
 
     /**
+     * Get the player at the specified index, with a default value
+     * @param index The index of the player
+     * @param defaultPlayer The default player to return if the argument does not exist
+     * @param plugin The instance of the plugin
+     * @return The player at the specified index, or the default player
+     */
+    public Player getPlayer(int index, Player defaultPlayer, EssentialZ plugin) {
+        if (!hasArg(index)) return defaultPlayer;
+        return plugin.getServer().getPlayer(args[index]);
+    }
+
+    /**
      * Get an integer at the specified index
      * @param index The index of the integer
      * @return The integer at the specified index

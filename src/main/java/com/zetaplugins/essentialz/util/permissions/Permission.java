@@ -32,7 +32,11 @@ public enum Permission implements PermissionNode {
     NICK_OTHERS("nick.others", PermissionDefault.OP, "Allows the user to set the nickname of other players"),
     WHOIS("whois", PermissionDefault.TRUE, "Allows the user to find out what nickname a player has or what nickname is used by a player"),
     TRASH("trash", PermissionDefault.TRUE, "Allows the user to use the trash can to delete items"),
-    REPAIR("repair", PermissionDefault.OP, "Allows the user to repair their items")
+    REPAIR("repair", PermissionDefault.OP, "Allows the user to repair their items"),
+    HEAL("heal", PermissionDefault.OP, "Allows the user to heal themselves"),
+    HEAL_OTHERS("heal.others", PermissionDefault.OP, "Allows the user to heal other players"),
+    FEED("feed", PermissionDefault.OP, "Allows the user to feed themselves"),
+    FEED_OTHERS("feed.others", PermissionDefault.OP, "Allows the user to feed other players")
     ;
 
     private final String node;
