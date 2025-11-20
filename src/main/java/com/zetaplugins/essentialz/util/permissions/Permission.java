@@ -39,6 +39,7 @@ public enum Permission implements PermissionNode {
     FEED_OTHERS("feed.others", PermissionDefault.OP, "Allows the user to feed other players"),
     MORE("more", PermissionDefault.OP, "Allows the user to fill their held item to its max stack size"),
     GIVESPAWNER("givespawner", PermissionDefault.OP, "Allows the user to give mob spawners to players"),
+    ENCHANT("enchant", PermissionDefault.OP, "Allows the user to enchant their held item")
     ;
 
     private final String node;

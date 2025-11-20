@@ -1,5 +1,6 @@
 package com.zetaplugins.essentialz;
 
+import com.zetaplugins.essentialz.features.EnchantmentManager;
 import com.zetaplugins.essentialz.features.LastMsgManager;
 import com.zetaplugins.essentialz.storage.MySQLStorage;
 import com.zetaplugins.essentialz.storage.SQLiteStorage;
@@ -27,6 +28,7 @@ public final class EssentialZ extends JavaPlugin {
     private GodModeManager godModeManager;
     private GiveMaterialManager giveMaterialManager;
     private LastMsgManager lastMsgManager;
+    private EnchantmentManager enchantmentManager;
 
     private Storage storage;
 
@@ -49,6 +51,7 @@ public final class EssentialZ extends JavaPlugin {
         godModeManager = new GodModeManager();
         giveMaterialManager = new GiveMaterialManager(this);
         lastMsgManager = new LastMsgManager();
+        enchantmentManager = new EnchantmentManager();
 
         List<String> registeredCommands = new AutoCommandRegistrar(this, PACKAGE_PREFIX).registerAllCommands();
         getLogger().info("Registered " + registeredCommands.size() + " commands.");
@@ -103,5 +106,9 @@ public final class EssentialZ extends JavaPlugin {
 
     public LastMsgManager getLastMsgManager() {
         return lastMsgManager;
+    }
+
+    public EnchantmentManager getEnchantmentManager() {
+        return enchantmentManager;
     }
 }

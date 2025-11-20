@@ -90,7 +90,7 @@ public class GiveSpawnerCommand extends CustomCommand {
                     .filter(et -> et.startsWith(args.getCurrentArg().toLowerCase()))
                     .toList();
         } else if (args.getCurrentArgIndex() == 2) {
-            return List.of("1", "16", "32", "64");
+            return getDisplayOptions(List.of("1", "16", "32", "64"), args.getCurrentArg());
         }
         return List.of();
     }
