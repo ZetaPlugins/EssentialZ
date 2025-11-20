@@ -31,7 +31,8 @@ public enum Permission implements PermissionNode {
     NICK("nick", PermissionDefault.OP, "Allows the user to set their nickname"),
     NICK_OTHERS("nick.others", PermissionDefault.OP, "Allows the user to set the nickname of other players"),
     WHOIS("whois", PermissionDefault.TRUE, "Allows the user to find out what nickname a player has or what nickname is used by a player"),
-    TRASH("trash", PermissionDefault.TRUE, "Allows the user to use the trash can to delete items")
+    TRASH("trash", PermissionDefault.TRUE, "Allows the user to use the trash can to delete items"),
+    REPAIR("repair", PermissionDefault.OP, "Allows the user to repair their items")
     ;
 
     private final String node;

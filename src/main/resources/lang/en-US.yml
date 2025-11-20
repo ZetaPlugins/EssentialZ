@@ -65,3 +65,8 @@ nicknameTooLong: "{ac}The nickname is too long! The maximum length is {maxLength
 notAllowedToNickOthers: "{ac}You do not have permission to set other players' nicknames."
 whoisInfo: "\n&8┌─ <#81C784>Whois Info&r&8 ─────────────────\n&8│ &7Nickname: <#4CAF50>{displayname}\n&8│ &7Real Name: <#E9D502>{realname}\n&8└─────────────────────────────\n"
 trashInventoryTitle: "&8Trash Can"
+itemRepaired: "&7Your held item has been repaired."
+itemsRepairedAll: "&7Repaired {ac}{count} &7items in your inventory."
+repairMustHoldAnItem: "{ac}You must be holding an item to repair."
+repairItemNotRepairable: "{ac}The item you are holding is not repairable."
+itemNotRepairable: "{ac}The item you are holding cannot be repaired."

@@ -42,6 +42,17 @@ public class ArgumentList implements Iterable<String> {
     }
 
     /**
+     * Get the argument at the specified index, with a default value
+     * @param index The index of the argument
+     * @param defaultValue The default value to return if the argument does not exist
+     * @return The argument at the specified index, or the default value
+     */
+    public String getString(int index, String defaultValue) {
+        if (hasArg(index)) return args[index];
+        else return defaultValue;
+    }
+
+    /**
      * Get the joined string of arguments starting from the specified index
      * @param startIndex The index to start joining from
      * @return The joined string of arguments

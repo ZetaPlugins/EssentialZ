@@ -23,9 +23,9 @@ import java.util.List;
         aliases = {"bin"},
         permission = "essentialz.trash"
 )
-public class Trash extends CustomCommand {
+public class TrashCommand extends CustomCommand {
 
-    public Trash(EssentialZ plugin) {
+    public TrashCommand(EssentialZ plugin) {
         super(plugin);
     }
 
