@@ -71,7 +71,7 @@ public class ArgumentList implements Iterable<String> {
 
     /**
      * Get the player at the specified index
-     * @param index The index of the player
+     * @param index The index of the argument
      * @param plugin The instance of the plugin
      * @return The player at the specified index
      */
@@ -82,7 +82,7 @@ public class ArgumentList implements Iterable<String> {
 
     /**
      * Get the player at the specified index, with a default value
-     * @param index The index of the player
+     * @param index The index of the argument
      * @param defaultPlayer The default player to return if the argument does not exist
      * @param plugin The instance of the plugin
      * @return The player at the specified index, or the default player
@@ -94,7 +94,7 @@ public class ArgumentList implements Iterable<String> {
 
     /**
      * Get an integer at the specified index
-     * @param index The index of the integer
+     * @param index The index of the argument
      * @return The integer at the specified index
      * @throws NumberFormatException When the argument is not an integer
      */
@@ -105,7 +105,7 @@ public class ArgumentList implements Iterable<String> {
 
     /**
      * Get an integer at the specified index, with a default value
-     * @param index The index of the integer
+     * @param index The index of the argument
      * @param defaultValue The default value to return if the argument is not an integer or does not exist
      * @return The integer at the specified index, or the default value
      */
@@ -115,6 +115,22 @@ public class ArgumentList implements Iterable<String> {
             return Integer.parseInt(args[index]);
         } catch (NumberFormatException e) {
             return defaultValue;
+        }
+    }
+
+    /**
+     * Get an enum at the specified index
+     * @param index The index of the argument
+     * @param enumClass The class of the enum
+     * @param <T> The type of the enum
+     * @return The enum at the specified index
+     */
+    public <T extends Enum<T>> T getEnum(int index, Class<T> enumClass) {
+        if (!hasArg(index)) return null;
+        try {
+            return Enum.valueOf(enumClass, args[index].toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return null;
         }
     }
 

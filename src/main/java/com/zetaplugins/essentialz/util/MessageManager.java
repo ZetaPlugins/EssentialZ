@@ -6,11 +6,7 @@ import net.kyori.adventure.text.minimessage.tag.Tag;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import com.zetaplugins.essentialz.EssentialZ;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class MessageManager {
     private final EssentialZ plugin;
@@ -91,7 +87,9 @@ public class MessageManager {
         Style replacementStyle = valueStyle == null ? Style.NONE : valueStyle;
 
         for (Replaceable<?> r : replaceables) {
-            String tagName = r.placeholder().replaceAll("^\\{?|\\}?$", "");
+            String rawName = r.placeholder().replaceAll("^\\{?|\\}?$", "");
+            String tagName = rawName.toLowerCase(Locale.ROOT).replaceAll("[^a-z0-9_-]", "_");
+
             String tagToken = "<" + tagName + ">";
 
             msg = msg.replace(r.placeholder(), tagToken);
