@@ -3,11 +3,9 @@ package com.zetaplugins.essentialz.commands.communication;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.storage.model.PlayerData;
 import com.zetaplugins.essentialz.util.MessageManager;
-import com.zetaplugins.essentialz.util.commands.ArgumentList;
-import com.zetaplugins.essentialz.util.commands.CommandPermissionException;
-import com.zetaplugins.essentialz.util.commands.CommandUsageException;
-import com.zetaplugins.essentialz.util.commands.CustomCommand;
+import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.commands.ArgumentList;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -23,14 +21,14 @@ import java.util.List;
         aliases = {"tc"},
         permission = "essentialz.teamchat"
 )
-public class TeamchatCommand extends CustomCommand {
+public class TeamchatCommand extends EszCommand {
 
     public TeamchatCommand(EssentialZ plugin) {
         super(plugin);
     }
 
     @Override
-    public boolean execute(CommandSender sender, Command command, ArgumentList args) throws CommandPermissionException, CommandUsageException {
+    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) {
         Collection<? extends Player> playersWithPerm = Bukkit.getOnlinePlayers()
                 .stream()
                 .filter(p -> p.hasPermission("essentialz.teamchat"))
@@ -74,11 +72,6 @@ public class TeamchatCommand extends CustomCommand {
         ));
 
         return true;
-    }
-
-    @Override
-    public boolean isAuthorized(CommandSender sender) {
-        return sender.hasPermission("essentialz.teamchat");
     }
 
     @Override

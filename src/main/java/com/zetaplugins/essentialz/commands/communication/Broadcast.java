@@ -1,11 +1,10 @@
 package com.zetaplugins.essentialz.commands.communication;
 
 import com.zetaplugins.essentialz.EssentialZ;
-import com.zetaplugins.essentialz.util.commands.ArgumentList;
-import com.zetaplugins.essentialz.util.commands.CommandPermissionException;
-import com.zetaplugins.essentialz.util.commands.CommandUsageException;
-import com.zetaplugins.essentialz.util.commands.CustomCommand;
+import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.commands.ArgumentList;
+import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -18,14 +17,14 @@ import java.util.List;
         permission = "essentialz.broadcast",
         aliases = {"bc", "bcast"}
 )
-public class Broadcast extends CustomCommand {
+public class Broadcast extends EszCommand {
 
     public Broadcast(EssentialZ plugin) {
         super(plugin);
     }
 
     @Override
-    public boolean execute(CommandSender sender, Command command, ArgumentList args) throws CommandPermissionException, CommandUsageException {
+    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandUsageException {
         if (args.size() < 1) throw new CommandUsageException("/" + command.getName() + " <message>");
         String message = args.getJoinedString(0);
         String broadCastFormat = getPlugin().getConfigManager().getChatConfig().getString("broadcastFormat");
@@ -33,11 +32,6 @@ public class Broadcast extends CustomCommand {
         String formattedMessage = broadCastFormat.replace("{message}", message);
         Bukkit.broadcast(getPlugin().getMessageManager().formatMsg(formattedMessage));
         return true;
-    }
-
-    @Override
-    public boolean isAuthorized(CommandSender sender) {
-        return sender.hasPermission("essentialz.broadcast");
     }
 
     @Override

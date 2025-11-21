@@ -2,12 +2,10 @@ package com.zetaplugins.essentialz.commands.items;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
-import com.zetaplugins.essentialz.util.commands.ArgumentList;
-import com.zetaplugins.essentialz.util.commands.CommandPermissionException;
-import com.zetaplugins.essentialz.util.commands.CommandUsageException;
-import com.zetaplugins.essentialz.util.commands.CustomCommand;
-import com.zetaplugins.essentialz.util.permissions.Permission;
+import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.commands.ArgumentList;
+import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBePlayerException;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -23,24 +21,17 @@ import java.util.List;
         usage = "/repair [hand|all]",
         permission = "essentialz.repair"
 )
-public class RepairCommand extends CustomCommand {
+public class RepairCommand extends EszCommand {
 
     public RepairCommand(EssentialZ plugin) {
         super(plugin);
     }
 
     @Override
-    public boolean execute(CommandSender sender, Command command, ArgumentList args) throws CommandPermissionException, CommandUsageException {
+    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandSenderMustBePlayerException {
         String operation = args.getString(0, "hand").toLowerCase();
 
-        if (!(sender instanceof Player player)) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
-                    "playerOnly",
-                    "{ac}You must be a player to use this command."
-            ));
-            return false;
-        }
+        if (!(sender instanceof Player player)) throw new CommandSenderMustBePlayerException();
 
         if (operation.equals("all")) {
             int repairedCount = repairAllItems(player);
@@ -111,11 +102,6 @@ public class RepairCommand extends CustomCommand {
             return true;
         }
         return false;
-    }
-
-    @Override
-    public boolean isAuthorized(CommandSender sender) {
-        return Permission.REPAIR.has(sender);
     }
 
     @Override

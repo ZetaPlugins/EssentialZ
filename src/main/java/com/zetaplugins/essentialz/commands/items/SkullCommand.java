@@ -1,10 +1,9 @@
 package com.zetaplugins.essentialz.commands.items;
 
-import com.zetaplugins.essentialz.util.commands.ArgumentList;
-import com.zetaplugins.essentialz.util.commands.CommandPermissionException;
-import com.zetaplugins.essentialz.util.commands.CommandUsageException;
-import com.zetaplugins.essentialz.util.commands.CustomCommand;
+import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.commands.ArgumentList;
+import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -23,13 +22,13 @@ import java.util.List;
         usage = "/skull <player> [player]",
         permission = "essentialz.skull"
 )
-public class SkullCommand extends CustomCommand {
+public class SkullCommand extends EszCommand {
     public SkullCommand(EssentialZ plugin) {
         super(plugin);
     }
 
     @Override
-    public boolean execute(CommandSender sender, Command command, ArgumentList args) throws CommandPermissionException, CommandUsageException {
+    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandUsageException {
         if (args.size() < 1) {
             throw new CommandUsageException("/skull <player> [player]");
         }
@@ -89,14 +88,9 @@ public class SkullCommand extends CustomCommand {
     }
 
     @Override
-    public boolean isAuthorized(CommandSender sender) {
-        return sender.hasPermission("essentialz.skull");
-    }
-
-    @Override
     public List<String> tabComplete(CommandSender sender, Command command, ArgumentList args) {
         if (args.getCurrentArgIndex() == 0 || args.getCurrentArgIndex() == 1) {
-            return getPlayerOptions(getPlugin(), args.getCurrentArg());
+            return getPlayerOptions(args.getCurrentArg());
         }
 
         return List.of();

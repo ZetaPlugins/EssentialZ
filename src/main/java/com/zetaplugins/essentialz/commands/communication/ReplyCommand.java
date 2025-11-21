@@ -3,11 +3,11 @@ package com.zetaplugins.essentialz.commands.communication;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.storage.model.PlayerData;
 import com.zetaplugins.essentialz.util.MessageManager;
-import com.zetaplugins.essentialz.util.commands.ArgumentList;
-import com.zetaplugins.essentialz.util.commands.CommandPermissionException;
-import com.zetaplugins.essentialz.util.commands.CommandUsageException;
-import com.zetaplugins.essentialz.util.commands.CustomCommand;
+import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.commands.ArgumentList;
+import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBePlayerException;
+import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -22,22 +22,15 @@ import java.util.UUID;
         aliases = {"r"},
         permission = "essentialz.msg"
 )
-public class ReplyCommand extends CustomCommand {
+public class ReplyCommand extends EszCommand {
 
     public ReplyCommand(EssentialZ plugin) {
         super(plugin);
     }
 
     @Override
-    public boolean execute(CommandSender sender, Command command, ArgumentList args) throws CommandPermissionException, CommandUsageException {
-        if (!(sender instanceof Player player)) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
-                    "bePlayerError",
-                    "{ac}You must be a player to use this command."
-            ));
-            return false;
-        }
+    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandSenderMustBePlayerException, CommandUsageException {
+        if (!(sender instanceof Player player)) throw new CommandSenderMustBePlayerException();
 
         UUID lastMsgUUID = getPlugin().getLastMsgManager().getLastMsg(player.getUniqueId());
         if (lastMsgUUID == null) {
@@ -115,11 +108,6 @@ public class ReplyCommand extends CustomCommand {
         ));
 
         return false;
-    }
-
-    @Override
-    public boolean isAuthorized(CommandSender sender) {
-        return sender.hasPermission("essentialz.msg");
     }
 
     @Override

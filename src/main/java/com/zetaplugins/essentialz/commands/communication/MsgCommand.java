@@ -3,11 +3,10 @@ package com.zetaplugins.essentialz.commands.communication;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.storage.model.PlayerData;
 import com.zetaplugins.essentialz.util.MessageManager;
-import com.zetaplugins.essentialz.util.commands.ArgumentList;
-import com.zetaplugins.essentialz.util.commands.CommandPermissionException;
-import com.zetaplugins.essentialz.util.commands.CommandUsageException;
-import com.zetaplugins.essentialz.util.commands.CustomCommand;
+import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.commands.ArgumentList;
+import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -21,14 +20,14 @@ import java.util.List;
         aliases = {"message", "tell", "whisper", "pm", "dm"},
         permission = "essentialz.msg"
 )
-public class MsgCommand extends CustomCommand {
+public class MsgCommand extends EszCommand {
 
     public MsgCommand(EssentialZ plugin) {
         super(plugin);
     }
 
     @Override
-    public boolean execute(CommandSender sender, Command command, ArgumentList args) throws CommandPermissionException, CommandUsageException {
+    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandUsageException {
         Player targetPlayer = args.getPlayer(0, getPlugin());
         String message = args.getJoinedString(1);
 
@@ -115,14 +114,9 @@ public class MsgCommand extends CustomCommand {
     }
 
     @Override
-    public boolean isAuthorized(CommandSender sender) {
-        return sender.hasPermission("essentialz.msg");
-    }
-
-    @Override
     public List<String> tabComplete(CommandSender sender, Command command, ArgumentList args) {
         if (args.getCurrentArgIndex() == 0) {
-            return getPlayerOptions(getPlugin(), args.getCurrentArg());
+            return getPlayerOptions(args.getCurrentArg());
         }
         return List.of();
     }

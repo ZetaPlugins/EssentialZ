@@ -2,12 +2,10 @@ package com.zetaplugins.essentialz.commands.items;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
-import com.zetaplugins.essentialz.util.commands.ArgumentList;
-import com.zetaplugins.essentialz.util.commands.CommandPermissionException;
-import com.zetaplugins.essentialz.util.commands.CommandUsageException;
-import com.zetaplugins.essentialz.util.commands.CustomCommand;
-import com.zetaplugins.essentialz.util.permissions.Permission;
+import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.commands.ArgumentList;
+import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
 import org.bukkit.Material;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.command.Command;
@@ -26,14 +24,14 @@ import java.util.List;
         usage = "/givespawner <player> <mobType> [amount]",
         permission = "essentialz.givespawner"
 )
-public class GiveSpawnerCommand extends CustomCommand {
+public class GiveSpawnerCommand extends EszCommand {
 
     public GiveSpawnerCommand(EssentialZ plugin) {
         super(plugin);
     }
 
     @Override
-    public boolean execute(CommandSender sender, Command command, ArgumentList args) throws CommandPermissionException, CommandUsageException {
+    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandUsageException {
         Player targetPlayer = args.getPlayer(0, getPlugin());
         EntityType entityType = args.getEnum(1, EntityType.class);
         int amount = args.getInt(2, 1);
@@ -72,14 +70,9 @@ public class GiveSpawnerCommand extends CustomCommand {
     }
 
     @Override
-    public boolean isAuthorized(CommandSender sender) {
-        return Permission.GIVESPAWNER.has(sender);
-    }
-
-    @Override
     public List<String> tabComplete(CommandSender sender, Command command, ArgumentList args) {
         if (args.getCurrentArgIndex() == 0) {
-            return getPlayerOptions(getPlugin(), args.getCurrentArg());
+            return getPlayerOptions(args.getCurrentArg());
         } else if (args.getCurrentArgIndex() == 1) {
             return new ArrayList<>(List.of(EntityType.values()))
                     .stream()

@@ -2,15 +2,16 @@ package com.zetaplugins.essentialz.commands.movement;
 
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.commands.ArgumentList;
+import com.zetaplugins.zetacore.commands.exceptions.CommandPermissionException;
+import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandException;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
-import com.zetaplugins.essentialz.util.commands.ArgumentList;
-import com.zetaplugins.essentialz.util.commands.CommandPermissionException;
-import com.zetaplugins.essentialz.util.commands.CommandUsageException;
-import com.zetaplugins.essentialz.util.commands.CustomCommand;
+import com.zetaplugins.essentialz.util.commands.EszCommand;
 
 import java.util.List;
 
@@ -21,13 +22,13 @@ import java.util.List;
         permission = "essentialz.walkspeed",
         aliases = {"speed"}
 )
-public class WalkSpeedCommand extends CustomCommand {
+public class WalkSpeedCommand extends EszCommand {
     public WalkSpeedCommand(EssentialZ plugin) {
         super(plugin);
     }
 
     @Override
-    public boolean execute(CommandSender sender, Command command, ArgumentList args) throws CommandPermissionException, CommandUsageException {
+    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandUsageException, CommandPermissionException {
         int speed = 2;// Default walk speed is 0.2 not 0.1 for whatever reason
 
         try {
@@ -81,14 +82,9 @@ public class WalkSpeedCommand extends CustomCommand {
     }
 
     @Override
-    public boolean isAuthorized(CommandSender sender) {
-        return Permission.WALKSPEED.has(sender);
-    }
-
-    @Override
     public List<String> tabComplete(CommandSender sender, Command command, ArgumentList args) {
         if (args.getCurrentArgIndex() == 0) return List.of("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
-        if (args.getCurrentArgIndex() == 1 && Permission.WALKSPEED_OTHERS.has(sender)) return getPlayerOptions(getPlugin(), args.getCurrentArg());
+        if (args.getCurrentArgIndex() == 1 && Permission.WALKSPEED_OTHERS.has(sender)) return getPlayerOptions(args.getCurrentArg());
         return List.of();
     }
 }

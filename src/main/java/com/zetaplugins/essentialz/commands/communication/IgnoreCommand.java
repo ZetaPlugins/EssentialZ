@@ -1,14 +1,13 @@
 package com.zetaplugins.essentialz.commands.communication;
 
 import com.zetaplugins.essentialz.EssentialZ;
-import com.zetaplugins.essentialz.storage.model.PlayerData;
 import com.zetaplugins.essentialz.util.MessageManager;
-import com.zetaplugins.essentialz.util.commands.ArgumentList;
-import com.zetaplugins.essentialz.util.commands.CommandPermissionException;
-import com.zetaplugins.essentialz.util.commands.CommandUsageException;
-import com.zetaplugins.essentialz.util.commands.CustomCommand;
+import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.commands.ArgumentList;
+import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBePlayerException;
+import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -21,22 +20,15 @@ import java.util.List;
         usage = "/ignore <player>",
         permission = "essentialz.ignore"
 )
-public class IgnoreCommand extends CustomCommand {
+public class IgnoreCommand extends EszCommand {
 
     public IgnoreCommand(EssentialZ plugin) {
         super(plugin);
     }
 
     @Override
-    public boolean execute(CommandSender sender, Command command, ArgumentList args) throws CommandPermissionException, CommandUsageException {
-        if (!(sender instanceof Player player)) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
-                    "playerOnly",
-                    "{ac}You must be a player to use this command."
-            ));
-            return false;
-        }
+    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandSenderMustBePlayerException, CommandUsageException {
+        if (!(sender instanceof Player player)) throw new CommandSenderMustBePlayerException();
 
         Player targetPlayer = args.getPlayer(0, getPlugin());
         if (targetPlayer == null) throw new CommandUsageException("/ignore <player>");
@@ -61,14 +53,9 @@ public class IgnoreCommand extends CustomCommand {
     }
 
     @Override
-    public boolean isAuthorized(CommandSender sender) {
-        return Permission.IGNORE.has(sender);
-    }
-
-    @Override
     public List<String> tabComplete(CommandSender sender, Command command, ArgumentList args) {
         if (args.getCurrentArgIndex() == 0) {
-            return getPlayerOptions(getPlugin(), args.getCurrentArg());
+            return getPlayerOptions(args.getCurrentArg());
         }
         return List.of();
     }

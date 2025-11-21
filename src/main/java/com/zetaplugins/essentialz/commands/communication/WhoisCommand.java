@@ -2,20 +2,17 @@ package com.zetaplugins.essentialz.commands.communication;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
-import com.zetaplugins.essentialz.util.commands.ArgumentList;
-import com.zetaplugins.essentialz.util.commands.CommandPermissionException;
-import com.zetaplugins.essentialz.util.commands.CommandUsageException;
-import com.zetaplugins.essentialz.util.commands.CustomCommand;
+import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.commands.ArgumentList;
+import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @AutoRegisterCommand(
         commands = "whois",
@@ -23,14 +20,14 @@ import java.util.Map;
         usage = "/whois <player>",
         permission = "essentialz.whois"
 )
-public class WhoisCommand extends CustomCommand {
+public class WhoisCommand extends EszCommand {
 
     public WhoisCommand(EssentialZ plugin) {
         super(plugin);
     }
 
     @Override
-    public boolean execute(CommandSender sender, Command command, ArgumentList args) throws CommandPermissionException, CommandUsageException {
+    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandUsageException {
         String targetName = args.getArg(0);
 
         if (targetName == null || targetName.isEmpty()) throw new CommandUsageException("/whois <player>");
@@ -70,11 +67,6 @@ public class WhoisCommand extends CustomCommand {
         }
 
         return true;
-    }
-
-    @Override
-    public boolean isAuthorized(CommandSender sender) {
-        return Permission.WHOIS.has(sender);
     }
 
     @Override

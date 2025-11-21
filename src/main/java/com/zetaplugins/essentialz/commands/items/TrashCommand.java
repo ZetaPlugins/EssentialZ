@@ -2,12 +2,10 @@ package com.zetaplugins.essentialz.commands.items;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
-import com.zetaplugins.essentialz.util.commands.ArgumentList;
-import com.zetaplugins.essentialz.util.commands.CommandPermissionException;
-import com.zetaplugins.essentialz.util.commands.CommandUsageException;
-import com.zetaplugins.essentialz.util.commands.CustomCommand;
-import com.zetaplugins.essentialz.util.permissions.Permission;
+import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.commands.ArgumentList;
+import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBePlayerException;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -23,22 +21,15 @@ import java.util.List;
         aliases = {"bin"},
         permission = "essentialz.trash"
 )
-public class TrashCommand extends CustomCommand {
+public class TrashCommand extends EszCommand {
 
     public TrashCommand(EssentialZ plugin) {
         super(plugin);
     }
 
     @Override
-    public boolean execute(CommandSender sender, Command command, ArgumentList args) throws CommandPermissionException, CommandUsageException {
-        if (!(sender instanceof Player player)) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
-                    "playerOnly",
-                    "{ac}You must be a player to use this command."
-            ));
-            return false;
-        }
+    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandSenderMustBePlayerException {
+        if (!(sender instanceof Player player)) throw new CommandSenderMustBePlayerException();
 
         Inventory trashInventory = Bukkit.createInventory(
                 null,
@@ -53,11 +44,6 @@ public class TrashCommand extends CustomCommand {
         player.openInventory(trashInventory);
 
         return true;
-    }
-
-    @Override
-    public boolean isAuthorized(CommandSender sender) {
-        return Permission.TRASH.has(sender);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.zetaplugins.essentialz;
 
+import com.zetaplugins.essentialz.commands.HealCommand;
 import com.zetaplugins.essentialz.features.EnchantmentManager;
 import com.zetaplugins.essentialz.features.LastMsgManager;
 import com.zetaplugins.essentialz.storage.MySQLStorage;

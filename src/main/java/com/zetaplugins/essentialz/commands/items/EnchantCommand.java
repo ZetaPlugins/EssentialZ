@@ -2,12 +2,12 @@ package com.zetaplugins.essentialz.commands.items;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
-import com.zetaplugins.essentialz.util.commands.ArgumentList;
-import com.zetaplugins.essentialz.util.commands.CommandPermissionException;
-import com.zetaplugins.essentialz.util.commands.CommandUsageException;
-import com.zetaplugins.essentialz.util.commands.CustomCommand;
+import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.commands.ArgumentList;
+import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBePlayerException;
+import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
@@ -24,22 +24,15 @@ import java.util.List;
         permission = "essentialz.enchant",
         aliases = {"enchantment"}
 )
-public class EnchantCommand extends CustomCommand {
+public class EnchantCommand extends EszCommand {
 
     public EnchantCommand(EssentialZ plugin) {
         super(plugin);
     }
 
     @Override
-    public boolean execute(CommandSender sender, Command command, ArgumentList args) throws CommandPermissionException, CommandUsageException {
-        if (!(sender instanceof Player player)) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
-                    "bePlayerError",
-                    "{ac}You must be a player to use this command."
-            ));
-            return false;
-        }
+    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandSenderMustBePlayerException, CommandUsageException {
+        if (!(sender instanceof Player player)) throw new CommandSenderMustBePlayerException();
 
         ItemStack heldItem = player.getInventory().getItemInMainHand();
         if (heldItem.getType().isAir()) {
@@ -77,11 +70,6 @@ public class EnchantCommand extends CustomCommand {
                 new MessageManager.Replaceable<>("{level}", String.valueOf(level))
         ));
         return true;
-    }
-
-    @Override
-    public boolean isAuthorized(CommandSender sender) {
-        return Permission.ENCHANT.has(sender);
     }
 
     @Override

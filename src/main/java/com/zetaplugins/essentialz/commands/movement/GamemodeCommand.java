@@ -2,16 +2,16 @@ package com.zetaplugins.essentialz.commands.movement;
 
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.commands.ArgumentList;
+import com.zetaplugins.zetacore.commands.exceptions.CommandPermissionException;
+import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
-import com.zetaplugins.essentialz.util.commands.ArgumentList;
-import com.zetaplugins.essentialz.util.commands.CommandPermissionException;
-import com.zetaplugins.essentialz.util.commands.CommandUsageException;
-import com.zetaplugins.essentialz.util.commands.CustomCommand;
+import com.zetaplugins.essentialz.util.commands.EszCommand;
 
 import java.util.List;
 
@@ -22,13 +22,13 @@ import java.util.List;
         permission = "essentialz.gamemode",
         aliases = {"gm"}
 )
-public class GamemodeCommand extends CustomCommand {
+public class GamemodeCommand extends EszCommand {
     public GamemodeCommand(EssentialZ plugin) {
         super(plugin);
     }
 
     @Override
-    public boolean execute(CommandSender sender, Command command, ArgumentList args) throws CommandPermissionException, CommandUsageException {
+    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandPermissionException, CommandUsageException {
         String rawGamemode = args.getArg(0);
         GameMode gamemode = parseGamemode(rawGamemode);
 
@@ -101,17 +101,12 @@ public class GamemodeCommand extends CustomCommand {
     }
 
     @Override
-    public boolean isAuthorized(CommandSender sender) {
-        return Permission.GAMEMODE.has(sender);
-    }
-
-    @Override
     public List<String> tabComplete(CommandSender sender, Command command, ArgumentList args) {
         if (args.getCurrentArgIndex() == 0) {
             return getDisplayOptions(List.of("survival", "creative", "adventure", "spectator"), args.getCurrentArg());
         }
         if (args.getCurrentArgIndex() == 1 && Permission.GAMEMODE_OTHERS.has(sender)) {
-            return getPlayerOptions(getPlugin(), args.getCurrentArg());
+            return getPlayerOptions(args.getCurrentArg());
         }
         return List.of();
     }

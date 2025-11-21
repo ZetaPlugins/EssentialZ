@@ -1,17 +1,15 @@
 package com.zetaplugins.essentialz.commands;
 
-import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.commands.ArgumentList;
 import org.bukkit.Statistic;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandException;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
-import com.zetaplugins.essentialz.util.commands.ArgumentList;
-import com.zetaplugins.essentialz.util.commands.CommandPermissionException;
-import com.zetaplugins.essentialz.util.commands.CommandUsageException;
-import com.zetaplugins.essentialz.util.commands.CustomCommand;
+import com.zetaplugins.essentialz.util.commands.EszCommand;
 
 import java.util.List;
 
@@ -21,13 +19,13 @@ import java.util.List;
         permission = "essentialz.playtime",
         usage = "/playtime [player]"
 )
-public class PlayTimeCommand extends CustomCommand {
+public class PlayTimeCommand extends EszCommand {
     public PlayTimeCommand(EssentialZ plugin) {
         super(plugin);
     }
 
     @Override
-    public boolean execute(CommandSender sender, Command command, ArgumentList args) throws CommandPermissionException, CommandUsageException {
+    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandException {
         if (args.hasArg(0)) {
             Player target = getPlugin().getServer().getPlayer(args.getArg(0));
 
@@ -79,15 +77,11 @@ public class PlayTimeCommand extends CustomCommand {
     }
 
     @Override
-    public boolean isAuthorized(CommandSender sender) {
-        return Permission.PLAYTIME.has(sender);
-    }
-
-    @Override
     public List<String> tabComplete(CommandSender sender, Command command, ArgumentList args) {
         if (args.getCurrentArgIndex() == 0 || args.getCurrentArgIndex() == 1) {
-            return getPlayerOptions(getPlugin(), args.getCurrentArg());
+            return getPlayerOptions(args.getCurrentArg());
         }
         return List.of();
     }
+
 }

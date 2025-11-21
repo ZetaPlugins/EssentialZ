@@ -1,16 +1,13 @@
 package com.zetaplugins.essentialz.commands.moderation;
 
-import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.commands.ArgumentList;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
-import com.zetaplugins.essentialz.util.commands.ArgumentList;
-import com.zetaplugins.essentialz.util.commands.CommandPermissionException;
-import com.zetaplugins.essentialz.util.commands.CommandUsageException;
-import com.zetaplugins.essentialz.util.commands.CustomCommand;
+import com.zetaplugins.essentialz.util.commands.EszCommand;
 
 import java.util.List;
 
@@ -21,13 +18,13 @@ import java.util.List;
         permission = "essentialz.clearchat",
         aliases = {"cc"}
 )
-public class ClearChatCommand extends CustomCommand {
+public class ClearChatCommand extends EszCommand {
     public ClearChatCommand(EssentialZ plugin) {
         super(plugin);
     }
 
     @Override
-    public boolean execute(CommandSender sender, Command command, ArgumentList args) throws CommandPermissionException, CommandUsageException {
+    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) {
         String spaces = " \n".repeat(100);
         Bukkit.broadcast(getPlugin().getMessageManager().getAndFormatMsg(
                 MessageManager.Style.MODERATION,
@@ -37,11 +34,6 @@ public class ClearChatCommand extends CustomCommand {
                 new MessageManager.Replaceable<>("{player}", sender.getName())
         ));
         return false;
-    }
-
-    @Override
-    public boolean isAuthorized(CommandSender sender) {
-        return Permission.CLEARCHAT.has(sender);
     }
 
     @Override

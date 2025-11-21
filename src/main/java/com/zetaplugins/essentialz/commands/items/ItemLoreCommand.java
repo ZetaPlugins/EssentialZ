@@ -1,6 +1,9 @@
 package com.zetaplugins.essentialz.commands.items;
 
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.commands.ArgumentList;
+import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBePlayerException;
+import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -10,10 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
-import com.zetaplugins.essentialz.util.commands.ArgumentList;
-import com.zetaplugins.essentialz.util.commands.CommandPermissionException;
-import com.zetaplugins.essentialz.util.commands.CommandUsageException;
-import com.zetaplugins.essentialz.util.commands.CustomCommand;
+import com.zetaplugins.essentialz.util.commands.EszCommand;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,21 +27,14 @@ import java.util.stream.Collectors;
         permission = "essentialz.itemlore",
         aliases = {"lore"}
 )
-public class ItemLoreCommand extends CustomCommand {
+public class ItemLoreCommand extends EszCommand {
     public ItemLoreCommand(EssentialZ plugin) {
         super(plugin);
     }
 
     @Override
-    public boolean execute(CommandSender sender, Command command, ArgumentList args) throws CommandPermissionException, CommandUsageException {
-        if (!(sender instanceof Player player)) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
-                    "playerOnly",
-                    "{ac}You must be a player to use this command."
-            ));
-            return false;
-        }
+    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandSenderMustBePlayerException, CommandUsageException {
+        if (!(sender instanceof Player player)) throw new CommandSenderMustBePlayerException();
 
         ItemStack item = player.getInventory().getItemInMainHand();
 
@@ -258,11 +251,6 @@ public class ItemLoreCommand extends CustomCommand {
                 "loreLineDoesNotExist",
                 "{ac}This lore line does not exist!"
         ));
-    }
-
-    @Override
-    public boolean isAuthorized(CommandSender sender) {
-        return sender.hasPermission("essentialz.itemlore");
     }
 
     @Override
