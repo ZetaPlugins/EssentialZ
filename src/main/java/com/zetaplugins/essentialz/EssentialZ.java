@@ -54,6 +54,7 @@ public final class EssentialZ extends JavaPlugin {
                 .build()
                 .registerAllCommands();
         getLogger().info("Registered " + registeredCommands.size() + " commands.");
+
         List<String> registeredEvents = new AutoEventRegistrar.Builder()
                 .setPlugin(this)
                 .setPackagePrefix(PACKAGE_PREFIX)
