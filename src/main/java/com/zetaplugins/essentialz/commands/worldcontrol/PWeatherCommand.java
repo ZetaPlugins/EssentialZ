@@ -20,7 +20,7 @@ import java.util.List;
 @AutoRegisterCommand(
         commands = "pweather",
         description = "Sets the weather for a specific player",
-        usage = "/pweather <clear|rain> <player>",
+        usage = "/pweather <clear|rain|reset> <player>",
         aliases = {"playerweather"},
         permission = "essentialz.pweather"
 )
@@ -37,10 +37,29 @@ public class PWeatherCommand extends EszCommand {
 
     @Override
     public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandException {
-        EszWeatherType eszWeatherType = args.getEnumIgnoreCase(0, EszWeatherType.class, EszWeatherType.CLEAR);
+        EszWeatherType eszWeatherType = args.getEnumIgnoreCase(0, EszWeatherType.class, EszWeatherType.RESET);
         Player targetPlayer = args.getPlayer(1, (sender instanceof Player) ? (Player) sender : null, getPlugin());
 
         if (targetPlayer == null) throw new CommandSenderMustBeOrSpecifyPlayerException();
+
+        if (eszWeatherType == EszWeatherType.RESET) {
+            targetPlayer.resetPlayerWeather();
+            if (sender.equals(targetPlayer)) {
+                targetPlayer.sendMessage(messageManager.getAndFormatMsg(
+                        MessageManager.Style.WORLDCONTROL,
+                        "pweatherReset",
+                        "&7Your weather has been reset to the server default."
+                ));
+            } else {
+                sender.sendMessage(messageManager.getAndFormatMsg(
+                        MessageManager.Style.WORLDCONTROL,
+                        "pweatherResetOther",
+                        "&7You have reset {ac}{player}&7's weather to the server default.",
+                        new MessageManager.Replaceable<>("{player}", targetPlayer.getName())
+                ));
+            }
+            return true;
+        }
 
         targetPlayer.setPlayerWeather(eszWeatherType.getWeatherType());
 
@@ -82,6 +101,7 @@ public class PWeatherCommand extends EszCommand {
     private enum EszWeatherType {
         CLEAR(WeatherType.CLEAR),
         RAIN(WeatherType.DOWNFALL),
+        RESET(null)
         ;
 
         private final WeatherType weatherType;
@@ -95,6 +115,7 @@ public class PWeatherCommand extends EszCommand {
         }
 
         public String getDisplayName(LanguageManager languageManager) {
+            if (this == RESET) return "Reset";
             return languageManager.getString("weather_" + this.name(), this.name().toLowerCase());
         }
     }
