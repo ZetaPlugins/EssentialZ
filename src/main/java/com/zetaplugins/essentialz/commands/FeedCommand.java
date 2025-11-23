@@ -5,6 +5,7 @@ import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandException;
@@ -21,6 +22,9 @@ import java.util.List;
 )
 public class FeedCommand extends EszCommand {
 
+    @InjectManager
+    private MessageManager messageManager;
+
     public FeedCommand(EssentialZ plugin) {
         super(plugin);
     }
@@ -30,7 +34,7 @@ public class FeedCommand extends EszCommand {
         Player targetPlayer = args.getPlayer(0, sender instanceof Player ? (Player) sender : null, getPlugin());
 
         if (targetPlayer == null) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "specifyPlayerOrBePlayer",
                     "{ac}You must specify a player or be a player to use this command."
@@ -41,7 +45,7 @@ public class FeedCommand extends EszCommand {
         boolean isSelfFeed = (sender instanceof Player && ((Player) sender).getUniqueId().equals(targetPlayer.getUniqueId()));
 
         if (!isSelfFeed && !Permission.HEAL_OTHERS.has(sender)) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "noPermissionFeedOthers",
                     "{ac}You do not have permission to feed other players."
@@ -53,13 +57,13 @@ public class FeedCommand extends EszCommand {
         targetPlayer.setSaturation(20f);
 
         if (isSelfFeed) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.SUCCESS,
                     "feededSelf",
                     "&7Your hunger has been fully restored."
             ));
         } else {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.SUCCESS,
                     "feededOther",
                     "&7You have fully restored {ac}{player}&7's hunger.",

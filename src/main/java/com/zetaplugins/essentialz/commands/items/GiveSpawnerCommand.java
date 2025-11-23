@@ -4,6 +4,7 @@ import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
 import org.bukkit.Material;
@@ -26,6 +27,9 @@ import java.util.List;
 )
 public class GiveSpawnerCommand extends EszCommand {
 
+    @InjectManager
+    private MessageManager messageManager;
+
     public GiveSpawnerCommand(EssentialZ plugin) {
         super(plugin);
     }
@@ -39,7 +43,7 @@ public class GiveSpawnerCommand extends EszCommand {
         if (args.size() < 2) throw new CommandUsageException("/<command> <player> <mobType> [amount]");
 
         if (entityType == null || !entityType.isSpawnable() || !entityType.isAlive()) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "invalidMobType",
                     "{ac}You have to specify a valid mob type."
@@ -58,7 +62,7 @@ public class GiveSpawnerCommand extends EszCommand {
 
         targetPlayer.getInventory().addItem(spawnerItem);
 
-        sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+        sender.sendMessage(messageManager.getAndFormatMsg(
                 MessageManager.Style.ITEMS,
                 "givespawnerSuccess",
                 "&7Gave {ac}{amount} {mobType} &7spawner(s) to {ac}{player}&7.",

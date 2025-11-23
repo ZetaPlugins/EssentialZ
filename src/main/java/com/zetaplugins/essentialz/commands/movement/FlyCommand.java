@@ -2,6 +2,7 @@ package com.zetaplugins.essentialz.commands.movement;
 
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandPermissionException;
 import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBeOrSpecifyPlayerException;
@@ -21,6 +22,10 @@ import java.util.List;
         permission = "essentialz.fly"
 )
 public class FlyCommand extends EszCommand {
+
+    @InjectManager
+    private MessageManager messageManager;
+
     public FlyCommand(EssentialZ plugin) {
         super(plugin);
     }
@@ -52,13 +57,13 @@ public class FlyCommand extends EszCommand {
 
     public void sendSelfConfirmationMessage(Player player) {
         if (player.getAllowFlight()) {
-            player.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            player.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.MOVEMENT,
                     "allowedToFly",
                     "&7You are now allowed to fly!"
             ));
         } else {
-            player.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            player.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.MOVEMENT,
                     "disallowedToFly",
                     "&7You are no longer allowed to fly."
@@ -70,14 +75,14 @@ public class FlyCommand extends EszCommand {
         sendSelfConfirmationMessage(targetPlayer);
 
         if (targetPlayer.getAllowFlight()) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.MOVEMENT,
                     "allowedToFlyOther",
                     "&7{ac}{player}&7 is now allowed to fly!",
                     new MessageManager.Replaceable<>("{player}", targetPlayer.getName())
             ));
         } else {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.MOVEMENT,
                     "disallowedToFlyOther",
                     "&7{ac}{player}&7 is no longer allowed to fly!",

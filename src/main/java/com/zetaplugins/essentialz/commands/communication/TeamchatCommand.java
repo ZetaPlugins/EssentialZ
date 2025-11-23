@@ -1,10 +1,12 @@
 package com.zetaplugins.essentialz.commands.communication;
 
 import com.zetaplugins.essentialz.EssentialZ;
+import com.zetaplugins.essentialz.storage.Storage;
 import com.zetaplugins.essentialz.storage.model.PlayerData;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -23,6 +25,11 @@ import java.util.List;
 )
 public class TeamchatCommand extends EszCommand {
 
+    @InjectManager
+    private MessageManager messageManager;
+    @InjectManager
+    private Storage storage;
+
     public TeamchatCommand(EssentialZ plugin) {
         super(plugin);
     }
@@ -35,9 +42,9 @@ public class TeamchatCommand extends EszCommand {
                 .toList();
 
         if (sender instanceof Player senderPlayer) {
-            PlayerData senderPlayerData = getPlugin().getStorage().load(senderPlayer.getUniqueId());
+            PlayerData senderPlayerData = storage.load(senderPlayer.getUniqueId());
             if (!senderPlayerData.isEnableTeamchat()) {
-                sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+                sender.sendMessage(messageManager.getAndFormatMsg(
                         MessageManager.Style.ERROR,
                         "yourTeamchatDisabled",
                         "{ac}You have disabled team chat. Enable it using /tctoggle to send messages."
@@ -51,10 +58,10 @@ public class TeamchatCommand extends EszCommand {
         boolean allowToUseColor = sender.hasPermission("essentialz.teamchat.color");
 
         for (Player p : playersWithPerm) {
-            PlayerData playerData = getPlugin().getStorage().load(p.getUniqueId());
+            PlayerData playerData = storage.load(p.getUniqueId());
             if (playerData != null && !playerData.isEnableTeamchat()) continue;
 
-            p.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            p.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.TEAMCHAT,
                     "teamChatMessage",
                     "&8[&7From {ac}{player}&8]&7: &7{message}",
@@ -63,7 +70,7 @@ public class TeamchatCommand extends EszCommand {
             ));
         }
 
-        Bukkit.getConsoleSender().sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+        Bukkit.getConsoleSender().sendMessage(messageManager.getAndFormatMsg(
                 MessageManager.Style.TEAMCHAT,
                 "teamChatMessage",
                 "&8[&7From {ac}{player}&8]&7: &7{message}",

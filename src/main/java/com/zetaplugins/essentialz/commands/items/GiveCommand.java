@@ -1,6 +1,8 @@
 package com.zetaplugins.essentialz.commands.items;
 
+import com.zetaplugins.essentialz.features.GiveMaterialManager;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
 import org.bukkit.Material;
@@ -22,6 +24,11 @@ import java.util.List;
 )
 public class GiveCommand extends EszCommand {
 
+    @InjectManager
+    private MessageManager messageManager;
+    @InjectManager
+    private GiveMaterialManager giveMaterialManager;
+
     public GiveCommand(EssentialZ plugin) {
         super(plugin);
     }
@@ -34,9 +41,9 @@ public class GiveCommand extends EszCommand {
 
         String materialName = args.getArg(1);
         if (materialName == null) throw new CommandUsageException("/give [player] <item> [amount]");
-        Material material = getPlugin().getGiveMaterialManager().getMaterialByKey(materialName);
+        Material material = giveMaterialManager.getMaterialByKey(materialName);
         if (material == null) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "invalidMaterial",
                     "{ac}'{material}' is not a valid material.",
@@ -50,7 +57,7 @@ public class GiveCommand extends EszCommand {
         ItemStack itemStack = new ItemStack(material, amount);
         targetPlayer.getInventory().addItem(itemStack);
 
-        sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+        sender.sendMessage(messageManager.getAndFormatMsg(
                 MessageManager.Style.ITEMS,
                 "giveConfirmation",
                 "&7Gave {ac}{amount}x {material}&7 to {ac}{player}&7.",
@@ -67,7 +74,7 @@ public class GiveCommand extends EszCommand {
         if (args.getCurrentArgIndex() == 0) {
             return getPlayerOptions(args.getCurrentArg());
         } else if (args.getCurrentArgIndex() == 1) {
-            return getDisplayOptions(getPlugin().getGiveMaterialManager().getPossibleMaterials(), args.getCurrentArg());
+            return getDisplayOptions(giveMaterialManager.getPossibleMaterials(), args.getCurrentArg());
         } else if (args.getCurrentArgIndex() == 2) {
             return getDisplayOptions(List.of("1", "16", "32", "64"), args.getCurrentArg());
         }

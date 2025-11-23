@@ -1,6 +1,7 @@
 package com.zetaplugins.essentialz.commands.items;
 
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBePlayerException;
 import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
@@ -28,6 +29,10 @@ import java.util.stream.Collectors;
         aliases = {"lore"}
 )
 public class ItemLoreCommand extends EszCommand {
+
+    @InjectManager
+    private MessageManager messageManager;
+
     public ItemLoreCommand(EssentialZ plugin) {
         super(plugin);
     }
@@ -39,7 +44,7 @@ public class ItemLoreCommand extends EszCommand {
         ItemStack item = player.getInventory().getItemInMainHand();
 
         if (item.getType() == Material.AIR) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "mustHoldAnItem",
                     "{ac}You must be holding an item."
@@ -112,7 +117,7 @@ public class ItemLoreCommand extends EszCommand {
 
         int maxLoreLines = getPlugin().getConfig().getInt("maxLoreLines");
         if (currentLore.size() >= maxLoreLines || currentLore.size() >= 128) {
-            player.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            player.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "loreTooLong",
                     "{ac}The lore is too long! The maximum length is {max} lines.",
@@ -121,10 +126,10 @@ public class ItemLoreCommand extends EszCommand {
             return false;
         }
 
-        currentLore.add(getPlugin().getMessageManager().formatMsg(lore));
+        currentLore.add(messageManager.formatMsg(lore));
         setItemLore(item, currentLore);
 
-        player.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+        player.sendMessage(messageManager.getAndFormatMsg(
                 MessageManager.Style.ITEMS,
                 "loreAdded",
                 "&7Added '{lore}&r&7' to the lore.",
@@ -145,10 +150,10 @@ public class ItemLoreCommand extends EszCommand {
             return false;
         }
 
-        currentLore.set(line, getPlugin().getMessageManager().formatMsg(lore));
+        currentLore.set(line, messageManager.formatMsg(lore));
         setItemLore(item, currentLore);
 
-        player.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+        player.sendMessage(messageManager.getAndFormatMsg(
                 MessageManager.Style.ITEMS,
                 "loreSet",
                 "&7Set lore line {ac}{line}&7 to '{lore}&r&7'.",
@@ -174,7 +179,7 @@ public class ItemLoreCommand extends EszCommand {
         currentLore.remove(line);
         setItemLore(item, currentLore);
 
-        player.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+        player.sendMessage(messageManager.getAndFormatMsg(
                 MessageManager.Style.ITEMS,
                 "loreRemoved",
                 "&7Removed lore line {ac}{line}&7.",
@@ -198,7 +203,7 @@ public class ItemLoreCommand extends EszCommand {
 
         int maxLoreLines = getPlugin().getConfig().getInt("maxLoreLines");
         if (currentLore.size() >= maxLoreLines || currentLore.size() >= 128) {
-            player.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            player.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "loreTooLong",
                     "{ac}The lore is too long! The maximum length is {max} lines.",
@@ -207,10 +212,10 @@ public class ItemLoreCommand extends EszCommand {
             return false;
         }
 
-        currentLore.add(line, getPlugin().getMessageManager().formatMsg(lore));
+        currentLore.add(line, messageManager.formatMsg(lore));
         setItemLore(item, currentLore);
 
-        player.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+        player.sendMessage(messageManager.getAndFormatMsg(
                 MessageManager.Style.ITEMS,
                 "loreInserted",
                 "&7Inserted '{lore}&r&7' at line {ac}{line}&7.",
@@ -246,7 +251,7 @@ public class ItemLoreCommand extends EszCommand {
     }
 
     private void sendLoreLineDoesNotExistMessage(Player player) {
-        player.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+        player.sendMessage(messageManager.getAndFormatMsg(
                 MessageManager.Style.ERROR,
                 "loreLineDoesNotExist",
                 "{ac}This lore line does not exist!"

@@ -1,6 +1,5 @@
 package com.zetaplugins.essentialz;
 
-import com.zetaplugins.essentialz.commands.HealCommand;
 import com.zetaplugins.essentialz.features.EnchantmentManager;
 import com.zetaplugins.essentialz.features.LastMsgManager;
 import com.zetaplugins.essentialz.storage.MySQLStorage;
@@ -8,6 +7,7 @@ import com.zetaplugins.essentialz.storage.SQLiteStorage;
 import com.zetaplugins.essentialz.storage.Storage;
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.services.commands.AutoCommandRegistrar;
+import com.zetaplugins.zetacore.services.di.ManagerRegistry;
 import com.zetaplugins.zetacore.services.events.AutoEventRegistrar;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -22,16 +22,7 @@ import java.util.List;
 public final class EssentialZ extends JavaPlugin {
     private static final String PACKAGE_PREFIX = "com.zetaplugins.essentialz";
 
-    private LanguageManager languageManager;
-    private MessageManager messageManager;
     private ConfigManager configManager;
-
-    private GodModeManager godModeManager;
-    private GiveMaterialManager giveMaterialManager;
-    private LastMsgManager lastMsgManager;
-    private EnchantmentManager enchantmentManager;
-
-    private Storage storage;
 
     private final boolean hasPlaceholderApi = Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
 
@@ -41,22 +32,34 @@ public final class EssentialZ extends JavaPlugin {
 
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
+
         configManager = new ConfigManager(this);
 
-        storage = createPlayerDataStorage();
-        storage.init();
+        ManagerRegistry managerRegistry = new ManagerRegistry(this);
 
-        languageManager = new LanguageManager(this);
-        messageManager = new MessageManager(this);
+        managerRegistry.registerInstance(configManager);
+        managerRegistry.registerInstance(Storage.class, createPlayerDataStorage());
+        managerRegistry.registerInstance(new LanguageManager(this));
+        managerRegistry.registerInstance(new MessageManager(this));
 
-        godModeManager = new GodModeManager();
-        giveMaterialManager = new GiveMaterialManager(this);
-        lastMsgManager = new LastMsgManager();
-        enchantmentManager = new EnchantmentManager();
+        managerRegistry.registerInstance(new GiveMaterialManager(this));
+        managerRegistry.registerInstance(new GodModeManager());
+        managerRegistry.registerInstance(new LastMsgManager());
+        managerRegistry.registerInstance(new EnchantmentManager());
 
-        List<String> registeredCommands = new AutoCommandRegistrar(this, PACKAGE_PREFIX).registerAllCommands();
+        List<String> registeredCommands = new AutoCommandRegistrar.Builder()
+                .setPlugin(this)
+                .setPackagePrefix(PACKAGE_PREFIX)
+                .setManagerRegistry(managerRegistry)
+                .build()
+                .registerAllCommands();
         getLogger().info("Registered " + registeredCommands.size() + " commands.");
-        List<String> registeredEvents = new AutoEventRegistrar(this, PACKAGE_PREFIX).registerAllListeners();
+        List<String> registeredEvents = new AutoEventRegistrar.Builder()
+                .setPlugin(this)
+                .setPackagePrefix(PACKAGE_PREFIX)
+                .setManagerRegistry(managerRegistry)
+                .build()
+                .registerAllListeners();
         getLogger().info("Registered " + registeredEvents.size() + " event listeners.");
 
         getLogger().info("EssentialZ enabled!");
@@ -68,7 +71,7 @@ public final class EssentialZ extends JavaPlugin {
     }
 
     private Storage createPlayerDataStorage() {
-        switch (getConfigManager().getStorageConfig().getString("type").toLowerCase()) {
+        switch (configManager.getStorageConfig().getString("type").toLowerCase()) {
             case "mysql":
                 getLogger().info("Using MySQL storage");
                 return new MySQLStorage(this);
@@ -79,37 +82,5 @@ public final class EssentialZ extends JavaPlugin {
                 getLogger().warning("Invalid storage type in config.yml! Using SQLite storage as fallback.");
                 return new SQLiteStorage(this);
         }
-    }
-
-    public Storage getStorage() {
-        return storage;
-    }
-
-    public LanguageManager getLanguageManager() {
-        return languageManager;
-    }
-
-    public MessageManager getMessageManager() {
-        return messageManager;
-    }
-
-    public ConfigManager getConfigManager() {
-        return configManager;
-    }
-
-    public GiveMaterialManager getGiveMaterialManager() {
-        return giveMaterialManager;
-    }
-
-    public GodModeManager getGodModeManager() {
-        return godModeManager;
-    }
-
-    public LastMsgManager getLastMsgManager() {
-        return lastMsgManager;
-    }
-
-    public EnchantmentManager getEnchantmentManager() {
-        return enchantmentManager;
     }
 }

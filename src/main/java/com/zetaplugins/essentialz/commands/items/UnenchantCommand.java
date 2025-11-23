@@ -1,9 +1,11 @@
 package com.zetaplugins.essentialz.commands.items;
 
 import com.zetaplugins.essentialz.EssentialZ;
+import com.zetaplugins.essentialz.features.EnchantmentManager;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBePlayerException;
 import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
@@ -23,6 +25,12 @@ import java.util.List;
 )
 public class UnenchantCommand extends EszCommand {
 
+    @InjectManager
+    private MessageManager messageManager;
+
+    @InjectManager
+    private EnchantmentManager enchantmentManager;
+
     public UnenchantCommand(EssentialZ plugin) {
         super(plugin);
     }
@@ -33,7 +41,7 @@ public class UnenchantCommand extends EszCommand {
 
         ItemStack heldItem = player.getInventory().getItemInMainHand();
         if (heldItem.getType().isAir()) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "mustHoldAnItem",
                     "ac}You must be holding an item!"
@@ -42,12 +50,12 @@ public class UnenchantCommand extends EszCommand {
         }
 
         String enchantmentName = args.getArg(0);
-        if (enchantmentName == null) throw new CommandUsageException("/<command> <enchantment> [level]");
+        if (enchantmentName == null) throw new CommandUsageException("/<command> <enchantment>");
 
-        Enchantment enchantment = getPlugin().getEnchantmentManager().getEnchantmentByKeyName(enchantmentName);
+        Enchantment enchantment = enchantmentManager.getEnchantmentByKeyName(enchantmentName);
 
         if (enchantment == null) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "invalidEnchantment",
                     "{ac}The enchantment '{enchantment}' does not exist.",
@@ -57,7 +65,7 @@ public class UnenchantCommand extends EszCommand {
         }
 
         if (!heldItem.containsEnchantment(enchantment)) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "itemLacksEnchantment",
                     "{ac}The item you are holding does not have the '{enchantment}' enchantment.",
@@ -67,7 +75,7 @@ public class UnenchantCommand extends EszCommand {
         }
 
         heldItem.removeEnchantment(enchantment);
-        sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+        sender.sendMessage(messageManager.getAndFormatMsg(
                 MessageManager.Style.ITEMS,
                 "unenchantSuccess",
                 "&7Successfully removed {ac}{enchantment} &7from your item.",
@@ -81,13 +89,13 @@ public class UnenchantCommand extends EszCommand {
         if (args.getCurrentArgIndex() == 0) {
             if (!(sender instanceof Player player) || player.getInventory().getItemInMainHand().getType().isAir()) {
                 return getDisplayOptions(
-                        getPlugin().getEnchantmentManager().getAllEnchantmentNames(),
+                        enchantmentManager.getAllEnchantmentNames(),
                         args.getCurrentArg()
                 );
             }
 
             ItemStack heldItem = player.getInventory().getItemInMainHand();
-            return getDisplayOptions(getPlugin().getEnchantmentManager().getEnchantmentKeyNamesFromItem(heldItem), args.getCurrentArg());
+            return getDisplayOptions(enchantmentManager.getEnchantmentKeyNamesFromItem(heldItem), args.getCurrentArg());
         }
         return List.of();
     }

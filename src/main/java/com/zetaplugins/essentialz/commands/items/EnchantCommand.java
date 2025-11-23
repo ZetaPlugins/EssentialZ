@@ -1,10 +1,12 @@
 package com.zetaplugins.essentialz.commands.items;
 
 import com.zetaplugins.essentialz.EssentialZ;
+import com.zetaplugins.essentialz.features.EnchantmentManager;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBePlayerException;
 import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
@@ -26,6 +28,11 @@ import java.util.List;
 )
 public class EnchantCommand extends EszCommand {
 
+    @InjectManager
+    private MessageManager messageManager;
+    @InjectManager
+    private EnchantmentManager enchantmentManager;
+
     public EnchantCommand(EssentialZ plugin) {
         super(plugin);
     }
@@ -36,7 +43,7 @@ public class EnchantCommand extends EszCommand {
 
         ItemStack heldItem = player.getInventory().getItemInMainHand();
         if (heldItem.getType().isAir()) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "mustHoldAnItem",
                     "ac}You must be holding an item!"
@@ -47,10 +54,10 @@ public class EnchantCommand extends EszCommand {
         String enchantmentName = args.getArg(0);
         if (enchantmentName == null) throw new CommandUsageException("/<command> <enchantment> [level]");
 
-        Enchantment enchantment = getPlugin().getEnchantmentManager().getEnchantmentByKeyName(enchantmentName);
+        Enchantment enchantment = enchantmentManager.getEnchantmentByKeyName(enchantmentName);
 
         if (enchantment == null) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "invalidEnchantment",
                     "{ac}The enchantment '{enchantment}' does not exist.",
@@ -62,7 +69,7 @@ public class EnchantCommand extends EszCommand {
         int level = args.getInt(1, enchantment.getMaxLevel());
 
         heldItem.addUnsafeEnchantment(enchantment, level);
-        sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+        sender.sendMessage(messageManager.getAndFormatMsg(
                 MessageManager.Style.ITEMS,
                 "enchantSuccess",
                 "&7Successfully enchanted your item with {ac}{enchantment} &7level {ac}{level}&7.",
@@ -76,11 +83,11 @@ public class EnchantCommand extends EszCommand {
     public List<String> tabComplete(CommandSender sender, Command command, ArgumentList args) {
         if (args.getCurrentArgIndex() == 0) {
             return getDisplayOptions(
-                    getPlugin().getEnchantmentManager().getAllEnchantmentNames(),
+                    enchantmentManager.getAllEnchantmentNames(),
                     args.getCurrentArg()
             );
         } else if (args.getCurrentArgIndex() == 1) {
-            Enchantment enchantment = getPlugin().getEnchantmentManager().getEnchantmentByKeyName(args.getArg(0));
+            Enchantment enchantment = enchantmentManager.getEnchantmentByKeyName(args.getArg(0));
             if (enchantment == null) return List.of("1");
 
             List<String> levels = new ArrayList<>();

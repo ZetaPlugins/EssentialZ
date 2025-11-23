@@ -1,10 +1,13 @@
 package com.zetaplugins.essentialz.commands.communication;
 
 import com.zetaplugins.essentialz.EssentialZ;
+import com.zetaplugins.essentialz.features.LastMsgManager;
+import com.zetaplugins.essentialz.storage.Storage;
 import com.zetaplugins.essentialz.storage.model.PlayerData;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBePlayerException;
 import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
@@ -24,6 +27,13 @@ import java.util.UUID;
 )
 public class ReplyCommand extends EszCommand {
 
+    @InjectManager
+    private MessageManager messageManager;
+    @InjectManager
+    private LastMsgManager lastMsgManager;
+    @InjectManager
+    private Storage storage;
+
     public ReplyCommand(EssentialZ plugin) {
         super(plugin);
     }
@@ -32,9 +42,9 @@ public class ReplyCommand extends EszCommand {
     public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandSenderMustBePlayerException, CommandUsageException {
         if (!(sender instanceof Player player)) throw new CommandSenderMustBePlayerException();
 
-        UUID lastMsgUUID = getPlugin().getLastMsgManager().getLastMsg(player.getUniqueId());
+        UUID lastMsgUUID = lastMsgManager.getLastMsg(player.getUniqueId());
         if (lastMsgUUID == null) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "noRecentMessages",
                     "{ac}You have no recent messages to reply to."
@@ -44,7 +54,7 @@ public class ReplyCommand extends EszCommand {
 
         Player targetPlayer = getPlugin().getServer().getPlayer(lastMsgUUID);
         if (targetPlayer == null || !targetPlayer.isOnline()) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "playerNotFound",
                     "{ac}Player not found."
@@ -52,9 +62,9 @@ public class ReplyCommand extends EszCommand {
             return false;
         }
 
-        PlayerData targetPlayerData = getPlugin().getStorage().load(targetPlayer.getUniqueId());
+        PlayerData targetPlayerData = storage.load(targetPlayer.getUniqueId());
         if (!targetPlayerData.isEnableDms()) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "playerDmsDisabled",
                     "{ac}{player} has disabled private messages.",
@@ -63,9 +73,9 @@ public class ReplyCommand extends EszCommand {
             return false;
         }
 
-        boolean isIgnoring = getPlugin().getStorage().isPlayerIgnoring(targetPlayer.getUniqueId(), player.getUniqueId());
+        boolean isIgnoring = storage.isPlayerIgnoring(targetPlayer.getUniqueId(), player.getUniqueId());
         if (isIgnoring) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "playerIsIgnoringYou",
                     "{ac}{player} is ignoring you. Your message was not sent.",
@@ -74,9 +84,9 @@ public class ReplyCommand extends EszCommand {
             return false;
         }
 
-        boolean youAreIgnoring = getPlugin().getStorage().isPlayerIgnoring(player.getUniqueId(), targetPlayer.getUniqueId());
+        boolean youAreIgnoring = storage.isPlayerIgnoring(player.getUniqueId(), targetPlayer.getUniqueId());
         if (youAreIgnoring) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "youAreIgnoringPlayer",
                     "{ac}You are ignoring {player}. Unignore them to send messages.",
@@ -91,7 +101,7 @@ public class ReplyCommand extends EszCommand {
 
         boolean allowToUseColor = sender.hasPermission("essentialz.msg.color");
 
-        sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+        sender.sendMessage(messageManager.getAndFormatMsg(
                 MessageManager.Style.COMMUNICATION,
                 "privateMessageSent",
                 "&7&8[&7To &r{ac}{recipient}&7&8]&7: {message}",
@@ -99,7 +109,7 @@ public class ReplyCommand extends EszCommand {
                 new MessageManager.Replaceable<>("{message}", message, allowToUseColor)
         ));
 
-        targetPlayer.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+        targetPlayer.sendMessage(messageManager.getAndFormatMsg(
                 MessageManager.Style.COMMUNICATION,
                 "privateMessageReceived",
                 "&7&8[&7From &r{ac}{sender}&7&8]&7: {message}",

@@ -5,6 +5,7 @@ import com.zetaplugins.essentialz.storage.connectionPool.ConnectionPool;
 import com.zetaplugins.essentialz.storage.model.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.eclipse.sisu.PostConstruct;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,8 +20,14 @@ public abstract class SQLStorage extends Storage {
         super(plugin);
     }
 
+    public abstract ConnectionPool getConnectionPool();
+
+    public Connection getConnection() throws SQLException {
+        return getConnectionPool().getConnection();
+    }
+
     @Override
-    public void init() {
+    public void initializeDatabase() {
         try (Connection connection = getConnection()) {
             if (connection == null) return;
             try (Statement statement = connection.createStatement()) {
@@ -49,12 +56,6 @@ public abstract class SQLStorage extends Storage {
         } catch (SQLException e) {
             getPlugin().getLogger().log(Level.SEVERE, "Failed to initialize SQL database:", e);
         }
-    }
-
-    public abstract ConnectionPool getConnectionPool();
-
-    public Connection getConnection() throws SQLException {
-        return getConnectionPool().getConnection();
     }
 
     @Override

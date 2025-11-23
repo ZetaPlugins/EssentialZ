@@ -1,6 +1,8 @@
 package com.zetaplugins.essentialz.commands.items;
 
+import com.zetaplugins.essentialz.features.GiveMaterialManager;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBePlayerException;
 import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
@@ -23,6 +25,11 @@ import java.util.List;
 )
 public class ICommand extends EszCommand {
 
+    @InjectManager
+    private MessageManager messageManager;
+    @InjectManager
+    private GiveMaterialManager giveMaterialManager;
+
     public ICommand(EssentialZ plugin) {
         super(plugin);
     }
@@ -33,9 +40,9 @@ public class ICommand extends EszCommand {
 
         String materialName = args.getArg(0);
         if (materialName == null) throw new CommandUsageException("/give [player] <item> [amount]");
-        Material material = getPlugin().getGiveMaterialManager().getMaterialByKey(materialName);
+        Material material = giveMaterialManager.getMaterialByKey(materialName);
         if (material == null) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "invalidMaterial",
                     "{ac}'{material}' is not a valid material.",
@@ -49,7 +56,7 @@ public class ICommand extends EszCommand {
         ItemStack itemStack = new ItemStack(material, amount);
         player.getInventory().addItem(itemStack);
 
-        sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+        sender.sendMessage(messageManager.getAndFormatMsg(
                 MessageManager.Style.ITEMS,
                 "giveYourselfConfirmation",
                 "&7You have been given {ac}{amount}x {material}&7.",
@@ -63,7 +70,7 @@ public class ICommand extends EszCommand {
     @Override
     public List<String> tabComplete(CommandSender sender, Command command, ArgumentList args) {
         if (args.getCurrentArgIndex() == 0) {
-            return getDisplayOptions(getPlugin().getGiveMaterialManager().getPossibleMaterials(), args.getCurrentArg());
+            return getDisplayOptions(giveMaterialManager.getPossibleMaterials(), args.getCurrentArg());
         } else if (args.getCurrentArgIndex() == 1) {
             return getDisplayOptions(List.of("1", "16", "32", "64"), args.getCurrentArg());
         }

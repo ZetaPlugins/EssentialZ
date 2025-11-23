@@ -2,6 +2,7 @@ package com.zetaplugins.essentialz.commands.movement;
 
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandPermissionException;
 import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
@@ -23,6 +24,10 @@ import java.util.List;
         aliases = {"speed"}
 )
 public class WalkSpeedCommand extends EszCommand {
+
+    @InjectManager
+    private MessageManager messageManager;
+
     public WalkSpeedCommand(EssentialZ plugin) {
         super(plugin);
     }
@@ -48,7 +53,7 @@ public class WalkSpeedCommand extends EszCommand {
 
             targetPlayer.setWalkSpeed((float) speed / 10);
             sendConfirmMessage(targetPlayer, speed);
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.MOVEMENT,
                     "walkSpeedSetOther",
                     "&7Set {ac}{player}&7's walk speed to {ac}{speed}&7.",
@@ -59,7 +64,7 @@ public class WalkSpeedCommand extends EszCommand {
         }
 
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "specifyPlayerOrBePlayer",
                     "{ac}You must specify a player or be a player to use this command."
@@ -73,7 +78,7 @@ public class WalkSpeedCommand extends EszCommand {
     }
 
     private void sendConfirmMessage(Player player, int speed) {
-        player.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+        player.sendMessage(messageManager.getAndFormatMsg(
                 MessageManager.Style.MOVEMENT,
                 "walkSpeedSet",
                 "&7Set your walk speed to {ac}{speed}&7.",

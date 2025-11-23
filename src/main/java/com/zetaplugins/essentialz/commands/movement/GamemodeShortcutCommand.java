@@ -1,7 +1,9 @@
 package com.zetaplugins.essentialz.commands.movement;
 
+import com.zetaplugins.essentialz.util.LanguageManager;
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandPermissionException;
 import org.bukkit.GameMode;
@@ -21,6 +23,12 @@ import java.util.List;
         permission = "essentialz.gamemode"
 )
 public class GamemodeShortcutCommand extends EszCommand {
+
+    @InjectManager
+    private MessageManager messageManager;
+    @InjectManager
+    private LanguageManager languageManager;
+
     public GamemodeShortcutCommand(EssentialZ plugin) {
         super(plugin);
     }
@@ -34,7 +42,7 @@ public class GamemodeShortcutCommand extends EszCommand {
                 throw new CommandPermissionException(Permission.GAMEMODE_OTHERS.getNode());
             }
 
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.MOVEMENT,
                     "gamemodeSetOther",
                     "&7Set {ac}{player}&7's gamemode to {ac}{gamemode}&7.",
@@ -47,7 +55,7 @@ public class GamemodeShortcutCommand extends EszCommand {
         }
 
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "specifyPlayerOrBePlayer",
                     "{ac}You must specify a player or be a player to use this command."
@@ -60,10 +68,10 @@ public class GamemodeShortcutCommand extends EszCommand {
 
     private String commandNameToGamemode(String commandName) {
         return switch (commandName) {
-            case "gmc" -> getPlugin().getLanguageManager().getString("creative", "creative");
-            case "gms" -> getPlugin().getLanguageManager().getString("survival", "survival");
-            case "gma" -> getPlugin().getLanguageManager().getString("adventure", "adventure");
-            case "gmsp" -> getPlugin().getLanguageManager().getString("spectator", "spectator");
+            case "gmc" -> languageManager.getString("creative", "creative");
+            case "gms" -> languageManager.getString("survival", "survival");
+            case "gma" -> languageManager.getString("adventure", "adventure");
+            case "gmsp" -> languageManager.getString("spectator", "spectator");
             default -> null;
         };
     }
@@ -93,7 +101,7 @@ public class GamemodeShortcutCommand extends EszCommand {
     }
 
     private void sendConfirmationMessage(Player player, String gameMode) {
-        player.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+        player.sendMessage(messageManager.getAndFormatMsg(
                 MessageManager.Style.MOVEMENT,
                 "gamemodeSet",
                 "&7Set your gamemode to {ac}{gamemode}&7.",

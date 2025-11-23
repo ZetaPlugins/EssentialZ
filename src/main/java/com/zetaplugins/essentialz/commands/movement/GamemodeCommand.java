@@ -1,7 +1,9 @@
 package com.zetaplugins.essentialz.commands.movement;
 
+import com.zetaplugins.essentialz.util.LanguageManager;
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandPermissionException;
 import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
@@ -23,6 +25,12 @@ import java.util.List;
         aliases = {"gm"}
 )
 public class GamemodeCommand extends EszCommand {
+
+    @InjectManager
+    private MessageManager messageManager;
+    @InjectManager
+    private LanguageManager languageManager;
+
     public GamemodeCommand(EssentialZ plugin) {
         super(plugin);
     }
@@ -45,7 +53,7 @@ public class GamemodeCommand extends EszCommand {
 
             targetPlayer.setGameMode(gamemode);
             sendConfirmationMessage(targetPlayer, translateGamemode(gamemode));
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.MOVEMENT,
                     "gamemodeSetOther",
                     "&7Set {ac}{player}&7's gamemode to {ac}{gamemode}&7.",
@@ -57,7 +65,7 @@ public class GamemodeCommand extends EszCommand {
 
 
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "specifyPlayerOrBePlayer",
                     "{ac}You must specify a player or be a player to use this command."
@@ -84,15 +92,15 @@ public class GamemodeCommand extends EszCommand {
 
     private String translateGamemode(GameMode gameMode) {
         return switch (gameMode) {
-            case SURVIVAL -> getPlugin().getLanguageManager().getString("survival", "survival");
-            case CREATIVE -> getPlugin().getLanguageManager().getString("creative", "creative");
-            case ADVENTURE -> getPlugin().getLanguageManager().getString("adventure", "adventure");
-            case SPECTATOR -> getPlugin().getLanguageManager().getString("spectator", "spectator");
+            case SURVIVAL -> languageManager.getString("survival", "survival");
+            case CREATIVE -> languageManager.getString("creative", "creative");
+            case ADVENTURE -> languageManager.getString("adventure", "adventure");
+            case SPECTATOR -> languageManager.getString("spectator", "spectator");
         };
     }
 
     private void sendConfirmationMessage(Player player, String gameMode) {
-        player.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+        player.sendMessage(messageManager.getAndFormatMsg(
                 MessageManager.Style.MOVEMENT,
                 "gamemodeSet",
                 "&7Set your gamemode to {ac}{gamemode}&7.",

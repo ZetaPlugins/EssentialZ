@@ -2,6 +2,7 @@ package com.zetaplugins.essentialz.commands.movement;
 
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandPermissionException;
 import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
@@ -21,6 +22,10 @@ import java.util.List;
         permission = "essentialz.flyspeed"
 )
 public class FlySpeedCommand extends EszCommand {
+
+    @InjectManager
+    private MessageManager messageManager;
+
     public FlySpeedCommand(EssentialZ plugin) {
         super(plugin);
     }
@@ -46,7 +51,7 @@ public class FlySpeedCommand extends EszCommand {
 
             targetPlayer.setFlySpeed((float) speed / 10);
             sendConfirmMessage(targetPlayer, speed);
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.MOVEMENT,
                     "flySpeedSetOther",
                     "&7Set {ac}{player}&7's fly speed to {ac}{speed}&7.",
@@ -57,7 +62,7 @@ public class FlySpeedCommand extends EszCommand {
         }
 
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "specifyPlayerOrBePlayer",
                     "{ac}You must specify a player or be a player to use this command."
@@ -71,7 +76,7 @@ public class FlySpeedCommand extends EszCommand {
     }
 
     private void sendConfirmMessage(Player player, int speed) {
-        player.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+        player.sendMessage(messageManager.getAndFormatMsg(
                 MessageManager.Style.MOVEMENT,
                 "flySpeedSet",
                 "&7Set your fly speed to {ac}{speed}&7.",

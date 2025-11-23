@@ -1,5 +1,6 @@
 package com.zetaplugins.essentialz.util;
 
+import com.zetaplugins.zetacore.annotations.InjectManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.Tag;
@@ -11,6 +12,9 @@ import java.util.*;
 public class MessageManager {
     private final EssentialZ plugin;
     private final Map<String, String> colorMap;
+
+    @InjectManager
+    private LanguageManager languageManager;
 
     public MessageManager(EssentialZ plugin) {
         this.plugin = plugin;
@@ -69,7 +73,7 @@ public class MessageManager {
         if (path.startsWith("messages.")) path = path.substring("messages.".length());
 
         MiniMessage mm = MiniMessage.miniMessage();
-        String msg = plugin.getLanguageManager().getString(path, fallback);
+        String msg = languageManager.getString(path, fallback);
 
         msg = style.getPrefix(plugin) + msg;
 

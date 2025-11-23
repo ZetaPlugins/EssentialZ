@@ -1,6 +1,7 @@
 package com.zetaplugins.essentialz.commands.items;
 
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBePlayerException;
 import org.bukkit.Material;
@@ -22,6 +23,10 @@ import java.util.List;
         permission = "essentialz.itemname"
 )
 public class ItemNameCommand extends EszCommand {
+
+    @InjectManager
+    private MessageManager messageManager;
+
     public ItemNameCommand(EssentialZ plugin) {
         super(plugin);
     }
@@ -33,7 +38,7 @@ public class ItemNameCommand extends EszCommand {
         ItemStack item = player.getInventory().getItemInMainHand();
 
         if (item.getType() == Material.AIR) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "mustHoldAnItem",
                     "{ac}You must be holding an item."
@@ -52,7 +57,7 @@ public class ItemNameCommand extends EszCommand {
         int maxLength = getPlugin().getConfig().getInt("maxItemNameLength");
 
         if (newName.length() > maxLength && maxLength != -1) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "itemNameTooLong",
                     "{ac}The item name is too long! The maximum length is {max} characters.",
@@ -62,10 +67,10 @@ public class ItemNameCommand extends EszCommand {
         }
 
         ItemMeta newMeta = item.getItemMeta();
-        newMeta.displayName(getPlugin().getMessageManager().formatMsg(newName.toString()));
+        newMeta.displayName(messageManager.formatMsg(newName.toString()));
         item.setItemMeta(newMeta);
 
-        sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+        sender.sendMessage(messageManager.getAndFormatMsg(
                 MessageManager.Style.ITEMS,
                 "itemNameSet",
                 "&7Item name set to '{name}&r&7'.",

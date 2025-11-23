@@ -2,6 +2,7 @@ package com.zetaplugins.essentialz.storage;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.storage.model.PlayerData;
+import com.zetaplugins.zetacore.annotations.PostManagerConstruct;
 
 import java.util.UUID;
 
@@ -21,9 +22,10 @@ public abstract class Storage {
     }
 
     /**
-     * Initializes the storage system.
+     * Initializes the database connection and schema.
      */
-    public abstract void init();
+    @PostManagerConstruct
+    public abstract void initializeDatabase();
 
     /**
      * Saves the player data to the storage system.

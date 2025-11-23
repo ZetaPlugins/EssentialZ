@@ -1,10 +1,12 @@
 package com.zetaplugins.essentialz.commands.communication;
 
 import com.zetaplugins.essentialz.EssentialZ;
+import com.zetaplugins.essentialz.storage.Storage;
 import com.zetaplugins.essentialz.storage.model.PlayerData;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBePlayerException;
 import org.bukkit.command.Command;
@@ -22,6 +24,11 @@ import java.util.List;
 )
 public class ToggleTeamchatCommand extends EszCommand {
 
+    @InjectManager
+    private MessageManager messageManager;
+    @InjectManager
+    private Storage storage;
+
     public ToggleTeamchatCommand(EssentialZ plugin) {
         super(plugin);
     }
@@ -30,14 +37,14 @@ public class ToggleTeamchatCommand extends EszCommand {
     public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandSenderMustBePlayerException {
         if (!(sender instanceof Player player)) throw new CommandSenderMustBePlayerException();
 
-        PlayerData playerData = getPlugin().getStorage().load(player.getUniqueId());
+        PlayerData playerData = storage.load(player.getUniqueId());
         boolean newStatus = !playerData.isEnableTeamchat();
         playerData.setEnableTeamchat(newStatus);
-        getPlugin().getStorage().save(playerData);
+        storage.save(playerData);
 
         String statusMsgKey = newStatus ? "tcEnabled" : "tcDisabled";
         String statusMsgDefault = newStatus ? "&7You have {ac}enabled &7the team chat." : "&7You have {ac}disabled &7the team chat.";
-        player.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+        player.sendMessage(messageManager.getAndFormatMsg(
                 MessageManager.Style.SUCCESS,
                 statusMsgKey,
                 statusMsgDefault

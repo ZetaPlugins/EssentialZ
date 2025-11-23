@@ -4,6 +4,7 @@ import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBePlayerException;
 import org.bukkit.command.Command;
@@ -21,6 +22,9 @@ import java.util.List;
 )
 public class MoreCommand extends EszCommand {
 
+    @InjectManager
+    private MessageManager messageManager;
+
     public MoreCommand(EssentialZ plugin) {
         super(plugin);
     }
@@ -31,7 +35,7 @@ public class MoreCommand extends EszCommand {
 
         ItemStack item = player.getInventory().getItemInMainHand();
         if (item.getType().isAir()) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "mustHoldAnItem",
                     "{ac}You must be holding an item!"
@@ -40,7 +44,7 @@ public class MoreCommand extends EszCommand {
         }
 
         if (item.getType().getMaxStackSize() == 1) {
-            sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+            sender.sendMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "itemCannotBeStacked",
                     "{ac}The item you are holding cannot be stacked!"
@@ -51,7 +55,7 @@ public class MoreCommand extends EszCommand {
         item.setAmount(item.getType().getMaxStackSize());
         player.getInventory().setItemInMainHand(item);
 
-        sender.sendMessage(getPlugin().getMessageManager().getAndFormatMsg(
+        sender.sendMessage(messageManager.getAndFormatMsg(
                 MessageManager.Style.ITEMS,
                 "stackedItems",
                 "&7Stacked {ac}{amount}&7 items in your hand.",

@@ -1,5 +1,7 @@
 package com.zetaplugins.essentialz.features;
 
+import com.zetaplugins.essentialz.util.ConfigManager;
+import com.zetaplugins.zetacore.annotations.InjectManager;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.Nullable;
@@ -16,6 +18,9 @@ import java.util.stream.Stream;
 public class GiveMaterialManager {
     private final EssentialZ plugin;
     private final Map<String, Material> normalizedLookup;
+
+    @InjectManager
+    private ConfigManager configManager;
 
     public GiveMaterialManager(EssentialZ plugin) {
         this.plugin = plugin;
@@ -57,7 +62,7 @@ public class GiveMaterialManager {
     }
 
     private Map<String, Material> getConfigMaterials() {
-        FileConfiguration config = plugin.getConfigManager().getMaterialsConfig();
+        FileConfiguration config = configManager.getMaterialsConfig();
         return config.getValues(false).entrySet().stream()
                 .filter(entry -> entry.getValue() instanceof String)
                 .map(entry -> {
