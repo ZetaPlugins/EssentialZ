@@ -1,12 +1,13 @@
 package com.zetaplugins.essentialz.commands.communication;
 
 import com.zetaplugins.essentialz.EssentialZ;
-import com.zetaplugins.essentialz.util.ConfigManager;
+import com.zetaplugins.essentialz.util.EszConfig;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
+import com.zetaplugins.zetacore.services.config.ConfigService;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -22,7 +23,7 @@ import java.util.List;
 public class Broadcast extends EszCommand {
 
     @InjectManager
-    private ConfigManager configManager;
+    private ConfigService configManager;
 
     public Broadcast(EssentialZ plugin) {
         super(plugin);
@@ -32,7 +33,7 @@ public class Broadcast extends EszCommand {
     public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandUsageException {
         if (args.size() < 1) throw new CommandUsageException("/" + command.getName() + " <message>");
         String message = args.getJoinedString(0);
-        String broadCastFormat = configManager.getChatConfig().getString("broadcastFormat");
+        String broadCastFormat = configManager.getConfig(EszConfig.CHAT).getString("broadcastFormat");
         if (broadCastFormat == null) broadCastFormat = "&8[<#F06292>Broadcast&8] &7{message}";
         String formattedMessage = broadCastFormat.replace("{message}", message);
         Bukkit.broadcast(getMessageManager().formatMsg(formattedMessage));

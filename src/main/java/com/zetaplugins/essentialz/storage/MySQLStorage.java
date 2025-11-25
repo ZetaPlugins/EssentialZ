@@ -3,8 +3,9 @@ package com.zetaplugins.essentialz.storage;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.storage.connectionPool.ConnectionPool;
 import com.zetaplugins.essentialz.storage.connectionPool.MySQLConnectionPool;
-import com.zetaplugins.essentialz.util.ConfigManager;
+import com.zetaplugins.essentialz.util.EszConfig;
 import com.zetaplugins.zetacore.annotations.InjectManager;
+import com.zetaplugins.zetacore.services.config.ConfigService;
 import org.bukkit.configuration.file.FileConfiguration;
 
 /**
@@ -14,12 +15,12 @@ public final class MySQLStorage extends MySQLSyntaxStorage {
     private final MySQLConnectionPool connectionPool;
 
     @InjectManager
-    private ConfigManager configManager;
+    private ConfigService configManager;
 
     public MySQLStorage(EssentialZ plugin) {
         super(plugin);
 
-        FileConfiguration config = configManager.getStorageConfig();
+        FileConfiguration config = configManager.getConfig(EszConfig.STORAGE);
 
         final String HOST = config.getString("host");
         final String PORT = config.getString("port");

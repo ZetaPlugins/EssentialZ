@@ -1,28 +1,29 @@
 package com.zetaplugins.essentialz;
 
 import com.zetaplugins.essentialz.features.EnchantmentManager;
+import com.zetaplugins.essentialz.features.GiveMaterialManager;
+import com.zetaplugins.essentialz.features.GodModeManager;
 import com.zetaplugins.essentialz.features.LastMsgManager;
 import com.zetaplugins.essentialz.storage.MySQLStorage;
 import com.zetaplugins.essentialz.storage.SQLiteStorage;
 import com.zetaplugins.essentialz.storage.Storage;
+import com.zetaplugins.essentialz.util.EszConfig;
+import com.zetaplugins.essentialz.util.LanguageManager;
+import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.services.commands.AutoCommandRegistrar;
+import com.zetaplugins.zetacore.services.config.ConfigService;
 import com.zetaplugins.zetacore.services.di.ManagerRegistry;
 import com.zetaplugins.zetacore.services.events.AutoEventRegistrar;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-import com.zetaplugins.essentialz.features.GiveMaterialManager;
-import com.zetaplugins.essentialz.features.GodModeManager;
-import com.zetaplugins.essentialz.util.ConfigManager;
-import com.zetaplugins.essentialz.util.LanguageManager;
-import com.zetaplugins.essentialz.util.MessageManager;
 
 import java.util.List;
 
 public final class EssentialZ extends JavaPlugin {
     private static final String PACKAGE_PREFIX = "com.zetaplugins.essentialz";
 
-    private ConfigManager configManager;
+    private ConfigService configManager;
 
     private final boolean hasPlaceholderApi = Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
 
@@ -33,7 +34,7 @@ public final class EssentialZ extends JavaPlugin {
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
 
-        configManager = new ConfigManager(this);
+        configManager = new ConfigService(this);
 
         ManagerRegistry managerRegistry = new ManagerRegistry(this);
 
@@ -72,7 +73,7 @@ public final class EssentialZ extends JavaPlugin {
     }
 
     private Storage createPlayerDataStorage() {
-        switch (configManager.getStorageConfig().getString("type").toLowerCase()) {
+        switch (configManager.getConfig(EszConfig.STORAGE).getString("type").toLowerCase()) {
             case "mysql":
                 getLogger().info("Using MySQL storage");
                 return new MySQLStorage(this);

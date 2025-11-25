@@ -1,7 +1,7 @@
 package com.zetaplugins.essentialz.commands.communication;
 
 import com.zetaplugins.essentialz.EssentialZ;
-import com.zetaplugins.essentialz.util.ConfigManager;
+import com.zetaplugins.essentialz.util.EszConfig;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.essentialz.util.permissions.Permission;
@@ -9,6 +9,7 @@ import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBeOrSpecifyPlayerException;
+import com.zetaplugins.zetacore.services.config.ConfigService;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -26,7 +27,7 @@ import java.util.List;
 public class NickCommand extends EszCommand {
 
     @InjectManager
-    private ConfigManager configManager;
+    private ConfigService configManager;
 
     public NickCommand(EssentialZ plugin) {
         super(plugin);
@@ -52,7 +53,7 @@ public class NickCommand extends EszCommand {
             return true;
         }
 
-        int maxNickLenth = configManager.getChatConfig().getInt("maxNicknameLength", 16);
+        int maxNickLenth = configManager.getConfig(EszConfig.CHAT).getInt("maxNicknameLength", 16);
 
         if (nickName.length() > maxNickLenth) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(

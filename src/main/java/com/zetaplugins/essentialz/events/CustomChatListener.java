@@ -1,11 +1,11 @@
 package com.zetaplugins.essentialz.events;
 
-import com.zetaplugins.essentialz.EssentialZ;
-import com.zetaplugins.essentialz.util.ConfigManager;
+import com.zetaplugins.essentialz.util.EszConfig;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterListener;
 import com.zetaplugins.zetacore.annotations.InjectManager;
+import com.zetaplugins.zetacore.services.config.ConfigService;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
@@ -18,13 +18,13 @@ import org.bukkit.event.Listener;
 public class CustomChatListener implements Listener {
 
     @InjectManager
-    private ConfigManager configManager;
+    private ConfigService configManager;
     @InjectManager
     private MessageManager messageManager;
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerChat(AsyncChatEvent event) {
-        if (!configManager.getChatConfig().getBoolean("enableCustomChat", true)) return;
+        if (!configManager.getConfig(EszConfig.CHAT).getBoolean("enableCustomChat", true)) return;
         event.setCancelled(true);
         Player player = event.getPlayer();
 
@@ -40,7 +40,7 @@ public class CustomChatListener implements Listener {
         boolean allowColors = Permission.CHAT_COLOR.has(event.getPlayer());
 
         String rawText = PlainTextComponentSerializer.plainText().serialize(event.message());
-        String format = configManager.getChatConfig().getString("chatFormat", "&7{player_displayname} &8» &f{message}");
+        String format = configManager.getConfig(EszConfig.CHAT).getString("chatFormat", "&7{player_displayname} &8» &f{message}");
 
         String rawDisplayName = PlainTextComponentSerializer.plainText().serialize(player.displayName());
 

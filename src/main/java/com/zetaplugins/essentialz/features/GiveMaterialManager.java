@@ -1,17 +1,14 @@
 package com.zetaplugins.essentialz.features;
 
-import com.zetaplugins.essentialz.util.ConfigManager;
+import com.zetaplugins.essentialz.EssentialZ;
+import com.zetaplugins.essentialz.util.EszConfig;
 import com.zetaplugins.zetacore.annotations.InjectManager;
+import com.zetaplugins.zetacore.services.config.ConfigService;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.Nullable;
-import com.zetaplugins.essentialz.EssentialZ;
 
-import java.util.AbstractMap;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -20,7 +17,7 @@ public class GiveMaterialManager {
     private final Map<String, Material> normalizedLookup;
 
     @InjectManager
-    private ConfigManager configManager;
+    private ConfigService configManager;
 
     public GiveMaterialManager(EssentialZ plugin) {
         this.plugin = plugin;
@@ -62,7 +59,7 @@ public class GiveMaterialManager {
     }
 
     private Map<String, Material> getConfigMaterials() {
-        FileConfiguration config = configManager.getMaterialsConfig();
+        FileConfiguration config = configManager.getConfig(EszConfig.MATERIALS);
         return config.getValues(false).entrySet().stream()
                 .filter(entry -> entry.getValue() instanceof String)
                 .map(entry -> {
