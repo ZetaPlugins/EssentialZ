@@ -43,7 +43,10 @@ public enum Permission implements PermissionNode {
     PWEATHER("pweather", PermissionDefault.OP, "Allows the user to set the weather for a specific player"),
     SUDO("sudo", PermissionDefault.OP, "Allows the user to force other players to run commands"),
     HAT("hat", PermissionDefault.TRUE, "Allows the user to wear the item in their hand as a hat"),
-    TOP("top", PermissionDefault.TRUE, "Allows the user to teleport to the highest block at their current location")
+    TOP("top", PermissionDefault.TRUE, "Allows the user to teleport to the highest block at their current location"),
+    SETWARP("setwarp", PermissionDefault.OP, "Allows the user to create warps"),
+    WARP("warp", PermissionDefault.TRUE, "Allows the user to teleport to warps"),
+    DELWARP("delwarp", PermissionDefault.OP, "Allows the user to delete warps")
     ;
 
     private final String node;

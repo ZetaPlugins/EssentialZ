@@ -10,6 +10,7 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class TopCommand extends EszCommand {
         int highestY = player.getWorld().getHighestBlockYAt(player.getLocation());
         Location location = player.getLocation();
         location.setY(highestY + 1);
-        player.teleport(location);
+        player.teleport(location, PlayerTeleportEvent.TeleportCause.PLUGIN);
 
         return true;
     }

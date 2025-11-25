@@ -2,8 +2,10 @@ package com.zetaplugins.essentialz.storage;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.storage.model.PlayerData;
+import com.zetaplugins.essentialz.storage.model.WarpData;
 import com.zetaplugins.zetacore.annotations.PostManagerConstruct;
 
+import java.util.List;
 import java.util.UUID;
 
 public abstract class Storage {
@@ -75,4 +77,29 @@ public abstract class Storage {
      * @return true if the player is ignoring the target player, false otherwise.
      */
     public abstract boolean isPlayerIgnoring(UUID playerUuid, UUID targetUuid);
+
+    /**
+     * Gets a warp by its name.
+     * @param warpName The name of the warp.
+     * @return The warp object, or null if not found.
+     */
+    public abstract WarpData getWarp(String warpName);
+
+    /**
+     * Saves a warp to the storage system.
+     * @param warpData The warp to save.
+     */
+    public abstract void saveWarp(WarpData warpData);
+
+    /**
+     * Deletes a warp from the storage system.
+     * @param warpName The name of the warp to delete.
+     */
+    public abstract boolean deleteWarp(String warpName);
+
+    /**
+     * Gets a list of all warp names.
+     * @return A list of all warp names.
+     */
+    public abstract List<String> getAllWarpNames();
 }

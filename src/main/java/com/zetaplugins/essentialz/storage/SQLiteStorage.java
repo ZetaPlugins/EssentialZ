@@ -23,7 +23,12 @@ public final class SQLiteStorage extends SQLStorage {
     }
 
     @Override
-    protected String getInserOrReplaceStatement() {
+    protected String getInserOrReplacePlayerStatement() {
         return "INSERT OR REPLACE INTO players (uuid, enableTeamchat, enableDms) VALUES (?, ?, ?)";
+    }
+
+    @Override
+    protected String getInserOrReplaceWarpStatement() {
+        return "INSERT OR REPLACE INTO warps (name, world, x, y, z, yaw, pitch) VALUES (?, ?, ?, ?, ?, ?, ?)";
     }
 }

@@ -44,11 +44,24 @@ public abstract class MySQLSyntaxStorage extends SQLStorage {
     }
 
     @Override
-    protected String getInserOrReplaceStatement() {
+    protected String getInserOrReplacePlayerStatement() {
         return "INSERT INTO players (uuid, enableTeamchat, enableDms, ignoredPlayers) " +
                 "VALUES (?, ?, ?, ?) " +
                 "ON DUPLICATE KEY UPDATE " +
                 "enableTeamchat = VALUES(enableTeamchat), " +
                 "enableDms = VALUES(enableDms)";
+    }
+
+    @Override
+    protected String getInserOrReplaceWarpStatement() {
+        return "INSERT INTO warps (name, world, x, y, z, yaw, pitch) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?) " +
+                "ON DUPLICATE KEY UPDATE " +
+                "world = VALUES(world), " +
+                "x = VALUES(x), " +
+                "y = VALUES(y), " +
+                "z = VALUES(z), " +
+                "yaw = VALUES(yaw), " +
+                "pitch = VALUES(pitch)";
     }
 }
