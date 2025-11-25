@@ -1,13 +1,13 @@
 package com.zetaplugins.essentialz.util.commands;
 
+import com.zetaplugins.essentialz.EssentialZ;
+import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.PluginCommand;
 import com.zetaplugins.zetacore.commands.exceptions.CommandPermissionException;
 import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBeOrSpecifyPlayerException;
 import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBePlayerException;
 import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
-import com.zetaplugins.essentialz.EssentialZ;
-import com.zetaplugins.essentialz.util.MessageManager;
 
 public abstract class EszCommand extends PluginCommand<EssentialZ> {
 
@@ -61,6 +61,18 @@ public abstract class EszCommand extends PluginCommand<EssentialZ> {
                             MessageManager.Style.ERROR,
                             "specifyPlayerOrBePlayer",
                             "{ac}You must specify a player or be a player to use this command."
+                    ));
+                    return false;
+                }
+        );
+
+        registerExceptionHandler(
+                CommandPlayerNotFoundException.class,
+                (ctx, e) -> {
+                    ctx.getSender().sendMessage(messageManager.getAndFormatMsg(
+                            MessageManager.Style.ERROR,
+                            "playerNotFound",
+                            "{ac}Player not found."
                     ));
                     return false;
                 }
