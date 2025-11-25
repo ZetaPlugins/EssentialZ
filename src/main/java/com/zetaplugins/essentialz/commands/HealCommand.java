@@ -5,7 +5,6 @@ import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
-import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.command.Command;
@@ -24,9 +23,6 @@ import java.util.Objects;
 )
 public class HealCommand extends EszCommand {
 
-    @InjectManager
-    private MessageManager messageManager;
-
     public HealCommand(EssentialZ plugin) {
         super(plugin);
     }
@@ -36,7 +32,7 @@ public class HealCommand extends EszCommand {
         Player targetPlayer = args.getPlayer(0, sender instanceof Player ? (Player) sender : null, getPlugin());
 
         if (targetPlayer == null) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "specifyPlayerOrBePlayer",
                     "{ac}You must specify a player or be a player to use this command."
@@ -47,7 +43,7 @@ public class HealCommand extends EszCommand {
         boolean isSelfHeal = (sender instanceof Player && ((Player) sender).getUniqueId().equals(targetPlayer.getUniqueId()));
 
         if (!isSelfHeal && !Permission.HEAL_OTHERS.has(sender)) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "noPermissionHealOthers",
                     "{ac}You do not have permission to heal other players."
@@ -61,13 +57,13 @@ public class HealCommand extends EszCommand {
         targetPlayer.setHealth(maxHealth);
 
         if (isSelfHeal) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.SUCCESS,
                     "healedSelf",
                     "&7You have been healed to full health."
             ));
         } else {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.SUCCESS,
                     "healedOther",
                     "&7You have healed {ac}{player}&7 to full health.",

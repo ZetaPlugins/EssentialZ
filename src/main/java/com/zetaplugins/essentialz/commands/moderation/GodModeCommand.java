@@ -1,6 +1,9 @@
 package com.zetaplugins.essentialz.commands.moderation;
 
+import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.features.GodModeManager;
+import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
@@ -9,9 +12,6 @@ import com.zetaplugins.zetacore.commands.exceptions.CommandPermissionException;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import com.zetaplugins.essentialz.EssentialZ;
-import com.zetaplugins.essentialz.util.MessageManager;
-import com.zetaplugins.essentialz.util.commands.EszCommand;
 
 import java.util.List;
 
@@ -23,8 +23,6 @@ import java.util.List;
 )
 public class GodModeCommand extends EszCommand {
 
-    @InjectManager
-    private MessageManager messageManager;
     @InjectManager
     private GodModeManager godModeManager;
 
@@ -45,7 +43,7 @@ public class GodModeCommand extends EszCommand {
             godModeManager.setGodMode(targetPlayer, !isInGodMode);
 
             sendConfirmMessage(targetPlayer, !isInGodMode);
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.MODERATION,
                     "godModeToggledOther",
                     "&7God mode for {ac}{player}&7 is now {ac}{status}&7.",
@@ -56,7 +54,7 @@ public class GodModeCommand extends EszCommand {
         }
 
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "specifyPlayerOrBePlayer",
                     "{ac}You must specify a player or be a player to use this command."
@@ -72,7 +70,7 @@ public class GodModeCommand extends EszCommand {
     }
 
     public void sendConfirmMessage(Player player, boolean isInGodMode) {
-        player.sendMessage(messageManager.getAndFormatMsg(
+        player.sendMessage(getMessageManager().getAndFormatMsg(
                 MessageManager.Style.MODERATION,
                 "godModeToggled",
                 "&7God mode is now {ac}{status}&7.",

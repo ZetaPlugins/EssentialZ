@@ -26,8 +26,6 @@ import java.util.List;
 public class MsgCommand extends EszCommand {
 
     @InjectManager
-    private MessageManager messageManager;
-    @InjectManager
     private Storage storage;
     @InjectManager
     private LastMsgManager lastMsgManager;
@@ -45,7 +43,7 @@ public class MsgCommand extends EszCommand {
 
         if (targetPlayer == null) throw new CommandUsageException("/" + command.getName() + " <player> <message>");
         if (sender instanceof Player senderPlayer && senderPlayer.getUniqueId().equals(targetPlayer.getUniqueId())) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "cannotMessageYourself",
                     "{ac}You cannot send a private message to yourself."
@@ -56,7 +54,7 @@ public class MsgCommand extends EszCommand {
         if (sender instanceof Player senderPlayer) {
             PlayerData senderPlayerData = storage.load(senderPlayer.getUniqueId());
             if (!senderPlayerData.isEnableDms()) {
-                sender.sendMessage(messageManager.getAndFormatMsg(
+                sender.sendMessage(getMessageManager().getAndFormatMsg(
                         MessageManager.Style.ERROR,
                         "yourDmsDisabled",
                         "{ac}You have disabled private messages. Enable them using /msgtoggle to send messages."
@@ -66,7 +64,7 @@ public class MsgCommand extends EszCommand {
 
             boolean isIgnoring = storage.isPlayerIgnoring(targetPlayer.getUniqueId(), senderPlayer.getUniqueId());
             if (isIgnoring) {
-                sender.sendMessage(messageManager.getAndFormatMsg(
+                sender.sendMessage(getMessageManager().getAndFormatMsg(
                         MessageManager.Style.ERROR,
                         "playerIsIgnoringYou",
                         "{ac}{player} is ignoring you. Your message was not sent.",
@@ -77,7 +75,7 @@ public class MsgCommand extends EszCommand {
 
             boolean youAreIgnoring = storage.isPlayerIgnoring(senderPlayer.getUniqueId(), targetPlayer.getUniqueId());
             if (youAreIgnoring) {
-                sender.sendMessage(messageManager.getAndFormatMsg(
+                sender.sendMessage(getMessageManager().getAndFormatMsg(
                         MessageManager.Style.ERROR,
                         "youAreIgnoringPlayer",
                         "{ac}You are ignoring {player}. Unignore them to send messages.",
@@ -89,7 +87,7 @@ public class MsgCommand extends EszCommand {
 
         PlayerData targetPlayerData = storage.load(targetPlayer.getUniqueId());
         if (!targetPlayerData.isEnableDms()) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "playerDmsDisabled",
                     "{ac}{player} has disabled private messages.",
@@ -99,7 +97,7 @@ public class MsgCommand extends EszCommand {
         }
 
         boolean allowToUseColor = sender.hasPermission("essentialz.msg.color");
-        sender.sendMessage(messageManager.getAndFormatMsg(
+        sender.sendMessage(getMessageManager().getAndFormatMsg(
                 MessageManager.Style.COMMUNICATION,
                 "privateMessageSent",
                 "&7&8[&7To &r{ac}{recipient}&7&8]&7: {message}",
@@ -107,7 +105,7 @@ public class MsgCommand extends EszCommand {
                 new MessageManager.Replaceable<>("{message}", message, allowToUseColor)
         ));
 
-        targetPlayer.sendMessage(messageManager.getAndFormatMsg(
+        targetPlayer.sendMessage(getMessageManager().getAndFormatMsg(
                 MessageManager.Style.COMMUNICATION,
                 "privateMessageReceived",
                 "&7&8[&7From &r{ac}{sender}&7&8]&7: {message}",

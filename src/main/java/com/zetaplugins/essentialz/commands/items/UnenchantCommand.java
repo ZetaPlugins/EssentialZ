@@ -26,9 +26,6 @@ import java.util.List;
 public class UnenchantCommand extends EszCommand {
 
     @InjectManager
-    private MessageManager messageManager;
-
-    @InjectManager
     private EnchantmentManager enchantmentManager;
 
     public UnenchantCommand(EssentialZ plugin) {
@@ -41,7 +38,7 @@ public class UnenchantCommand extends EszCommand {
 
         ItemStack heldItem = player.getInventory().getItemInMainHand();
         if (heldItem.getType().isAir()) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "mustHoldAnItem",
                     "ac}You must be holding an item!"
@@ -55,7 +52,7 @@ public class UnenchantCommand extends EszCommand {
         Enchantment enchantment = enchantmentManager.getEnchantmentByKeyName(enchantmentName);
 
         if (enchantment == null) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "invalidEnchantment",
                     "{ac}The enchantment '{enchantment}' does not exist.",
@@ -65,7 +62,7 @@ public class UnenchantCommand extends EszCommand {
         }
 
         if (!heldItem.containsEnchantment(enchantment)) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "itemLacksEnchantment",
                     "{ac}The item you are holding does not have the '{enchantment}' enchantment.",
@@ -75,7 +72,7 @@ public class UnenchantCommand extends EszCommand {
         }
 
         heldItem.removeEnchantment(enchantment);
-        sender.sendMessage(messageManager.getAndFormatMsg(
+        sender.sendMessage(getMessageManager().getAndFormatMsg(
                 MessageManager.Style.ITEMS,
                 "unenchantSuccess",
                 "&7Successfully removed {ac}{enchantment} &7from your item.",

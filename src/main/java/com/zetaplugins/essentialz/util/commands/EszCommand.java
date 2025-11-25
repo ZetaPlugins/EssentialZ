@@ -67,4 +67,8 @@ public abstract class EszCommand extends PluginCommand<EssentialZ> {
         );
     }
 
+    protected MessageManager getMessageManager() {
+        return messageManager;
+    }
+
 }

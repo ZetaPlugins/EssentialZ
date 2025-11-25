@@ -3,9 +3,7 @@ package com.zetaplugins.essentialz.commands.communication;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
-import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
-import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
@@ -22,9 +20,6 @@ import java.util.List;
         permission = "essentialz.whois"
 )
 public class WhoisCommand extends EszCommand {
-
-    @InjectManager
-    private MessageManager messageManager;
 
     public WhoisCommand(EssentialZ plugin) {
         super(plugin);
@@ -44,7 +39,7 @@ public class WhoisCommand extends EszCommand {
 
             // Check if input matches real name or display name
             if (realName.equalsIgnoreCase(targetName) || displayName.equalsIgnoreCase(targetName)) {
-                sender.sendMessage(messageManager.getAndFormatMsg(
+                sender.sendMessage(getMessageManager().getAndFormatMsg(
                         MessageManager.Style.NONE,
                         "whoisInfo",
                         """
@@ -61,7 +56,7 @@ public class WhoisCommand extends EszCommand {
         }
 
         if (!found) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "noOneWithNameFound",
                     "{ac}Could not find online player with name or nickname '{name}'!",

@@ -25,8 +25,6 @@ import java.util.List;
 public class ToggleMsgCommand extends EszCommand {
 
     @InjectManager
-    private MessageManager messageManager;
-    @InjectManager
     private Storage storage;
 
     public ToggleMsgCommand(EssentialZ plugin) {
@@ -44,7 +42,7 @@ public class ToggleMsgCommand extends EszCommand {
 
         String statusMsgKey = newStatus ? "dmsEnabled" : "dmsDisabled";
         String statusMsgDefault = newStatus ? "&7You have {ac}enabled &7private messages." : "&7You have {ac}disabled &7private messages.";
-        player.sendMessage(messageManager.getAndFormatMsg(
+        player.sendMessage(getMessageManager().getAndFormatMsg(
                 MessageManager.Style.SUCCESS,
                 statusMsgKey,
                 statusMsgDefault

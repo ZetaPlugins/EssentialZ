@@ -4,7 +4,6 @@ import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
-import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBePlayerException;
 import org.bukkit.command.Command;
@@ -24,9 +23,6 @@ import java.util.List;
 )
 public class RepairCommand extends EszCommand {
 
-    @InjectManager
-    private MessageManager messageManager;
-
     public RepairCommand(EssentialZ plugin) {
         super(plugin);
     }
@@ -39,7 +35,7 @@ public class RepairCommand extends EszCommand {
 
         if (operation.equals("all")) {
             int repairedCount = repairAllItems(player);
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.SUCCESS,
                     "itemsRepairedAll",
                     "&7Repaired {ac}{count} &7items in your inventory.",
@@ -50,7 +46,7 @@ public class RepairCommand extends EszCommand {
 
         ItemStack item = player.getInventory().getItemInMainHand();
         if (item.getType().isAir()) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "repairMustHoldAnItem",
                     "{ac}You must be holding an item to repair."
@@ -61,7 +57,7 @@ public class RepairCommand extends EszCommand {
         boolean success = repair(item);
 
         if (!success) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "itemNotRepairable",
                     "{ac}The item you are holding cannot be repaired."
@@ -69,7 +65,7 @@ public class RepairCommand extends EszCommand {
             return false;
         }
 
-        sender.sendMessage(messageManager.getAndFormatMsg(
+        sender.sendMessage(getMessageManager().getAndFormatMsg(
                 MessageManager.Style.SUCCESS,
                 "itemRepaired",
                 "&7Your held item has been repaired."

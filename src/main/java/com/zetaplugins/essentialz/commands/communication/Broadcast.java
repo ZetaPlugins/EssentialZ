@@ -2,7 +2,6 @@ package com.zetaplugins.essentialz.commands.communication;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.ConfigManager;
-import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
@@ -23,8 +22,6 @@ import java.util.List;
 public class Broadcast extends EszCommand {
 
     @InjectManager
-    private MessageManager messageManager;
-    @InjectManager
     private ConfigManager configManager;
 
     public Broadcast(EssentialZ plugin) {
@@ -38,7 +35,7 @@ public class Broadcast extends EszCommand {
         String broadCastFormat = configManager.getChatConfig().getString("broadcastFormat");
         if (broadCastFormat == null) broadCastFormat = "&8[<#F06292>Broadcast&8] &7{message}";
         String formattedMessage = broadCastFormat.replace("{message}", message);
-        Bukkit.broadcast(messageManager.formatMsg(formattedMessage));
+        Bukkit.broadcast(getMessageManager().formatMsg(formattedMessage));
         return true;
     }
 

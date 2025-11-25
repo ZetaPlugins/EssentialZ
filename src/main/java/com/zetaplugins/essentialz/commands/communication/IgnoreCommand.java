@@ -4,7 +4,6 @@ import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.storage.Storage;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
-import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
@@ -25,8 +24,6 @@ import java.util.List;
 public class IgnoreCommand extends EszCommand {
 
     @InjectManager
-    private MessageManager messageManager;
-    @InjectManager
     private Storage storage;
 
     public IgnoreCommand(EssentialZ plugin) {
@@ -41,7 +38,7 @@ public class IgnoreCommand extends EszCommand {
         if (targetPlayer == null) throw new CommandUsageException("/ignore <player>");
 
         if (player.getUniqueId().equals(targetPlayer.getUniqueId())) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "cannotIgnoreYourself",
                     "{ac}You cannot ignore yourself."
@@ -50,7 +47,7 @@ public class IgnoreCommand extends EszCommand {
         }
 
         boolean isIgnoringNow = storage.togglePlayerIgnore(player.getUniqueId(), targetPlayer.getUniqueId());
-        sender.sendMessage(messageManager.getAndFormatMsg(
+        sender.sendMessage(getMessageManager().getAndFormatMsg(
                 MessageManager.Style.SUCCESS,
                 isIgnoringNow ? "ignoreAdded" : "ignoreRemoved",
                 isIgnoringNow ? "&7You are now ignoring {ac}{player}&7." : "&7You have unignored {ac}{player}&7.",

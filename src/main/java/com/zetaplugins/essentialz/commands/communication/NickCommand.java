@@ -26,8 +26,6 @@ import java.util.List;
 public class NickCommand extends EszCommand {
 
     @InjectManager
-    private MessageManager messageManager;
-    @InjectManager
     private ConfigManager configManager;
 
     public NickCommand(EssentialZ plugin) {
@@ -46,7 +44,7 @@ public class NickCommand extends EszCommand {
 
         if (nickName == null || nickName.isEmpty()) {
             targetPlayer.displayName(Component.text(targetPlayer.getName()));
-            targetPlayer.sendMessage(messageManager.getAndFormatMsg(
+            targetPlayer.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.SUCCESS,
                     "nicknameCleared",
                     "&7Your nickname has been {ac}cleared&7."
@@ -57,7 +55,7 @@ public class NickCommand extends EszCommand {
         int maxNickLenth = configManager.getChatConfig().getInt("maxNicknameLength", 16);
 
         if (nickName.length() > maxNickLenth) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "nicknameTooLong",
                     "{ac}The nickname is too long! The maximum length is {maxLength} characters.",
@@ -71,7 +69,7 @@ public class NickCommand extends EszCommand {
         boolean setForSelf = (sender instanceof Player player) && targetPlayer.getUniqueId().equals(player.getUniqueId());
 
         if (!setForSelf && !Permission.NICK_OTHERS.has(sender)) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "notAllowedToNickOthers",
                     "{ac}You do not have permission to set other players' nicknames."
@@ -80,14 +78,14 @@ public class NickCommand extends EszCommand {
         }
 
         if (setForSelf) {
-            targetPlayer.sendMessage(messageManager.getAndFormatMsg(
+            targetPlayer.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.SUCCESS,
                     "nicknameSetSelf",
                     "&7Your nickname has been set to '{ac}{nickname}&7'.",
                     new MessageManager.Replaceable<>("{nickname}", nickName)
             ));
         } else {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.SUCCESS,
                     "nicknameSetOtherConfirm",
                     "&7Set {ac}{player}&7's nickname to '{ac}{nickname}&7'.",

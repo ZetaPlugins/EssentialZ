@@ -5,7 +5,6 @@ import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
-import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBePlayerException;
 import org.bukkit.command.Command;
@@ -22,9 +21,6 @@ import java.util.List;
         permission = "essentialz.nick"
 )
 public class UnnickCommand extends EszCommand {
-
-    @InjectManager
-    private MessageManager messageManager;
 
     public UnnickCommand(EssentialZ plugin) {
         super(plugin);
@@ -43,7 +39,7 @@ public class UnnickCommand extends EszCommand {
         boolean setForSelf = (sender instanceof Player player) && targetPlayer.getUniqueId().equals(player.getUniqueId());
 
         if (!setForSelf && !Permission.NICK_OTHERS.has(sender)) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "notAllowedToNickOthers",
                     "{ac}You do not have permission to set other players' nicknames."
@@ -52,13 +48,13 @@ public class UnnickCommand extends EszCommand {
         }
 
         if (setForSelf) {
-            targetPlayer.sendMessage(messageManager.getAndFormatMsg(
+            targetPlayer.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.SUCCESS,
                     "nicknameCleared",
                     "&7Your nickname has been {ac}cleared&7."
             ));
         } else {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.SUCCESS,
                     "nicknameClearedOther",
                     "&7You have {ac}cleared &7the nickname of {ac}{player}&7.",

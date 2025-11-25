@@ -1,7 +1,6 @@
 package com.zetaplugins.essentialz.commands;
 
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
-import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import org.bukkit.Statistic;
 import org.bukkit.command.Command;
@@ -22,9 +21,6 @@ import java.util.List;
 )
 public class PlayTimeCommand extends EszCommand {
 
-    @InjectManager
-    private MessageManager messageManager;
-
     public PlayTimeCommand(EssentialZ plugin) {
         super(plugin);
     }
@@ -35,7 +31,7 @@ public class PlayTimeCommand extends EszCommand {
             Player target = getPlugin().getServer().getPlayer(args.getArg(0));
 
             if (target == null) {
-                sender.sendMessage(messageManager.getAndFormatMsg(
+                sender.sendMessage(getMessageManager().getAndFormatMsg(
                         MessageManager.Style.ERROR,
                         "playerNotFound",
                         "&cPlayer not found."
@@ -43,7 +39,7 @@ public class PlayTimeCommand extends EszCommand {
                 return false;
             }
 
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.DEFAULT,
                     "playTime",
                     "&7{player} has played for {ac}{time}&7.",
@@ -54,7 +50,7 @@ public class PlayTimeCommand extends EszCommand {
         }
 
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "specifyPlayerOrBePlayer",
                     "&cYou must specify a player or be a player to use this command."
@@ -62,7 +58,7 @@ public class PlayTimeCommand extends EszCommand {
             return false;
         }
 
-        sender.sendMessage(messageManager.getAndFormatMsg(
+        sender.sendMessage(getMessageManager().getAndFormatMsg(
                 MessageManager.Style.DEFAULT,
                 "playTimeSelf",
                 "&7You have played for {ac}{time}&7.",

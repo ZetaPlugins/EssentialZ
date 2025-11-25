@@ -26,8 +26,6 @@ import java.util.List;
 public class TeamchatCommand extends EszCommand {
 
     @InjectManager
-    private MessageManager messageManager;
-    @InjectManager
     private Storage storage;
 
     public TeamchatCommand(EssentialZ plugin) {
@@ -44,7 +42,7 @@ public class TeamchatCommand extends EszCommand {
         if (sender instanceof Player senderPlayer) {
             PlayerData senderPlayerData = storage.load(senderPlayer.getUniqueId());
             if (!senderPlayerData.isEnableTeamchat()) {
-                sender.sendMessage(messageManager.getAndFormatMsg(
+                sender.sendMessage(getMessageManager().getAndFormatMsg(
                         MessageManager.Style.ERROR,
                         "yourTeamchatDisabled",
                         "{ac}You have disabled team chat. Enable it using /tctoggle to send messages."
@@ -61,7 +59,7 @@ public class TeamchatCommand extends EszCommand {
             PlayerData playerData = storage.load(p.getUniqueId());
             if (playerData != null && !playerData.isEnableTeamchat()) continue;
 
-            p.sendMessage(messageManager.getAndFormatMsg(
+            p.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.TEAMCHAT,
                     "teamChatMessage",
                     "&8[&7From {ac}{player}&8]&7: &7{message}",
@@ -70,7 +68,7 @@ public class TeamchatCommand extends EszCommand {
             ));
         }
 
-        Bukkit.getConsoleSender().sendMessage(messageManager.getAndFormatMsg(
+        Bukkit.getConsoleSender().sendMessage(getMessageManager().getAndFormatMsg(
                 MessageManager.Style.TEAMCHAT,
                 "teamChatMessage",
                 "&8[&7From {ac}{player}&8]&7: &7{message}",

@@ -25,8 +25,6 @@ import java.util.List;
 public class ToggleTeamchatCommand extends EszCommand {
 
     @InjectManager
-    private MessageManager messageManager;
-    @InjectManager
     private Storage storage;
 
     public ToggleTeamchatCommand(EssentialZ plugin) {
@@ -44,7 +42,7 @@ public class ToggleTeamchatCommand extends EszCommand {
 
         String statusMsgKey = newStatus ? "tcEnabled" : "tcDisabled";
         String statusMsgDefault = newStatus ? "&7You have {ac}enabled &7the team chat." : "&7You have {ac}disabled &7the team chat.";
-        player.sendMessage(messageManager.getAndFormatMsg(
+        player.sendMessage(getMessageManager().getAndFormatMsg(
                 MessageManager.Style.SUCCESS,
                 statusMsgKey,
                 statusMsgDefault

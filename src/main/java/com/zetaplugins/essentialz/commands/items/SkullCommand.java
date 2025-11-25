@@ -1,8 +1,9 @@
 package com.zetaplugins.essentialz.commands.items;
 
+import com.zetaplugins.essentialz.EssentialZ;
+import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
-import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
 import org.bukkit.Material;
@@ -12,8 +13,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
-import com.zetaplugins.essentialz.EssentialZ;
-import com.zetaplugins.essentialz.util.MessageManager;
 
 import java.util.List;
 
@@ -24,9 +23,6 @@ import java.util.List;
         permission = "essentialz.skull"
 )
 public class SkullCommand extends EszCommand {
-
-    @InjectManager
-    private MessageManager messageManager;
 
     public SkullCommand(EssentialZ plugin) {
         super(plugin);
@@ -44,7 +40,7 @@ public class SkullCommand extends EszCommand {
             Player targetPlayer = args.getPlayer(1, getPlugin());
 
             if (targetPlayer == null) {
-                sender.sendMessage(messageManager.getAndFormatMsg(
+                sender.sendMessage(getMessageManager().getAndFormatMsg(
                         MessageManager.Style.ERROR,
                         "playerNotFound",
                         "{ac}Player not found."
@@ -54,7 +50,7 @@ public class SkullCommand extends EszCommand {
 
             targetPlayer.getInventory().addItem(getSkull(skullPlayer));
 
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ITEMS,
                     "skullGiven",
                     "&7Seccessfully gave {ac}{player}&7's head to {ac}{receiver}&7.",
@@ -65,7 +61,7 @@ public class SkullCommand extends EszCommand {
         }
 
         if (!(sender instanceof Player targetPlayer)) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "specifyPlayerOrBePlayer",
                     "{ac}You must specify a player or be a player to use this command."
@@ -75,7 +71,7 @@ public class SkullCommand extends EszCommand {
 
         targetPlayer.getInventory().addItem(getSkull(skullPlayer));
 
-        sender.sendMessage(messageManager.getAndFormatMsg(
+        sender.sendMessage(getMessageManager().getAndFormatMsg(
                 MessageManager.Style.ITEMS,
                 "skullReceived",
                 "&7You received {ac}{player}&7's head.",

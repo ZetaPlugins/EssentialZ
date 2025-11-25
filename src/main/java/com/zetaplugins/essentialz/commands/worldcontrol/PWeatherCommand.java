@@ -27,8 +27,6 @@ import java.util.List;
 public class PWeatherCommand extends EszCommand {
 
     @InjectManager
-    private MessageManager messageManager;
-    @InjectManager
     private LanguageManager languageManager;
 
     public PWeatherCommand(EssentialZ plugin) {
@@ -45,13 +43,13 @@ public class PWeatherCommand extends EszCommand {
         if (eszWeatherType == EszWeatherType.RESET) {
             targetPlayer.resetPlayerWeather();
             if (sender.equals(targetPlayer)) {
-                targetPlayer.sendMessage(messageManager.getAndFormatMsg(
+                targetPlayer.sendMessage(getMessageManager().getAndFormatMsg(
                         MessageManager.Style.WORLDCONTROL,
                         "pweatherReset",
                         "&7Your weather has been reset to the server default."
                 ));
             } else {
-                sender.sendMessage(messageManager.getAndFormatMsg(
+                sender.sendMessage(getMessageManager().getAndFormatMsg(
                         MessageManager.Style.WORLDCONTROL,
                         "pweatherResetOther",
                         "&7You have reset {ac}{player}&7's weather to the server default.",
@@ -64,14 +62,14 @@ public class PWeatherCommand extends EszCommand {
         targetPlayer.setPlayerWeather(eszWeatherType.getWeatherType());
 
         if (sender.equals(targetPlayer)) {
-            targetPlayer.sendMessage(messageManager.getAndFormatMsg(
+            targetPlayer.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.WORLDCONTROL,
                     "pweatherSet",
                     "&7Your weather has been set to {ac}{weather}&7.",
                     new MessageManager.Replaceable<>("{weather}", eszWeatherType.getDisplayName(languageManager))
             ));
         } else {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.WORLDCONTROL,
                     "pweatherSetOther",
                     "&7You have set {ac}{player}&7's weather to {ac}{weather}&7.",

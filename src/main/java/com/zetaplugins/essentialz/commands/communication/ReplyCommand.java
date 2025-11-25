@@ -28,8 +28,6 @@ import java.util.UUID;
 public class ReplyCommand extends EszCommand {
 
     @InjectManager
-    private MessageManager messageManager;
-    @InjectManager
     private LastMsgManager lastMsgManager;
     @InjectManager
     private Storage storage;
@@ -44,7 +42,7 @@ public class ReplyCommand extends EszCommand {
 
         UUID lastMsgUUID = lastMsgManager.getLastMsg(player.getUniqueId());
         if (lastMsgUUID == null) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "noRecentMessages",
                     "{ac}You have no recent messages to reply to."
@@ -54,7 +52,7 @@ public class ReplyCommand extends EszCommand {
 
         Player targetPlayer = getPlugin().getServer().getPlayer(lastMsgUUID);
         if (targetPlayer == null || !targetPlayer.isOnline()) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "playerNotFound",
                     "{ac}Player not found."
@@ -64,7 +62,7 @@ public class ReplyCommand extends EszCommand {
 
         PlayerData targetPlayerData = storage.load(targetPlayer.getUniqueId());
         if (!targetPlayerData.isEnableDms()) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "playerDmsDisabled",
                     "{ac}{player} has disabled private messages.",
@@ -75,7 +73,7 @@ public class ReplyCommand extends EszCommand {
 
         boolean isIgnoring = storage.isPlayerIgnoring(targetPlayer.getUniqueId(), player.getUniqueId());
         if (isIgnoring) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "playerIsIgnoringYou",
                     "{ac}{player} is ignoring you. Your message was not sent.",
@@ -86,7 +84,7 @@ public class ReplyCommand extends EszCommand {
 
         boolean youAreIgnoring = storage.isPlayerIgnoring(player.getUniqueId(), targetPlayer.getUniqueId());
         if (youAreIgnoring) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "youAreIgnoringPlayer",
                     "{ac}You are ignoring {player}. Unignore them to send messages.",
@@ -101,7 +99,7 @@ public class ReplyCommand extends EszCommand {
 
         boolean allowToUseColor = sender.hasPermission("essentialz.msg.color");
 
-        sender.sendMessage(messageManager.getAndFormatMsg(
+        sender.sendMessage(getMessageManager().getAndFormatMsg(
                 MessageManager.Style.COMMUNICATION,
                 "privateMessageSent",
                 "&7&8[&7To &r{ac}{recipient}&7&8]&7: {message}",
@@ -109,7 +107,7 @@ public class ReplyCommand extends EszCommand {
                 new MessageManager.Replaceable<>("{message}", message, allowToUseColor)
         ));
 
-        targetPlayer.sendMessage(messageManager.getAndFormatMsg(
+        targetPlayer.sendMessage(getMessageManager().getAndFormatMsg(
                 MessageManager.Style.COMMUNICATION,
                 "privateMessageReceived",
                 "&7&8[&7From &r{ac}{sender}&7&8]&7: {message}",

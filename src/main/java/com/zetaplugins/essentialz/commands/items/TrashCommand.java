@@ -4,7 +4,6 @@ import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
-import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBePlayerException;
 import org.bukkit.Bukkit;
@@ -24,9 +23,6 @@ import java.util.List;
 )
 public class TrashCommand extends EszCommand {
 
-    @InjectManager
-    private MessageManager messageManager;
-
     public TrashCommand(EssentialZ plugin) {
         super(plugin);
     }
@@ -38,7 +34,7 @@ public class TrashCommand extends EszCommand {
         Inventory trashInventory = Bukkit.createInventory(
                 null,
                 5 * 9,
-                messageManager.getAndFormatMsg(
+                getMessageManager().getAndFormatMsg(
                         MessageManager.Style.NONE,
                         "trashInventoryTitle",
                         "&8Trash Can"

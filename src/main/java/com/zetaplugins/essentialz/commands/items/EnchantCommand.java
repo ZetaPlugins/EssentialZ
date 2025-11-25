@@ -4,7 +4,6 @@ import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.features.EnchantmentManager;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
-import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
@@ -29,8 +28,6 @@ import java.util.List;
 public class EnchantCommand extends EszCommand {
 
     @InjectManager
-    private MessageManager messageManager;
-    @InjectManager
     private EnchantmentManager enchantmentManager;
 
     public EnchantCommand(EssentialZ plugin) {
@@ -43,7 +40,7 @@ public class EnchantCommand extends EszCommand {
 
         ItemStack heldItem = player.getInventory().getItemInMainHand();
         if (heldItem.getType().isAir()) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "mustHoldAnItem",
                     "ac}You must be holding an item!"
@@ -57,7 +54,7 @@ public class EnchantCommand extends EszCommand {
         Enchantment enchantment = enchantmentManager.getEnchantmentByKeyName(enchantmentName);
 
         if (enchantment == null) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "invalidEnchantment",
                     "{ac}The enchantment '{enchantment}' does not exist.",
@@ -69,7 +66,7 @@ public class EnchantCommand extends EszCommand {
         int level = args.getInt(1, enchantment.getMaxLevel());
 
         heldItem.addUnsafeEnchantment(enchantment, level);
-        sender.sendMessage(messageManager.getAndFormatMsg(
+        sender.sendMessage(getMessageManager().getAndFormatMsg(
                 MessageManager.Style.ITEMS,
                 "enchantSuccess",
                 "&7Successfully enchanted your item with {ac}{enchantment} &7level {ac}{level}&7.",

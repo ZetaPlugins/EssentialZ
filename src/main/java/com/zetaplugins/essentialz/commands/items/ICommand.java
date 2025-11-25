@@ -1,6 +1,9 @@
 package com.zetaplugins.essentialz.commands.items;
 
+import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.features.GiveMaterialManager;
+import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
@@ -11,9 +14,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import com.zetaplugins.essentialz.EssentialZ;
-import com.zetaplugins.essentialz.util.MessageManager;
-import com.zetaplugins.essentialz.util.commands.EszCommand;
 
 import java.util.List;
 
@@ -24,9 +24,7 @@ import java.util.List;
         permission = "essentialz.give"
 )
 public class ICommand extends EszCommand {
-
-    @InjectManager
-    private MessageManager messageManager;
+    
     @InjectManager
     private GiveMaterialManager giveMaterialManager;
 
@@ -42,7 +40,7 @@ public class ICommand extends EszCommand {
         if (materialName == null) throw new CommandUsageException("/give [player] <item> [amount]");
         Material material = giveMaterialManager.getMaterialByKey(materialName);
         if (material == null) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
                     "invalidMaterial",
                     "{ac}'{material}' is not a valid material.",
@@ -56,7 +54,7 @@ public class ICommand extends EszCommand {
         ItemStack itemStack = new ItemStack(material, amount);
         player.getInventory().addItem(itemStack);
 
-        sender.sendMessage(messageManager.getAndFormatMsg(
+        sender.sendMessage(getMessageManager().getAndFormatMsg(
                 MessageManager.Style.ITEMS,
                 "giveYourselfConfirmation",
                 "&7You have been given {ac}{amount}x {material}&7.",
