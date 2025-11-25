@@ -1,4 +1,4 @@
-package com.zetaplugins.essentialz.events;
+package com.zetaplugins.essentialz.listeners;
 
 import com.zetaplugins.essentialz.storage.Storage;
 import com.zetaplugins.essentialz.storage.model.PlayerData;

@@ -1,4 +1,4 @@
-package com.zetaplugins.essentialz.events;
+package com.zetaplugins.essentialz.listeners;
 
 import com.zetaplugins.essentialz.util.EszConfig;
 import com.zetaplugins.essentialz.util.MessageManager;

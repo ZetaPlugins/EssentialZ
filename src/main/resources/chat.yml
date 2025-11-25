@@ -13,3 +13,8 @@ maxNicknameLength: 16
 
 # Format for broadcast messages
 broadcastFormat: "&8[<#F06292>Broadcast&8] &7{message}"
+
+# Wether to enable or disable joing and leaving messages
+# You can configure the messages in the lang files
+enableJoinMessages: true
+enableLeaveMessages: true

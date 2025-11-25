@@ -1,4 +1,4 @@
-package com.zetaplugins.essentialz.events;
+package com.zetaplugins.essentialz.listeners;
 
 import com.zetaplugins.essentialz.features.GodModeManager;
 import com.zetaplugins.zetacore.annotations.AutoRegisterListener;
