@@ -15,6 +15,10 @@ maxNicknameLength: 16
 broadcastFormat: "&8[<#F06292>Broadcast&8] &7{message}"
 
 # Wether to enable or disable joing and leaving messages
-# You can configure the messages in the lang files
+# You can configure the messages in the lang files ("joinMessage" and "quitMessage")
 enableJoinMessages: true
 enableLeaveMessages: true
+
+# Wether to show a special message for first time joiners
+# You can configure the message in the lang files ("welcomeMessage")
+specialWelcomeJoinMessage: true

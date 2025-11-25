@@ -26,15 +26,27 @@ public class JoinMessageListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         FileConfiguration chatConfig = configService.getConfig(EszConfig.CHAT);
-        if (chatConfig.getBoolean("enableJoinMessages", true)) {
+
+        if (!chatConfig.getBoolean("enableJoinMessages", true)) {
+            event.joinMessage(null);
+            return;
+        }
+
+        if (!event.getPlayer().hasPlayedBefore() && chatConfig.getBoolean("specialWelcomeJoinMessage", true)) {
             event.joinMessage(messageManager.getAndFormatMsg(
                     MessageManager.Style.NONE,
-                    "joinMessage",
-                    "&8[&a+&8] &7{player} joined the game.",
+                    "welcomeMessage",
+                    "&8[&a+&8] &7Welcome {player} to the server for the first time!",
                     new MessageManager.Replaceable<>("{player}", event.getPlayer().getName())
             ));
-        } else {
-            event.joinMessage(null);
+            return;
         }
+
+        event.joinMessage(messageManager.getAndFormatMsg(
+                MessageManager.Style.NONE,
+                "joinMessage",
+                "&8[&a+&8] &7{player} joined the game.",
+                new MessageManager.Replaceable<>("{player}", event.getPlayer().getName())
+        ));
     }
 }
