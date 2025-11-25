@@ -94,3 +94,4 @@ sudoSuccess: "&7Successfully forced {ac}{player} &7to run the command: {ac}{comm
 joinMessage: "&8[&a+&8] &7{player} joined the game."
 quitMessage: "&8[&c-&8] &7{player} left the game."
 welcomeMessage: "&8[&a+&8] &7Welcome {player} to the server for the first time!"
+hatSet: "&7You are now wearing your held item as a hat."

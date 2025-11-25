@@ -41,7 +41,8 @@ public enum Permission implements PermissionNode {
     GIVESPAWNER("givespawner", PermissionDefault.OP, "Allows the user to give mob spawners to players"),
     ENCHANT("enchant", PermissionDefault.OP, "Allows the user to enchant their held item"),
     PWEATHER("pweather", PermissionDefault.OP, "Allows the user to set the weather for a specific player"),
-    SUDO("sudo", PermissionDefault.OP, "Allows the user to force other players to run commands")
+    SUDO("sudo", PermissionDefault.OP, "Allows the user to force other players to run commands"),
+    HAT("hat", PermissionDefault.TRUE, "Allows the user to wear the item in their hand as a hat")
     ;
 
     private final String node;
