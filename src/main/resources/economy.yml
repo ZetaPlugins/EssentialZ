@@ -1,0 +1,20 @@
+# Configuration file for the economy module
+
+# Enable or disable the economy module
+# When disabled, all economy-related features will be turned off and the economy commands won't be available.
+enabled: true
+
+# Starting balance for new users
+startingBalance: 1000.00
+
+currencyFormat:
+  # Currency symbol
+  symbol: "$"
+  # Number of decimal places
+  decimalPlaces: 2
+  # Thousand separator
+  thousandSeparator: ","
+  # Decimal separator
+  decimalSeparator: "."
+  # Position of the currency symbol (before/after)
+  symbolPosition: "before"

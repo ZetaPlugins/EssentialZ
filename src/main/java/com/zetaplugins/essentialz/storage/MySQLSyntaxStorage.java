@@ -45,7 +45,7 @@ public abstract class MySQLSyntaxStorage extends SQLStorage {
 
     @Override
     protected String getInserOrReplacePlayerStatement() {
-        return "INSERT INTO players (uuid, enableTeamchat, enableDms, ignoredPlayers) " +
+        return "INSERT INTO players (uuid, enableTeamchat, enableDms, balance) " +
                 "VALUES (?, ?, ?, ?) " +
                 "ON DUPLICATE KEY UPDATE " +
                 "enableTeamchat = VALUES(enableTeamchat), " +

@@ -8,6 +8,7 @@ public enum EszConfig implements PluginConfig {
     CHAT("chat"),
     MATERIALS("materials"),
     COMMANDS("commands"),
+    ECONOMY("economy"),
     ;
 
     private final String fileName;

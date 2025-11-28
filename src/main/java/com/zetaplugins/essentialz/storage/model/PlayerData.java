@@ -1,7 +1,6 @@
 package com.zetaplugins.essentialz.storage.model;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -9,6 +8,7 @@ public class PlayerData {
     private final String uuid;
     private boolean enableTeamchat = true;
     private boolean enableDms = true;
+    private double balance = 0.0;
 
     private final Set<String> modifiedFields = new HashSet<>(); // Track modified fields
 
@@ -39,6 +39,17 @@ public class PlayerData {
         if (this.enableDms != enableDms) {
             this.enableDms = enableDms;
             modifiedFields.add("enableDms");
+        }
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        if (this.balance != balance) {
+            this.balance = balance;
+            modifiedFields.add("balance");
         }
     }
 

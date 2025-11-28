@@ -152,7 +152,8 @@ public class MessageManager {
         STATS("stats"),
         COMMUNICATION("communication"),
         TEAMCHAT("teamchat"),
-        WORLDCONTROL("worldcontrol")
+        WORLDCONTROL("worldcontrol"),
+        ECONOMY("economy")
         ;
 
         public final String id;

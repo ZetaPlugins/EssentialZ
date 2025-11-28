@@ -46,7 +46,10 @@ public enum Permission implements PermissionNode {
     TOP("top", PermissionDefault.TRUE, "Allows the user to teleport to the highest block at their current location"),
     SETWARP("setwarp", PermissionDefault.OP, "Allows the user to create warps"),
     WARP("warp", PermissionDefault.TRUE, "Allows the user to teleport to warps"),
-    DELWARP("delwarp", PermissionDefault.OP, "Allows the user to delete warps")
+    DELWARP("delwarp", PermissionDefault.OP, "Allows the user to delete warps"),
+    BALANCE("balance", PermissionDefault.TRUE, "Allows the user to check their balance"),
+    BALANCE_OTHERS("balance.others", PermissionDefault.TRUE, "Allows the user to check another player's balance"),
+    BALANCE_MODIFY("balance.set", PermissionDefault.OP, "Allows the user to modify another player's balance")
     ;
 
     private final String node;

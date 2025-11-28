@@ -42,3 +42,6 @@ styles:
   worldcontrol:
     accentColor: "#BA68C8"
     prefix: "&8[<#BA68C8>🌐&8] "
+  economy:
+    accentColor: "#FFD700"
+    prefix: "&8[<#FFD700>💰&8] "

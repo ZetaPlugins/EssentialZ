@@ -24,7 +24,7 @@ public final class SQLiteStorage extends SQLStorage {
 
     @Override
     protected String getInserOrReplacePlayerStatement() {
-        return "INSERT OR REPLACE INTO players (uuid, enableTeamchat, enableDms) VALUES (?, ?, ?)";
+        return "INSERT OR REPLACE INTO players (uuid, enableTeamchat, enableDms, balance) VALUES (?, ?, ?, ?)";
     }
 
     @Override

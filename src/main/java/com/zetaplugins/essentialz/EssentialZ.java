@@ -4,6 +4,11 @@ import com.zetaplugins.essentialz.features.EnchantmentManager;
 import com.zetaplugins.essentialz.features.GiveMaterialManager;
 import com.zetaplugins.essentialz.features.GodModeManager;
 import com.zetaplugins.essentialz.features.LastMsgManager;
+import com.zetaplugins.essentialz.features.economy.VaultEconomyImplProvider;
+import com.zetaplugins.essentialz.features.economy.manager.BuiltinEconomyManager;
+import com.zetaplugins.essentialz.features.economy.manager.EconomyManager;
+import com.zetaplugins.essentialz.features.economy.manager.UnusedEconomyManager;
+import com.zetaplugins.essentialz.features.economy.manager.VaultEconomyManager;
 import com.zetaplugins.essentialz.storage.MySQLStorage;
 import com.zetaplugins.essentialz.storage.SQLiteStorage;
 import com.zetaplugins.essentialz.storage.Storage;
@@ -23,10 +28,12 @@ import java.util.List;
 
 public final class EssentialZ extends JavaPlugin {
     private static final String PACKAGE_PREFIX = "com.zetaplugins.essentialz";
+    private static final List<String> ECONOMY_COMMANDS = List.of("balance", "pay", "baltop");
 
     private ConfigService configManager;
 
     private final boolean hasPlaceholderApi = Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
+    private final boolean hasVault = Bukkit.getPluginManager().getPlugin("Vault") != null;
 
     @Override
     public void onEnable() {
@@ -34,7 +41,6 @@ public final class EssentialZ extends JavaPlugin {
 
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
-
         configManager = new ConfigService(this);
 
         ManagerRegistry managerRegistry = new ManagerRegistry(this);
@@ -49,14 +55,25 @@ public final class EssentialZ extends JavaPlugin {
         managerRegistry.registerInstance(new LastMsgManager());
         managerRegistry.registerInstance(new EnchantmentManager());
 
+        boolean economyEnabled = configManager.getConfig(EszConfig.ECONOMY).getBoolean("enabled", true);
+        if (hasVault && economyEnabled) {
+            getLogger().info("Vault detected, enabling Vault economy support.");
+            VaultEconomyImplProvider.register(this, managerRegistry);
+            managerRegistry.registerInstance(EconomyManager.class, new VaultEconomyManager());
+        } else if (economyEnabled) {
+            getLogger().warning("Vault not detected, using built-in economy manager.");
+            managerRegistry.registerInstance(EconomyManager.class, new BuiltinEconomyManager());
+        } else {
+            getLogger().info("Economy system disabled.");
+            managerRegistry.registerInstance(EconomyManager.class, new UnusedEconomyManager());
+        }
+
         List<String> registeredCommands = new AutoCommandRegistrar.Builder()
                 .setPlugin(this)
                 .setPackagePrefix(PACKAGE_PREFIX)
                 .setManagerRegistry(managerRegistry)
                 .build()
-                .registerAllCommands(
-                        (cmd) -> configManager.getConfig(EszConfig.COMMANDS).getBoolean(cmd, true)
-                );
+                .registerAllCommands(this::shouldRegisterCommand);
         writeCommandsInConfig(registeredCommands);
         getLogger().info("Registered " + registeredCommands.size() + " commands.");
 
@@ -90,6 +107,10 @@ public final class EssentialZ extends JavaPlugin {
         }
     }
 
+    /**
+     * Write the registered commands into the commands config file.
+     * @param commands The list of registered commands.
+     */
     private void writeCommandsInConfig(List<String> commands) {
         FileConfiguration config = this.configManager.getConfig(EszConfig.COMMANDS);
         commands.sort(String::compareTo);
@@ -99,5 +120,16 @@ public final class EssentialZ extends JavaPlugin {
             }
         }
         this.configManager.saveConfig(EszConfig.COMMANDS, config);
+    }
+
+    /**
+     * Determine if a command should be registered based on the config settings.
+     * @param commandName The name of the command.
+     * @return True if the command should be registered, false otherwise.
+     */
+    private boolean shouldRegisterCommand(String commandName) {
+        boolean economyEnabled = configManager.getConfig(EszConfig.ECONOMY).getBoolean("enabled", true);
+        if (ECONOMY_COMMANDS.contains(commandName) && !economyEnabled) return false;
+        return configManager.getConfig(EszConfig.COMMANDS).getBoolean(commandName, true);
     }
 }

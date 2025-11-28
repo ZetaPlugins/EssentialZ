@@ -35,7 +35,8 @@ public abstract class SQLStorage extends Storage {
                 playerTableSql.append("CREATE TABLE IF NOT EXISTS players (")
                         .append("uuid CHAR(36) PRIMARY KEY, ")
                         .append("enableTeamchat BOOLEAN DEFAULT TRUE, ")
-                        .append("enableDms BOOLEAN DEFAULT TRUE")
+                        .append("enableDms BOOLEAN DEFAULT TRUE, ")
+                        .append("balance DOUBLE DEFAULT 0.0")
                         .append(");");
                 statement.executeUpdate(playerTableSql.toString());
 
@@ -110,6 +111,7 @@ public abstract class SQLStorage extends Storage {
         PlayerData playerData = new PlayerData(uuid);
         playerData.setEnableTeamchat(resultSet.getBoolean("enableTeamchat"));
         playerData.setEnableDms(resultSet.getBoolean("enableDms"));
+        playerData.setBalance(resultSet.getDouble("balance"));
         playerData.clearModifiedFields();
         return playerData;
     }
@@ -160,8 +162,8 @@ public abstract class SQLStorage extends Storage {
      * @return True if the insert was successful, false otherwise
      */
     private boolean insertPlayerData(Connection connection, PlayerData playerData) {
-        final String insertQuery = "INSERT INTO players (uuid, enableTeamchat, enableDms) " +
-                "VALUES (?, ?, ?)";
+        final String insertQuery = "INSERT INTO players (uuid, enableTeamchat, enableDms, balance) " +
+                "VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement insertStmt = connection.prepareStatement(insertQuery)) {
             insertStmt.setString(1, playerData.getUuid());
@@ -193,6 +195,7 @@ public abstract class SQLStorage extends Storage {
             switch (field) {
                 case "enableTeamchat" -> params.add(playerData.isEnableTeamchat());
                 case "enableDms" -> params.add(playerData.isEnableDms());
+                case "balance" -> params.add(playerData.getBalance());
             }
         }
 
