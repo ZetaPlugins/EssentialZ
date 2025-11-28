@@ -16,6 +16,7 @@ import com.zetaplugins.zetacore.services.config.ConfigService;
 import com.zetaplugins.zetacore.services.di.ManagerRegistry;
 import com.zetaplugins.zetacore.services.events.AutoEventRegistrar;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
@@ -56,6 +57,7 @@ public final class EssentialZ extends JavaPlugin {
                 .registerAllCommands(
                         (cmd) -> configManager.getConfig(EszConfig.COMMANDS).getBoolean(cmd, true)
                 );
+        writeCommandsInConfig(registeredCommands);
         getLogger().info("Registered " + registeredCommands.size() + " commands.");
 
         List<String> registeredEvents = new AutoEventRegistrar.Builder()
@@ -86,5 +88,16 @@ public final class EssentialZ extends JavaPlugin {
                 getLogger().warning("Invalid storage type in config.yml! Using SQLite storage as fallback.");
                 return new SQLiteStorage(this);
         }
+    }
+
+    private void writeCommandsInConfig(List<String> commands) {
+        FileConfiguration config = this.configManager.getConfig(EszConfig.COMMANDS);
+        commands.sort(String::compareTo);
+        for (String command : commands) {
+            if (!config.contains(command)) {
+                config.set(command, true);
+            }
+        }
+        this.configManager.saveConfig(EszConfig.COMMANDS, config);
     }
 }
