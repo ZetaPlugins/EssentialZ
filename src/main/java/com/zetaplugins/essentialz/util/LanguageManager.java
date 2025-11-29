@@ -1,9 +1,9 @@
 package com.zetaplugins.essentialz.util;
 
+import com.zetaplugins.essentialz.EssentialZ;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import com.zetaplugins.essentialz.EssentialZ;
 
 import java.io.File;
 import java.util.List;
@@ -38,7 +38,7 @@ public class LanguageManager {
             }
         }
 
-        String langOption = plugin.getConfig().getString("lang") != null ? plugin.getConfig().getString("lang") : "en-US";
+        String langOption = plugin.getConfig().getString("language") != null ? plugin.getConfig().getString("language") : "en-US";
         File selectedLangFile = new File(languageDirectory, langOption + ".yml");
 
         if (!selectedLangFile.exists()) {

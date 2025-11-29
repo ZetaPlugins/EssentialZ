@@ -1,3 +1,8 @@
+
+# Set the language for the plugin.
+# Available languages can be found in the 'lang' folder.
+language: "en_US"
+
 # The max length an item name can be. Set to -1 to disable.
 maxItemNameLength: 100
 
