@@ -12,6 +12,7 @@ import com.zetaplugins.essentialz.util.EszConfig;
 import com.zetaplugins.essentialz.util.LanguageManager;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.permissions.Permission;
+import com.zetaplugins.zetacore.services.bStats.Metrics;
 import com.zetaplugins.zetacore.services.commands.AutoCommandRegistrar;
 import com.zetaplugins.zetacore.services.config.ConfigService;
 import com.zetaplugins.zetacore.services.di.ManagerRegistry;
@@ -52,6 +53,8 @@ public final class EssentialZ extends JavaPlugin {
 
         registerCommands();
         registerListeners();
+
+        initBstats();
 
         getLogger().info("EssentialZ enabled!");
     }
@@ -132,5 +135,25 @@ public final class EssentialZ extends JavaPlugin {
         boolean economyEnabled = configManager.getConfig(EszConfig.ECONOMY).getBoolean("enabled", true);
         if (ECONOMY_COMMANDS.contains(commandName) && !economyEnabled) return false;
         return configManager.getConfig(EszConfig.COMMANDS).getBoolean(commandName, true);
+    }
+
+    private void initBstats() {
+        final int pluginId = 28159;
+        Metrics metrics = new Metrics(this, pluginId);
+
+        metrics.addCustomChart(new Metrics.SimplePie("storage_type", () -> configManager.getConfig(EszConfig.STORAGE).getString("type")));
+        metrics.addCustomChart(new Metrics.SimplePie("language", () -> getConfig().getString("lang")));
+        metrics.addCustomChart(new Metrics.SimplePie("economy_system", () -> {
+            EconomyManager economyManager = managerRegistry.getOrCreate(EconomyManager.class);
+            if (economyManager instanceof VaultEconomyManager) return "vault";
+            else if (economyManager instanceof BuiltinEconomyManager) return "builtin";
+            else return "disabled";
+        }));
+        metrics.addCustomChart(new Metrics.SimplePie("chat_enabled", () -> {
+            boolean chatEnabled = configManager.getConfig(EszConfig.CHAT).getBoolean("enableCustomChat", true);
+            return chatEnabled ? "true" : "false";
+        }));
+
+        getLogger().info("bStats metrics initialized.");
     }
 }
