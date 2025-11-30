@@ -49,7 +49,8 @@ public enum Permission implements PermissionNode {
     DELWARP("delwarp", PermissionDefault.OP, "Allows the user to delete warps"),
     BALANCE("balance", PermissionDefault.TRUE, "Allows the user to check their balance"),
     BALANCE_OTHERS("balance.others", PermissionDefault.TRUE, "Allows the user to check another player's balance"),
-    BALANCE_MODIFY("balance.set", PermissionDefault.OP, "Allows the user to modify another player's balance")
+    BALANCE_MODIFY("balance.set", PermissionDefault.OP, "Allows the user to modify another player's balance"),
+    PAY("pay", PermissionDefault.TRUE, "Allows the user to pay another player"),
     ;
 
     private final String node;
