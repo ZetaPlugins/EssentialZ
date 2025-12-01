@@ -1,0 +1,3 @@
+&cThe server owner did not provide any rules.
+&cPlease contact the server owner for more information.
+This message can be changed in the rules.txt file located in the plugins/EssentialZ directory of the server files.
