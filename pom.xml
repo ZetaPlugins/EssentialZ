@@ -6,7 +6,7 @@
 
     <groupId>com.zetaplugins</groupId>
     <artifactId>EssentialZ</artifactId>
-    <version>1.0.0-alpha2</version>
+    <version>1.0.0-alpha3</version>
     <packaging>jar</packaging>
 
     <name>EssentialZ</name>
