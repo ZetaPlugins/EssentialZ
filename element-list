@@ -14,6 +14,10 @@ com.zetaplugins.essentialz.listeners
 com.zetaplugins.essentialz.storage
 com.zetaplugins.essentialz.storage.connectionPool
 com.zetaplugins.essentialz.storage.model
+com.zetaplugins.essentialz.storage.repositories
+com.zetaplugins.essentialz.storage.repositories.ignores
+com.zetaplugins.essentialz.storage.repositories.player
+com.zetaplugins.essentialz.storage.repositories.warps
 com.zetaplugins.essentialz.util
 com.zetaplugins.essentialz.util.commands
 com.zetaplugins.essentialz.util.permissions
