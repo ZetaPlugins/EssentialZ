@@ -51,6 +51,7 @@ public enum Permission implements PermissionNode {
     BALANCE_OTHERS("balance.others", PermissionDefault.TRUE, "Allows the user to check another player's balance"),
     BALANCE_MODIFY("balance.set", PermissionDefault.OP, "Allows the user to modify another player's balance"),
     PAY("pay", PermissionDefault.TRUE, "Allows the user to pay another player"),
+    BALTOP("baltop", PermissionDefault.TRUE, "Allows the user to see the top balances on the server"),
     ;
 
     private final String node;

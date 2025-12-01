@@ -1,17 +1,25 @@
 package com.zetaplugins.essentialz.features.economy.manager;
 
 import com.zetaplugins.essentialz.EssentialZ;
+import com.zetaplugins.essentialz.storage.Storage;
+import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.annotations.InjectPlugin;
 import com.zetaplugins.zetacore.annotations.PostManagerConstruct;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
+import java.util.Map;
+import java.util.UUID;
+
 public class VaultEconomyManager implements EconomyManager {
     private Economy economy;
 
     @InjectPlugin
     private EssentialZ plugin;
+
+    @InjectManager
+    private Storage storage;
 
     @PostManagerConstruct
     public void init() {
@@ -61,5 +69,10 @@ public class VaultEconomyManager implements EconomyManager {
 
     public Economy getEconomy() {
         return economy;
+    }
+
+    @Override
+    public Map<UUID, Double> getTopBalances(int topN) {
+        return storage.getTopBalances(topN);
     }
 }

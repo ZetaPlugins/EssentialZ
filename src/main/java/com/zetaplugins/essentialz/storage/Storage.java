@@ -6,6 +6,7 @@ import com.zetaplugins.essentialz.storage.model.WarpData;
 import com.zetaplugins.zetacore.annotations.PostManagerConstruct;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public abstract class Storage {
@@ -77,6 +78,13 @@ public abstract class Storage {
      * @return true if the player is ignoring the target player, false otherwise.
      */
     public abstract boolean isPlayerIgnoring(UUID playerUuid, UUID targetUuid);
+
+    /**
+     * Gets the top N players with the highest balances.
+     * @param topN The number of top players to retrieve.
+     * @return A map of player UUIDs and their balances, sorted by balance in descending order.
+     */
+    public abstract Map<UUID, Double> getTopBalances(int topN);
 
     /**
      * Gets a warp by its name.

@@ -1,5 +1,6 @@
 package com.zetaplugins.essentialz.features.economy.manager;
 
+import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.features.economy.EconomyConfig;
 import com.zetaplugins.essentialz.features.economy.EconomyUtil;
 import com.zetaplugins.essentialz.storage.Storage;
@@ -10,6 +11,9 @@ import com.zetaplugins.zetacore.annotations.PostManagerConstruct;
 import com.zetaplugins.zetacore.services.config.ConfigService;
 import org.bukkit.OfflinePlayer;
 
+import java.util.Map;
+import java.util.UUID;
+
 public class BuiltinEconomyManager implements EconomyManager {
     private EconomyConfig currencyConfig;
 
@@ -18,6 +22,9 @@ public class BuiltinEconomyManager implements EconomyManager {
 
     @InjectManager
     private Storage storage;
+
+    @InjectManager
+    private EssentialZ plugin;
 
     @PostManagerConstruct
     public void init() {
@@ -66,5 +73,10 @@ public class BuiltinEconomyManager implements EconomyManager {
     @Override
     public String format(double amount) {
         return EconomyUtil.formatCurrency(amount, currencyConfig);
+    }
+
+    @Override
+    public Map<UUID, Double> getTopBalances(int topN) {
+        return storage.getTopBalances(topN);
     }
 }

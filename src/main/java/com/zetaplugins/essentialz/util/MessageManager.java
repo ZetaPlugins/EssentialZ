@@ -70,12 +70,26 @@ public class MessageManager {
      * @return The formatted message
      */
     public Component getAndFormatMsg(Style style, String path, String fallback, Replaceable<?>... replaceables) {
+        return getAndFormatMsg(style, path, fallback, true, replaceables);
+    }
+
+    /**
+     * Gets and formats a message from the config
+     *
+     * @param style The style of the message
+     * @param path The path to the message in the config
+     * @param fallback The fallback message
+     * @param addPrefix Whether to add the style prefix
+     * @param replaceables The placeholders to replace
+     * @return The formatted message
+     */
+    public Component getAndFormatMsg(Style style, String path, String fallback, boolean addPrefix, Replaceable<?>... replaceables) {
         if (path.startsWith("messages.")) path = path.substring("messages.".length());
 
         MiniMessage mm = MiniMessage.miniMessage();
         String msg = languageManager.getString(path, fallback);
 
-        msg = style.getPrefix(plugin) + msg;
+        if (addPrefix) msg = style.getPrefix(plugin) + msg;
 
         msg = msg.replace("{prefix}", style.getPrefix(plugin));
 

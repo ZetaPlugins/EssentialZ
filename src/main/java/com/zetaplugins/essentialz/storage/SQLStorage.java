@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
 
@@ -295,6 +296,32 @@ public abstract class SQLStorage extends Storage {
             getPlugin().getLogger().log(Level.SEVERE, "Failed to check if player is ignoring target:", e);
             return false;
         }
+    }
+
+    @Override
+    public Map<UUID, Double> getTopBalances(int topN) {
+        final String sql = "SELECT uuid, balance FROM players ORDER BY balance DESC LIMIT ?";
+        Map<UUID, Double> topBalances = new java.util.LinkedHashMap<>();
+
+        try (Connection connection = getConnection()) {
+            if (connection == null) return topBalances;
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, topN);
+
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        UUID uuid = UUID.fromString(resultSet.getString("uuid"));
+                        double balance = resultSet.getDouble("balance");
+                        topBalances.put(uuid, balance);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            getPlugin().getLogger().log(Level.SEVERE, "Failed to retrieve top balances from SQL database:", e);
+        }
+
+        return topBalances;
     }
 
     protected abstract String getInserOrReplaceWarpStatement();

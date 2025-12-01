@@ -2,6 +2,9 @@ package com.zetaplugins.essentialz.features.economy.manager;
 
 import org.bukkit.OfflinePlayer;
 
+import java.util.Map;
+import java.util.UUID;
+
 public class UnusedEconomyManager implements EconomyManager {
     /**
      * Get the balance of a player.
@@ -56,6 +59,11 @@ public class UnusedEconomyManager implements EconomyManager {
      */
     @Override
     public String format(double amount) {
+        throw new UnsupportedOperationException("Economy system is disabled.");
+    }
+
+    @Override
+    public Map<UUID, Double> getTopBalances(int topN) {
         throw new UnsupportedOperationException("Economy system is disabled.");
     }
 }

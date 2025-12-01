@@ -2,6 +2,9 @@ package com.zetaplugins.essentialz.features.economy.manager;
 
 import org.bukkit.OfflinePlayer;
 
+import java.util.Map;
+import java.util.UUID;
+
 /**
  * Interface for managing player economy.
  */
@@ -41,4 +44,11 @@ public interface EconomyManager {
      * @return The formatted amount as a string.
      */
     String format(double amount);
+
+    /**
+     * Get the top N players with the highest balances.
+     * @param topN The number of top players to retrieve.
+     * @return A map of player UUIDs to their balances sorted in descending order.
+     */
+    Map<UUID, Double> getTopBalances(int topN);
 }
