@@ -10,9 +10,3 @@ website: https://strassburger.org
 softdepend:
   - PlaceholderAPI
   - Vault
-
-commands:
-  essentialz:
-    description: Main command for EssentialZ
-    aliases:
-      - esz
