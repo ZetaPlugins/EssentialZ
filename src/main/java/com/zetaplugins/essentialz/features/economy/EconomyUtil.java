@@ -8,7 +8,9 @@ public class EconomyUtil {
     private static final Map<String, Double> SUFFIX_MULTIPLIERS = Map.of(
             "K", 1_000.0,
             "M", 1_000_000.0,
-            "B", 1_000_000_000.0
+            "B", 1_000_000_000.0,
+            "T", 1_000_000_000_000.0,
+            "Q", 1_000_000_000_000_000.0
     );
 
     private EconomyUtil() {}
