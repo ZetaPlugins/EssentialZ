@@ -40,7 +40,7 @@ public class SetWarpCommand extends EszCommand {
         String warpName = args.getArg(0);
         if (warpName == null || warpName.isEmpty()) throw new CommandUsageException("/setwarp <name>");
 
-        storage.saveWarp(new WarpData(warpName, player.getLocation()));
+        storage.getWarpsRepository().save(new WarpData(warpName, player.getLocation()));
 
         player.sendMessage(getMessageManager().getAndFormatMsg(
                 MessageManager.Style.MOVEMENT,

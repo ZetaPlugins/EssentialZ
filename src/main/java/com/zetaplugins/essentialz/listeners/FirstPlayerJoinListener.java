@@ -23,13 +23,13 @@ public class FirstPlayerJoinListener implements Listener {
     @EventHandler
     public void onFirstPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        PlayerData playerData = storage.load(player.getUniqueId());
+        PlayerData playerData = storage.getPlayerRepository().load(player.getUniqueId());
         if (playerData != null) {
             PlayerData newPlayerData = new PlayerData(player.getUniqueId());
             double startingBalance = configService.getConfig(EszConfig.ECONOMY)
                     .getDouble("startingBalance", 1000.0);
             newPlayerData.setBalance(startingBalance);
-            storage.save(newPlayerData);
+            storage.getPlayerRepository().save(newPlayerData);
         }
     }
 }

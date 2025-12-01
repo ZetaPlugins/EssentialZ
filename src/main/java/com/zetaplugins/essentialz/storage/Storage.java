@@ -1,113 +1,39 @@
 package com.zetaplugins.essentialz.storage;
 
 import com.zetaplugins.essentialz.EssentialZ;
-import com.zetaplugins.essentialz.storage.model.PlayerData;
-import com.zetaplugins.essentialz.storage.model.WarpData;
+import com.zetaplugins.essentialz.storage.repositories.ignores.IgnoresRepository;
+import com.zetaplugins.essentialz.storage.repositories.player.PlayerRepository;
+import com.zetaplugins.essentialz.storage.repositories.warps.WarpsRepository;
 import com.zetaplugins.zetacore.annotations.PostManagerConstruct;
 
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
+/**
+ * Abstract class representing the storage system for EssentialZ plugin.
+ * It provides methods to initialize the database and access various repositories.
+ */
 public abstract class Storage {
-
-    // Private field to store the Plugin instance
     private final EssentialZ plugin;
 
-    // Constructor to initialize the Plugin instance
+    /**
+     * Constructs a Storage instance with the provided EssentialZ plugin.
+     * @param plugin The EssentialZ plugin instance.
+     */
     public Storage(EssentialZ plugin) {
         this.plugin = plugin;
     }
 
-    // Getter method for the Plugin instance (if needed)
     protected EssentialZ getPlugin() {
         return plugin;
     }
 
     /**
-     * Initializes the database connection and schema.
+     * Initializes the database by setting up necessary tables and structures.
      */
     @PostManagerConstruct
     public abstract void initializeDatabase();
 
-    /**
-     * Saves the player data to the storage system.
-     *
-     * @param playerData The player data to save.
-     */
-    public abstract void save(PlayerData playerData);
+    public abstract PlayerRepository getPlayerRepository();
 
-    /**
-     * Loads the player data from the storage system.
-     *
-     * @param uuid The UUID of the player to load.
-     * @return The player data of the player.
-     */
-    public abstract PlayerData load(String uuid);
+    public abstract IgnoresRepository getIgnoresRepository();
 
-    /**
-     * Loads the player data from the storage system.
-     *
-     * @param uuid The UUID of the player to load.
-     * @return The player data of the player.
-     */
-    public abstract PlayerData load(UUID uuid);
-
-    /**
-     * Clear all player data from the storage system.
-     */
-    public abstract void clearDatabase();
-
-    /**
-     * Migrate the database to the latest version.
-     */
-    protected abstract void migrateDatabase();
-
-    /**
-     * Toggles the ignore status of a target player for a specific player.
-     * @param playerUuid The UUID of the player who is toggling the ignore status.
-     * @param targetUuid The UUID of the target player to be ignored or unignored.
-     * @return true if the target player is now ignored, false if unignored.
-     */
-    public abstract boolean togglePlayerIgnore(UUID playerUuid, UUID targetUuid);
-
-    /**
-     * Checks if a player is ignoring a target player.
-     * @param playerUuid The UUID of the player.
-     * @param targetUuid The UUID of the target player.
-     * @return true if the player is ignoring the target player, false otherwise.
-     */
-    public abstract boolean isPlayerIgnoring(UUID playerUuid, UUID targetUuid);
-
-    /**
-     * Gets the top N players with the highest balances.
-     * @param topN The number of top players to retrieve.
-     * @return A map of player UUIDs and their balances, sorted by balance in descending order.
-     */
-    public abstract Map<UUID, Double> getTopBalances(int topN);
-
-    /**
-     * Gets a warp by its name.
-     * @param warpName The name of the warp.
-     * @return The warp object, or null if not found.
-     */
-    public abstract WarpData getWarp(String warpName);
-
-    /**
-     * Saves a warp to the storage system.
-     * @param warpData The warp to save.
-     */
-    public abstract void saveWarp(WarpData warpData);
-
-    /**
-     * Deletes a warp from the storage system.
-     * @param warpName The name of the warp to delete.
-     */
-    public abstract boolean deleteWarp(String warpName);
-
-    /**
-     * Gets a list of all warp names.
-     * @return A list of all warp names.
-     */
-    public abstract List<String> getAllWarpNames();
+    public abstract WarpsRepository getWarpsRepository();
 }

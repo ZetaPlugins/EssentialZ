@@ -69,7 +69,7 @@ public class VaultEconomyImpl implements Economy {
 
     @Override
     public boolean hasAccount(OfflinePlayer offlinePlayer) {
-        return storage.load(offlinePlayer.getUniqueId()) != null;
+        return storage.getPlayerRepository().load(offlinePlayer.getUniqueId()) != null;
     }
 
     /**
@@ -98,7 +98,9 @@ public class VaultEconomyImpl implements Economy {
 
     @Override
     public double getBalance(OfflinePlayer offlinePlayer) {
-        return storage.load(offlinePlayer.getUniqueId()).getBalance();
+        PlayerData playerData = storage.getPlayerRepository().load(offlinePlayer.getUniqueId());
+        if (playerData == null) return 0;
+        else return playerData.getBalance();
     }
 
     /**
@@ -161,7 +163,15 @@ public class VaultEconomyImpl implements Economy {
     @Override
     public EconomyResponse withdrawPlayer(OfflinePlayer offlinePlayer, double v) {
         if (v < 0) throw new IllegalArgumentException("Amount cannot be negative");
-        PlayerData playerData = storage.load(offlinePlayer.getUniqueId());
+        PlayerData playerData = storage.getPlayerRepository().load(offlinePlayer.getUniqueId());
+        if (playerData == null) {
+            return new EconomyResponse(
+                    0,
+                    0,
+                    EconomyResponse.ResponseType.FAILURE,
+                    "Account does not exist"
+            );
+        }
         if (playerData.getBalance() < v) {
             return new EconomyResponse(
                     0,
@@ -172,7 +182,7 @@ public class VaultEconomyImpl implements Economy {
         }
 
         playerData.setBalance(playerData.getBalance() - v);
-        storage.save(playerData);
+        storage.getPlayerRepository().save(playerData);
         return new EconomyResponse(
                 v,
                 playerData.getBalance(),
@@ -210,9 +220,17 @@ public class VaultEconomyImpl implements Economy {
     @Override
     public EconomyResponse depositPlayer(OfflinePlayer offlinePlayer, double v) {
         if (v < 0) throw new IllegalArgumentException("Amount cannot be negative");
-        PlayerData playerData = storage.load(offlinePlayer.getUniqueId());
+        PlayerData playerData = storage.getPlayerRepository().load(offlinePlayer.getUniqueId());
+        if (playerData == null) {
+            return new EconomyResponse(
+                    0,
+                    0,
+                    EconomyResponse.ResponseType.FAILURE,
+                    "Account does not exist"
+            );
+        }
         playerData.setBalance(playerData.getBalance() + v);
-        storage.save(playerData);
+        storage.getPlayerRepository().save(playerData);
         return new EconomyResponse(
                 v,
                 playerData.getBalance(),

@@ -112,3 +112,4 @@ balTopHeader: "\n&8┌─ {ac}Top Balances&r&8 ───────────
 balTopLine: "&8│ {ac}{rank}. &7{player} &8- {ac}{balance}"
 balTopFooter: "&8└─────────────────────────────\n"
 insufficientFundsCommandFee: "{ac}You do not have enough funds to pay the command fee of {fee}!"
+playerDataNotFound: "{ac}The player data for {player} could not be found. Please try again later."

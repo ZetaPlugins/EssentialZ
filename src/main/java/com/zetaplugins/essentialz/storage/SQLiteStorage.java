@@ -1,34 +1,49 @@
 package com.zetaplugins.essentialz.storage;
 
 import com.zetaplugins.essentialz.EssentialZ;
-import com.zetaplugins.essentialz.storage.connectionPool.ConnectionPool;
 import com.zetaplugins.essentialz.storage.connectionPool.SQLiteConnectionPool;
+import com.zetaplugins.essentialz.storage.repositories.ignores.IgnoresRepository;
+import com.zetaplugins.essentialz.storage.repositories.ignores.SQLIgnoresRepository;
+import com.zetaplugins.essentialz.storage.repositories.player.PlayerRepository;
+import com.zetaplugins.essentialz.storage.repositories.player.SQLPlayerRepository;
+import com.zetaplugins.essentialz.storage.repositories.warps.SQLiteWarpsRepository;
+import com.zetaplugins.essentialz.storage.repositories.warps.WarpsRepository;
 
-public final class SQLiteStorage extends SQLStorage {
-    private final SQLiteConnectionPool connectionPool;
+/**
+ * SQLiteStorage is a concrete implementation of the Storage class that uses SQLite as the database backend.
+ */
+public final class SQLiteStorage extends Storage {
+    private final SQLPlayerRepository playerRepository;
+    private final SQLIgnoresRepository ignoresRepository;
+    private final SQLiteWarpsRepository warpsRepository;
 
     public SQLiteStorage(EssentialZ plugin) {
         super(plugin);
-        connectionPool = new SQLiteConnectionPool(getPlugin().getDataFolder().getPath() + "/userData.db");
+        var connectionPool = new SQLiteConnectionPool(plugin.getDataFolder().getPath() + "/userData.db");
+        playerRepository = new SQLPlayerRepository(plugin, connectionPool);
+        ignoresRepository = new SQLIgnoresRepository(plugin, connectionPool);
+        warpsRepository = new SQLiteWarpsRepository(plugin, connectionPool);
     }
 
     @Override
-    protected void migrateDatabase() {
-        // possible future migrations can be handled here
+    public void initializeDatabase() {
+        playerRepository.initializeTable();
+        ignoresRepository.initializeTable();
+        warpsRepository.initializeTable();
     }
 
     @Override
-    public ConnectionPool getConnectionPool() {
-        return connectionPool;
+    public PlayerRepository getPlayerRepository() {
+        return playerRepository;
     }
 
     @Override
-    protected String getInserOrReplacePlayerStatement() {
-        return "INSERT OR REPLACE INTO players (uuid, enableTeamchat, enableDms, balance) VALUES (?, ?, ?, ?)";
+    public IgnoresRepository getIgnoresRepository() {
+        return ignoresRepository;
     }
 
     @Override
-    protected String getInserOrReplaceWarpStatement() {
-        return "INSERT OR REPLACE INTO warps (name, world, x, y, z, yaw, pitch) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public WarpsRepository getWarpsRepository() {
+        return warpsRepository;
     }
 }

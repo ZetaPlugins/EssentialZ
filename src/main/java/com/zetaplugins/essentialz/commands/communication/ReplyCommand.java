@@ -60,7 +60,15 @@ public class ReplyCommand extends EszCommand {
             return false;
         }
 
-        PlayerData targetPlayerData = storage.load(targetPlayer.getUniqueId());
+        PlayerData targetPlayerData = storage.getPlayerRepository().load(targetPlayer.getUniqueId());
+        if (targetPlayerData == null) {
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
+                    MessageManager.Style.ERROR,
+                    "playerDataNotFound",
+                    "{ac}The player data for {player} could not be found. Please try again later."
+            ));
+            return false;
+        }
         if (!targetPlayerData.isEnableDms()) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
@@ -71,7 +79,7 @@ public class ReplyCommand extends EszCommand {
             return false;
         }
 
-        boolean isIgnoring = storage.isPlayerIgnoring(targetPlayer.getUniqueId(), player.getUniqueId());
+        boolean isIgnoring = storage.getIgnoresRepository().isPlayerIgnoring(targetPlayer.getUniqueId(), player.getUniqueId());
         if (isIgnoring) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
@@ -82,7 +90,7 @@ public class ReplyCommand extends EszCommand {
             return false;
         }
 
-        boolean youAreIgnoring = storage.isPlayerIgnoring(player.getUniqueId(), targetPlayer.getUniqueId());
+        boolean youAreIgnoring = storage.getIgnoresRepository().isPlayerIgnoring(player.getUniqueId(), targetPlayer.getUniqueId());
         if (youAreIgnoring) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,

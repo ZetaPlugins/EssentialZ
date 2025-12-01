@@ -40,7 +40,15 @@ public class TeamchatCommand extends EszCommand {
                 .toList();
 
         if (sender instanceof Player senderPlayer) {
-            PlayerData senderPlayerData = storage.load(senderPlayer.getUniqueId());
+            PlayerData senderPlayerData = storage.getPlayerRepository().load(senderPlayer.getUniqueId());
+            if (senderPlayerData == null) {
+                sender.sendMessage(getMessageManager().getAndFormatMsg(
+                        MessageManager.Style.ERROR,
+                        "playerDataNotFound",
+                        "{ac}The player data for {player} could not be found. Please try again later."
+                ));
+                return false;
+            }
             if (!senderPlayerData.isEnableTeamchat()) {
                 sender.sendMessage(getMessageManager().getAndFormatMsg(
                         MessageManager.Style.ERROR,
@@ -56,7 +64,7 @@ public class TeamchatCommand extends EszCommand {
         boolean allowToUseColor = sender.hasPermission("essentialz.teamchat.color");
 
         for (Player p : playersWithPerm) {
-            PlayerData playerData = storage.load(p.getUniqueId());
+            PlayerData playerData = storage.getPlayerRepository().load(p.getUniqueId());
             if (playerData != null && !playerData.isEnableTeamchat()) continue;
 
             p.sendMessage(getMessageManager().getAndFormatMsg(

@@ -35,7 +35,7 @@ public class DelWarpCommand extends EszCommand {
         String warpName = argumentList.getArg(0);
         if (warpName == null || warpName.isEmpty()) throw new CommandUsageException("/delwarp <name>");
 
-        boolean success = storage.deleteWarp(warpName);
+        boolean success = storage.getWarpsRepository().delete(warpName);
 
         if (success) {
             commandSender.sendMessage(getMessageManager().getAndFormatMsg(
@@ -58,7 +58,7 @@ public class DelWarpCommand extends EszCommand {
 
     @Override
     public List<String> tabComplete(CommandSender commandSender, Command command, ArgumentList args) {
-        if (args.getCurrentArgIndex() == 0) return storage.getAllWarpNames();
+        if (args.getCurrentArgIndex() == 0) return storage.getWarpsRepository().getAllWarpNames();
         return List.of();
     }
 }

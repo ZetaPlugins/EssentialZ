@@ -41,7 +41,7 @@ public class WarpCommand extends EszCommand {
         String warpName = args.getArg(0);
         if (warpName == null || warpName.isEmpty()) throw new CommandUsageException("Usage: /warp <name>");
 
-        WarpData warpData = storage.getWarp(warpName);
+        WarpData warpData = storage.getWarpsRepository().load(warpName);
         if (warpData == null) {
             commandSender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,
@@ -59,7 +59,7 @@ public class WarpCommand extends EszCommand {
     @Override
     public List<String> tabComplete(CommandSender commandSender, Command command, ArgumentList args) {
         if (args.getCurrentArgIndex() == 0) {
-            return getDisplayOptions(storage.getAllWarpNames(), args.getCurrentArg());
+            return getDisplayOptions(storage.getWarpsRepository().getAllWarpNames(), args.getCurrentArg());
         }
         return List.of();
     }

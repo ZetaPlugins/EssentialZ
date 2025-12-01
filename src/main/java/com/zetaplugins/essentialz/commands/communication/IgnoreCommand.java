@@ -46,7 +46,7 @@ public class IgnoreCommand extends EszCommand {
             return false;
         }
 
-        boolean isIgnoringNow = storage.togglePlayerIgnore(player.getUniqueId(), targetPlayer.getUniqueId());
+        boolean isIgnoringNow = storage.getIgnoresRepository().togglePlayerIgnore(player.getUniqueId(), targetPlayer.getUniqueId());
         sender.sendMessage(getMessageManager().getAndFormatMsg(
                 MessageManager.Style.SUCCESS,
                 isIgnoringNow ? "ignoreAdded" : "ignoreRemoved",

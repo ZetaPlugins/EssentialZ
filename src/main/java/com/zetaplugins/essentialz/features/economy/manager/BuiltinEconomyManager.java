@@ -33,35 +33,40 @@ public class BuiltinEconomyManager implements EconomyManager {
 
     @Override
     public double getBalance(OfflinePlayer player) {
-        return storage.load(player.getUniqueId()).getBalance();
+        PlayerData playerData = storage.getPlayerRepository().load(player.getUniqueId());
+        if (playerData == null) return 0.0;
+        else return playerData.getBalance();
     }
 
     @Override
     public void deposit(OfflinePlayer player, double amount) {
         if (amount < 0) amount = 0;
-        PlayerData playerData = storage.load(player.getUniqueId());
+        PlayerData playerData = storage.getPlayerRepository().load(player.getUniqueId());
+        if (playerData == null) playerData = new PlayerData(player.getUniqueId());
         double currentBalance = playerData.getBalance();
         playerData.setBalance(currentBalance + amount);
-        storage.save(playerData);
+        storage.getPlayerRepository().save(playerData);
     }
 
     @Override
     public boolean withdraw(OfflinePlayer player, double amount) {
         if (amount < 0) amount = 0;
-        PlayerData playerData = storage.load(player.getUniqueId());
+        PlayerData playerData = storage.getPlayerRepository().load(player.getUniqueId());
+        if (playerData == null) playerData = new PlayerData(player.getUniqueId());
         double currentBalance = playerData.getBalance();
         if (currentBalance < amount) return false;
         playerData.setBalance(currentBalance - amount);
-        storage.save(playerData);
+        storage.getPlayerRepository().save(playerData);
         return true;
     }
 
     @Override
     public void setBalance(OfflinePlayer player, double amount) {
         if (amount < 0) amount = 0;
-        PlayerData playerData = storage.load(player.getUniqueId());
+        PlayerData playerData = storage.getPlayerRepository().load(player.getUniqueId());
+        if (playerData == null) playerData = new PlayerData(player.getUniqueId());
         playerData.setBalance(amount);
-        storage.save(playerData);
+        storage.getPlayerRepository().save(playerData);
     }
 
     /**
@@ -77,6 +82,6 @@ public class BuiltinEconomyManager implements EconomyManager {
 
     @Override
     public Map<UUID, Double> getTopBalances(int topN) {
-        return storage.getTopBalances(topN);
+        return storage.getPlayerRepository().getTopBalances(topN);
     }
 }

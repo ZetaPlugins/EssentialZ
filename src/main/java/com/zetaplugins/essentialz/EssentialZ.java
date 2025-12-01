@@ -83,7 +83,7 @@ public final class EssentialZ extends JavaPlugin {
         return switch (configManager.getConfig(EszConfig.STORAGE).getString("type").toLowerCase()) {
             case "mysql" -> {
                 getLogger().info("Using MySQL storage");
-                yield new MySQLStorage(this);
+                yield new MySQLStorage(this, configManager.getConfig(EszConfig.STORAGE));
             }
             case "sqlite" -> {
                 getLogger().info("Using SQLite storage");

@@ -52,7 +52,15 @@ public class MsgCommand extends EszCommand {
         }
 
         if (sender instanceof Player senderPlayer) {
-            PlayerData senderPlayerData = storage.load(senderPlayer.getUniqueId());
+            PlayerData senderPlayerData = storage.getPlayerRepository().load(senderPlayer.getUniqueId());
+            if (senderPlayerData == null) {
+                sender.sendMessage(getMessageManager().getAndFormatMsg(
+                        MessageManager.Style.ERROR,
+                        "playerDataNotFound",
+                        "{ac}The player data for {player} could not be found. Please try again later."
+                ));
+                return false;
+            }
             if (!senderPlayerData.isEnableDms()) {
                 sender.sendMessage(getMessageManager().getAndFormatMsg(
                         MessageManager.Style.ERROR,
@@ -62,7 +70,7 @@ public class MsgCommand extends EszCommand {
                 return false;
             }
 
-            boolean isIgnoring = storage.isPlayerIgnoring(targetPlayer.getUniqueId(), senderPlayer.getUniqueId());
+            boolean isIgnoring = storage.getIgnoresRepository().isPlayerIgnoring(targetPlayer.getUniqueId(), senderPlayer.getUniqueId());
             if (isIgnoring) {
                 sender.sendMessage(getMessageManager().getAndFormatMsg(
                         MessageManager.Style.ERROR,
@@ -73,7 +81,7 @@ public class MsgCommand extends EszCommand {
                 return false;
             }
 
-            boolean youAreIgnoring = storage.isPlayerIgnoring(senderPlayer.getUniqueId(), targetPlayer.getUniqueId());
+            boolean youAreIgnoring = storage.getIgnoresRepository().isPlayerIgnoring(senderPlayer.getUniqueId(), targetPlayer.getUniqueId());
             if (youAreIgnoring) {
                 sender.sendMessage(getMessageManager().getAndFormatMsg(
                         MessageManager.Style.ERROR,
@@ -85,7 +93,16 @@ public class MsgCommand extends EszCommand {
             }
         }
 
-        PlayerData targetPlayerData = storage.load(targetPlayer.getUniqueId());
+        PlayerData targetPlayerData = storage.getPlayerRepository().load(targetPlayer.getUniqueId());
+        if (targetPlayerData == null) {
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
+                    MessageManager.Style.ERROR,
+                    "playerDataNotFound",
+                    "{ac}The player data for {player} could not be found. Please try again later.",
+                    new MessageManager.Replaceable<>("{player}", targetPlayer.getName())
+            ));
+            return false;
+        }
         if (!targetPlayerData.isEnableDms()) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageManager.Style.ERROR,

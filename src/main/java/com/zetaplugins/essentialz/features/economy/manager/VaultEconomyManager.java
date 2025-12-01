@@ -73,6 +73,6 @@ public class VaultEconomyManager implements EconomyManager {
 
     @Override
     public Map<UUID, Double> getTopBalances(int topN) {
-        return storage.getTopBalances(topN);
+        return storage.getPlayerRepository().getTopBalances(topN);
     }
 }

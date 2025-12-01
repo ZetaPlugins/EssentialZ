@@ -35,10 +35,18 @@ public class ToggleMsgCommand extends EszCommand {
     public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandSenderMustBePlayerException {
         if (!(sender instanceof Player player)) throw new CommandSenderMustBePlayerException();
 
-        PlayerData playerData = storage.load(player.getUniqueId());
+        PlayerData playerData = storage.getPlayerRepository().load(player.getUniqueId());
+        if (playerData == null) {
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
+                    MessageManager.Style.ERROR,
+                    "playerDataNotFound",
+                    "{ac}The player data for {player} could not be found. Please try again later."
+            ));
+            return true;
+        }
         boolean newStatus = !playerData.isEnableDms();
         playerData.setEnableDms(newStatus);
-        storage.save(playerData);
+        storage.getPlayerRepository().save(playerData);
 
         String statusMsgKey = newStatus ? "dmsEnabled" : "dmsDisabled";
         String statusMsgDefault = newStatus ? "&7You have {ac}enabled &7private messages." : "&7You have {ac}disabled &7private messages.";
