@@ -18,3 +18,18 @@ currencyFormat:
   decimalSeparator: "."
   # Position of the currency symbol (before/after)
   symbolPosition: "before"
+
+# Command fees requires players to pay a fee when using certain commands.
+commandFees:
+  # Wether or not command fees are enabled
+  enabled: false
+
+  # The actual command fee amounts
+  fees:
+    # Fee for the /warp command
+    warp: 10.0
+    # Fee for the /setwarp command
+    setwarp: 50.0
+    # Fee for the /deletewarp command
+    deletewarp: 25.0
+    # You can add more commands and their respective fees here
