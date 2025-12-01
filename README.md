@@ -6,7 +6,7 @@
 ![purpur](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/supported/purpur_vector.svg)
 [![github](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/available/github_vector.svg)](https://github.com/ZetaPlugins/EssentialZ)
 [![modrinth](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/available/modrinth_vector.svg)](https://modrinth.com/plugin/essential_z)
-[![hangar](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/available/hangar_vector.svg)](https://hangar.papermc.io/ZetaPlugins/EssentialZ)
+[![hangar](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/available/hangar_vector.svg)](https://hangar.papermc.io/KartoffelChipss/EssentialZ)
 [![discord-plural](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/social/discord-plural_vector.svg)](https://strassburger.org/discord)
 [![gitbook](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/documentation/gitbook_vector.svg)](https://docs.zetaplugins.com/essentialz/)
 
@@ -30,7 +30,7 @@ EssentialsZ gives you the option to fully customize your experience without any 
 
 ## Installation
 
-1. Download the latest version of EssentialZ from [Modrinth](https://modrinth.com/plugin/essential_z) or [Hangar](https://hangar.papermc.io/ZetaPlugins/EssentialZ).
+1. Download the latest version of EssentialZ from [Modrinth](https://modrinth.com/plugin/essential_z) or [Hangar](https://hangar.papermc.io/KartoffelChipss/EssentialZ).
 2. Place the downloaded JAR file into your server's `plugins` directory.
 3. Restart your server to generate the configuration files.
 4. Customize the configuration files located in the `plugins/EssentialZ` directory to suit your server's needs.
