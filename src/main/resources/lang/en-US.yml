@@ -116,3 +116,4 @@ playerDataNotFound: "{ac}The player data for {player} could not be found. Please
 noRulesFileFound: "{ac}No rules file found. Please contact an administrator."
 errorReadingRulesFile: "{ac}An error occurred while reading the rules file."
 reloaded: "&7EssentialZ has been successfully reloaded!"
+updateAvailable: "&7A new version of {ac}EssentialZ &7is available! Download it from {ac}{url}&7."

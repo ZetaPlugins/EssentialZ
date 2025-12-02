@@ -17,6 +17,8 @@ import com.zetaplugins.zetacore.services.commands.AutoCommandRegistrar;
 import com.zetaplugins.zetacore.services.config.ConfigService;
 import com.zetaplugins.zetacore.services.di.ManagerRegistry;
 import com.zetaplugins.zetacore.services.events.AutoEventRegistrar;
+import com.zetaplugins.zetacore.services.updatechecker.ModrinthUpdateChecker;
+import com.zetaplugins.zetacore.services.updatechecker.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -49,6 +51,7 @@ public final class EssentialZ extends JavaPlugin {
         managerRegistry.registerInstance(new MessageManager(this));
         // Registry will automatically create and register other managers as needed
 
+        initUpdateChecker();
         initEconomy();
 
         registerCommands();
@@ -62,6 +65,12 @@ public final class EssentialZ extends JavaPlugin {
     @Override
     public void onDisable() {
         getLogger().info("EssentialZ disabled!");
+    }
+
+    private void initUpdateChecker() {
+        UpdateChecker updateChecker = new ModrinthUpdateChecker(this, "FTVoyulY");
+        managerRegistry.registerInstance(UpdateChecker.class, updateChecker);
+        updateChecker.checkForUpdates(true);
     }
 
     private void initEconomy() {
