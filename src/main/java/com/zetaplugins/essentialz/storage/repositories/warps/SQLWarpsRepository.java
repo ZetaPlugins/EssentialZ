@@ -5,10 +5,7 @@ import com.zetaplugins.essentialz.storage.connectionPool.ConnectionPool;
 import com.zetaplugins.essentialz.storage.model.WarpData;
 import com.zetaplugins.essentialz.storage.repositories.Repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -21,7 +18,26 @@ public abstract class SQLWarpsRepository extends Repository implements WarpsRepo
 
     @Override
     public void initializeTable() {
-
+        try (Connection connection = getConnection()) {
+            if (connection == null) return;
+            try (Statement statement = connection.createStatement()) {
+                StringBuilder warpsTableSql = new StringBuilder();
+                warpsTableSql.append("CREATE TABLE IF NOT EXISTS warps (")
+                        .append("name TEXT PRIMARY KEY, ")
+                        .append("world TEXT, ")
+                        .append("x DOUBLE, ")
+                        .append("y DOUBLE, ")
+                        .append("z DOUBLE, ")
+                        .append("yaw FLOAT, ")
+                        .append("pitch FLOAT")
+                        .append(");");
+                statement.executeUpdate(warpsTableSql.toString());
+            } catch (SQLException e) {
+                getPlugin().getLogger().log(Level.SEVERE, "Failed to create warps SQLite table:", e);
+            }
+        } catch (SQLException e) {
+            getPlugin().getLogger().log(Level.SEVERE, "Failed to create warps SQLite table:", e);
+        }
     }
 
     @Override

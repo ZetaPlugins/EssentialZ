@@ -108,7 +108,7 @@ public class WarpData {
 
     @Override
     public String toString() {
-        return "Warp{" +
+        return "WarpData{" +
                 "name='" + name + '\'' +
                 ", world='" + world + '\'' +
                 ", x=" + x +
