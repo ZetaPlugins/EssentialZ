@@ -38,10 +38,16 @@ public class MainCommand extends EszCommand {
 
     @Override
     public boolean execute(CommandSender sender, Command command, String s, ArgumentList args) throws CommandException {
-        String subcommand = args.getString(0, "help").toLowerCase();
+        String subcommand = args.getString(0, "about").toLowerCase();
         switch (subcommand) {
-            case "help" -> {
-                sender.sendMessage("This is a placeholder help message for EssentialZ.");
+            case "about" -> {
+                sender.sendMessage(messageManager.getAndFormatMsg(
+                        MessageManager.Style.DEFAULT,
+                        "aboutMessage",
+                        "\n{ac}<b><grey>></grey> EssentialZ</b> <grey>v%version%</grey>\n\n{ac} <u><click:open_url:'https://docs.zetaplugins.com/essentialz/'>Documentation</click></u>  {ac}<u><click:open_url:'https://strassburger.org/discord'>Support Discord</click></u>\n",
+                        false,
+                        new MessageManager.Replaceable<>("%version%", getPlugin().getDescription().getVersion())
+                ));
                 return true;
             }
             case "reload" -> {
@@ -63,7 +69,7 @@ public class MainCommand extends EszCommand {
     @Override
     public List<String> tabComplete(CommandSender sender, Command command, ArgumentList args) {
         if (args.getCurrentArgIndex() == 0) {
-            List<String> options = new ArrayList<>(List.of("help"));
+            List<String> options = new ArrayList<>(List.of("about"));
             if (Permission.RELOAD.has(sender)) options.add("reload");
             return options;
         }
