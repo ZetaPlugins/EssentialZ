@@ -3,7 +3,7 @@ package com.zetaplugins.essentialz.commands.communication;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.storage.Storage;
 import com.zetaplugins.essentialz.storage.model.PlayerData;
-import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.MessageStyle;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
@@ -43,7 +43,7 @@ public class ToggleTeamchatCommand extends EszCommand {
         String statusMsgKey = newStatus ? "tcEnabled" : "tcDisabled";
         String statusMsgDefault = newStatus ? "&7You have {ac}enabled &7the team chat." : "&7You have {ac}disabled &7the team chat.";
         player.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageManager.Style.SUCCESS,
+                MessageStyle.SUCCESS,
                 statusMsgKey,
                 statusMsgDefault
         ));

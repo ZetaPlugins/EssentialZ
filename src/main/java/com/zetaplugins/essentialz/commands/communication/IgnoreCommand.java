@@ -3,6 +3,7 @@ package com.zetaplugins.essentialz.commands.communication;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.storage.Storage;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.MessageStyle;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
@@ -39,7 +40,7 @@ public class IgnoreCommand extends EszCommand {
 
         if (player.getUniqueId().equals(targetPlayer.getUniqueId())) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "cannotIgnoreYourself",
                     "{ac}You cannot ignore yourself."
             ));
@@ -48,7 +49,7 @@ public class IgnoreCommand extends EszCommand {
 
         boolean isIgnoringNow = storage.getIgnoresRepository().togglePlayerIgnore(player.getUniqueId(), targetPlayer.getUniqueId());
         sender.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageManager.Style.SUCCESS,
+                MessageStyle.SUCCESS,
                 isIgnoringNow ? "ignoreAdded" : "ignoreRemoved",
                 isIgnoringNow ? "&7You are now ignoring {ac}{player}&7." : "&7You have unignored {ac}{player}&7.",
                 new MessageManager.Replaceable<>("{player}", targetPlayer.getName())

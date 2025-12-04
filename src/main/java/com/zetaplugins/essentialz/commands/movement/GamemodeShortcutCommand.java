@@ -3,12 +3,14 @@ package com.zetaplugins.essentialz.commands.movement;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.LanguageManager;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.PluginMessage;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandPermissionException;
+import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBeOrSpecifyPlayerException;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -32,7 +34,7 @@ public class GamemodeShortcutCommand extends EszCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandPermissionException {
+    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandPermissionException, CommandSenderMustBeOrSpecifyPlayerException {
         Player targetPlayer = args.getPlayer(0, getPlugin());
 
         if (targetPlayer != null && !(sender instanceof Player player && player.getUniqueId().equals(targetPlayer.getUniqueId()))) {
@@ -41,9 +43,7 @@ public class GamemodeShortcutCommand extends EszCommand {
             }
 
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.MOVEMENT,
-                    "gamemodeSetOther",
-                    "&7Set {ac}{player}&7's gamemode to {ac}{gamemode}&7.",
+                    PluginMessage.GAMEMODE_SET_OTHER,
                     new MessageManager.Replaceable<>("{player}", targetPlayer.getName()),
                     new MessageManager.Replaceable<>("{gamemode}", commandNameToGamemode(command.getName()))
             ));
@@ -52,14 +52,7 @@ public class GamemodeShortcutCommand extends EszCommand {
             return true;
         }
 
-        if (!(sender instanceof Player player)) {
-            sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
-                    "specifyPlayerOrBePlayer",
-                    "{ac}You must specify a player or be a player to use this command."
-            ));
-            return false;
-        }
+        if (!(sender instanceof Player player)) throw new CommandSenderMustBeOrSpecifyPlayerException();
 
         return setGamemode(player, command.getName());
     }
@@ -100,9 +93,7 @@ public class GamemodeShortcutCommand extends EszCommand {
 
     private void sendConfirmationMessage(Player player, String gameMode) {
         player.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageManager.Style.MOVEMENT,
-                "gamemodeSet",
-                "&7Set your gamemode to {ac}{gamemode}&7.",
+                PluginMessage.GAMEMODE_SET,
                 new MessageManager.Replaceable<>("{gamemode}", gameMode)
         ));
     }

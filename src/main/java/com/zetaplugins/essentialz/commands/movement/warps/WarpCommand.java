@@ -4,6 +4,7 @@ import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.storage.Storage;
 import com.zetaplugins.essentialz.storage.model.WarpData;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.PluginMessage;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
@@ -44,9 +45,7 @@ public class WarpCommand extends EszCommand {
         WarpData warpData = storage.getWarpsRepository().load(warpName);
         if (warpData == null) {
             commandSender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
-                    "warpNotFound",
-                    "{ac}Warp '{warpName}' does not exist.",
+                    PluginMessage.WARP_NOT_FOUND,
                     new MessageManager.Replaceable<>("{warpName}", warpName)
             ));
             return true;

@@ -3,7 +3,7 @@ package com.zetaplugins.essentialz.commands.communication;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.storage.Storage;
 import com.zetaplugins.essentialz.storage.model.PlayerData;
-import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.MessageStyle;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
@@ -38,7 +38,7 @@ public class ToggleMsgCommand extends EszCommand {
         PlayerData playerData = storage.getPlayerRepository().load(player.getUniqueId());
         if (playerData == null) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "playerDataNotFound",
                     "{ac}The player data for {player} could not be found. Please try again later."
             ));
@@ -51,7 +51,7 @@ public class ToggleMsgCommand extends EszCommand {
         String statusMsgKey = newStatus ? "dmsEnabled" : "dmsDisabled";
         String statusMsgDefault = newStatus ? "&7You have {ac}enabled &7private messages." : "&7You have {ac}disabled &7private messages.";
         player.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageManager.Style.SUCCESS,
+                MessageStyle.SUCCESS,
                 statusMsgKey,
                 statusMsgDefault
         ));

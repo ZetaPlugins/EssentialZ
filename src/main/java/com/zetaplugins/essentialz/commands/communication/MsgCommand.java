@@ -5,6 +5,7 @@ import com.zetaplugins.essentialz.features.LastMsgManager;
 import com.zetaplugins.essentialz.storage.Storage;
 import com.zetaplugins.essentialz.storage.model.PlayerData;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.MessageStyle;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
@@ -44,7 +45,7 @@ public class MsgCommand extends EszCommand {
         if (targetPlayer == null) throw new CommandUsageException("/" + command.getName() + " <player> <message>");
         if (sender instanceof Player senderPlayer && senderPlayer.getUniqueId().equals(targetPlayer.getUniqueId())) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "cannotMessageYourself",
                     "{ac}You cannot send a private message to yourself."
             ));
@@ -55,7 +56,7 @@ public class MsgCommand extends EszCommand {
             PlayerData senderPlayerData = storage.getPlayerRepository().load(senderPlayer.getUniqueId());
             if (senderPlayerData == null) {
                 sender.sendMessage(getMessageManager().getAndFormatMsg(
-                        MessageManager.Style.ERROR,
+                        MessageStyle.ERROR,
                         "playerDataNotFound",
                         "{ac}The player data for {player} could not be found. Please try again later."
                 ));
@@ -63,7 +64,7 @@ public class MsgCommand extends EszCommand {
             }
             if (!senderPlayerData.isEnableDms()) {
                 sender.sendMessage(getMessageManager().getAndFormatMsg(
-                        MessageManager.Style.ERROR,
+                        MessageStyle.ERROR,
                         "yourDmsDisabled",
                         "{ac}You have disabled private messages. Enable them using /msgtoggle to send messages."
                 ));
@@ -73,7 +74,7 @@ public class MsgCommand extends EszCommand {
             boolean isIgnoring = storage.getIgnoresRepository().isPlayerIgnoring(targetPlayer.getUniqueId(), senderPlayer.getUniqueId());
             if (isIgnoring) {
                 sender.sendMessage(getMessageManager().getAndFormatMsg(
-                        MessageManager.Style.ERROR,
+                        MessageStyle.ERROR,
                         "playerIsIgnoringYou",
                         "{ac}{player} is ignoring you. Your message was not sent.",
                         new MessageManager.Replaceable<>("{player}", targetPlayer.getName())
@@ -84,7 +85,7 @@ public class MsgCommand extends EszCommand {
             boolean youAreIgnoring = storage.getIgnoresRepository().isPlayerIgnoring(senderPlayer.getUniqueId(), targetPlayer.getUniqueId());
             if (youAreIgnoring) {
                 sender.sendMessage(getMessageManager().getAndFormatMsg(
-                        MessageManager.Style.ERROR,
+                        MessageStyle.ERROR,
                         "youAreIgnoringPlayer",
                         "{ac}You are ignoring {player}. Unignore them to send messages.",
                         new MessageManager.Replaceable<>("{player}", targetPlayer.getName())
@@ -96,7 +97,7 @@ public class MsgCommand extends EszCommand {
         PlayerData targetPlayerData = storage.getPlayerRepository().load(targetPlayer.getUniqueId());
         if (targetPlayerData == null) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "playerDataNotFound",
                     "{ac}The player data for {player} could not be found. Please try again later.",
                     new MessageManager.Replaceable<>("{player}", targetPlayer.getName())
@@ -105,7 +106,7 @@ public class MsgCommand extends EszCommand {
         }
         if (!targetPlayerData.isEnableDms()) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "playerDmsDisabled",
                     "{ac}{player} has disabled private messages.",
                     new MessageManager.Replaceable<>("{player}", targetPlayer.getName())
@@ -115,7 +116,7 @@ public class MsgCommand extends EszCommand {
 
         boolean allowToUseColor = sender.hasPermission("essentialz.msg.color");
         sender.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageManager.Style.COMMUNICATION,
+                MessageStyle.COMMUNICATION,
                 "privateMessageSent",
                 "&7&8[&7To &r{ac}{recipient}&7&8]&7: {message}",
                 new MessageManager.Replaceable<>("{recipient}", targetPlayer.getName()),
@@ -123,7 +124,7 @@ public class MsgCommand extends EszCommand {
         ));
 
         targetPlayer.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageManager.Style.COMMUNICATION,
+                MessageStyle.COMMUNICATION,
                 "privateMessageReceived",
                 "&7&8[&7From &r{ac}{sender}&7&8]&7: {message}",
                 new MessageManager.Replaceable<>("{sender}", sender.getName()),

@@ -2,6 +2,7 @@ package com.zetaplugins.essentialz.commands.items;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.MessageStyle;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.commands.ArgumentList;
@@ -41,7 +42,7 @@ public class SkullCommand extends EszCommand {
 
             if (targetPlayer == null) {
                 sender.sendMessage(getMessageManager().getAndFormatMsg(
-                        MessageManager.Style.ERROR,
+                        MessageStyle.ERROR,
                         "playerNotFound",
                         "{ac}Player not found."
                 ));
@@ -51,7 +52,7 @@ public class SkullCommand extends EszCommand {
             targetPlayer.getInventory().addItem(getSkull(skullPlayer));
 
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ITEMS,
+                    MessageStyle.ITEMS,
                     "skullGiven",
                     "&7Seccessfully gave {ac}{player}&7's head to {ac}{receiver}&7.",
                     new MessageManager.Replaceable<>("{receiver}", targetPlayer.getName()),
@@ -62,7 +63,7 @@ public class SkullCommand extends EszCommand {
 
         if (!(sender instanceof Player targetPlayer)) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "specifyPlayerOrBePlayer",
                     "{ac}You must specify a player or be a player to use this command."
             ));
@@ -72,7 +73,7 @@ public class SkullCommand extends EszCommand {
         targetPlayer.getInventory().addItem(getSkull(skullPlayer));
 
         sender.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageManager.Style.ITEMS,
+                MessageStyle.ITEMS,
                 "skullReceived",
                 "&7You received {ac}{player}&7's head.",
                 new MessageManager.Replaceable<>("{player}", skullPlayer.getName())

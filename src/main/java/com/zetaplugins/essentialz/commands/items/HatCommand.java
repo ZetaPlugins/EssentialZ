@@ -1,7 +1,7 @@
 package com.zetaplugins.essentialz.commands.items;
 
 import com.zetaplugins.essentialz.EssentialZ;
-import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.MessageStyle;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.commands.ArgumentList;
@@ -34,7 +34,7 @@ public class HatCommand extends EszCommand {
 
         if (item.isEmpty() || item.getType().isAir()) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "mustHoldAnItem",
                     "{ac}You must be holding an item."
             ));
@@ -46,7 +46,7 @@ public class HatCommand extends EszCommand {
         player.getInventory().setItemInMainHand(helmet);
 
         sender.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageManager.Style.ITEMS,
+                MessageStyle.ITEMS,
                 "hatSet",
                 "&7You are now wearing your held item as a hat."
         ));

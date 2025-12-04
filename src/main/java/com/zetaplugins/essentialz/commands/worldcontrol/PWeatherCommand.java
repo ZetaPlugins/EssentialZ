@@ -3,6 +3,7 @@ package com.zetaplugins.essentialz.commands.worldcontrol;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.LanguageManager;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.PluginMessage;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
@@ -43,16 +44,10 @@ public class PWeatherCommand extends EszCommand {
         if (eszWeatherType == EszWeatherType.RESET) {
             targetPlayer.resetPlayerWeather();
             if (sender.equals(targetPlayer)) {
-                targetPlayer.sendMessage(getMessageManager().getAndFormatMsg(
-                        MessageManager.Style.WORLDCONTROL,
-                        "pweatherReset",
-                        "&7Your weather has been reset to the server default."
-                ));
+                targetPlayer.sendMessage(getMessageManager().getAndFormatMsg(PluginMessage.PWEATHER_RESET));
             } else {
                 sender.sendMessage(getMessageManager().getAndFormatMsg(
-                        MessageManager.Style.WORLDCONTROL,
-                        "pweatherResetOther",
-                        "&7You have reset {ac}{player}&7's weather to the server default.",
+                        PluginMessage.PWEATHER_RESET_OTHER,
                         new MessageManager.Replaceable<>("{player}", targetPlayer.getName())
                 ));
             }
@@ -63,16 +58,12 @@ public class PWeatherCommand extends EszCommand {
 
         if (sender.equals(targetPlayer)) {
             targetPlayer.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.WORLDCONTROL,
-                    "pweatherSet",
-                    "&7Your weather has been set to {ac}{weather}&7.",
+                    PluginMessage.PWEATHER_SET,
                     new MessageManager.Replaceable<>("{weather}", eszWeatherType.getDisplayName(languageManager))
             ));
         } else {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.WORLDCONTROL,
-                    "pweatherSetOther",
-                    "&7You have set {ac}{player}&7's weather to {ac}{weather}&7.",
+                    PluginMessage.PWEATHER_SET_OTHER,
                     new MessageManager.Replaceable<>("{player}", targetPlayer.getName()),
                     new MessageManager.Replaceable<>("{weather}", eszWeatherType.getDisplayName(languageManager))
             ));

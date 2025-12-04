@@ -4,6 +4,7 @@ import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.storage.Storage;
 import com.zetaplugins.essentialz.storage.model.PlayerData;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.MessageStyle;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
@@ -43,7 +44,7 @@ public class TeamchatCommand extends EszCommand {
             PlayerData senderPlayerData = storage.getPlayerRepository().load(senderPlayer.getUniqueId());
             if (senderPlayerData == null) {
                 sender.sendMessage(getMessageManager().getAndFormatMsg(
-                        MessageManager.Style.ERROR,
+                        MessageStyle.ERROR,
                         "playerDataNotFound",
                         "{ac}The player data for {player} could not be found. Please try again later."
                 ));
@@ -51,7 +52,7 @@ public class TeamchatCommand extends EszCommand {
             }
             if (!senderPlayerData.isEnableTeamchat()) {
                 sender.sendMessage(getMessageManager().getAndFormatMsg(
-                        MessageManager.Style.ERROR,
+                        MessageStyle.ERROR,
                         "yourTeamchatDisabled",
                         "{ac}You have disabled team chat. Enable it using /tctoggle to send messages."
                 ));
@@ -68,7 +69,7 @@ public class TeamchatCommand extends EszCommand {
             if (playerData != null && !playerData.isEnableTeamchat()) continue;
 
             p.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.TEAMCHAT,
+                    MessageStyle.TEAMCHAT,
                     "teamChatMessage",
                     "&8[&7From {ac}{player}&8]&7: &7{message}",
                     new MessageManager.Replaceable<>("{player}", sender.getName()),
@@ -77,7 +78,7 @@ public class TeamchatCommand extends EszCommand {
         }
 
         Bukkit.getConsoleSender().sendMessage(getMessageManager().getAndFormatMsg(
-                MessageManager.Style.TEAMCHAT,
+                MessageStyle.TEAMCHAT,
                 "teamChatMessage",
                 "&8[&7From {ac}{player}&8]&7: &7{message}",
                 new MessageManager.Replaceable<>("{player}", sender.getName()),

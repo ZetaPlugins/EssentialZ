@@ -2,6 +2,7 @@ package com.zetaplugins.essentialz.commands.moderation;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.PluginMessage;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.commands.ArgumentList;
@@ -28,9 +29,7 @@ public class ClearChatCommand extends EszCommand {
     public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) {
         String spaces = " \n".repeat(100);
         Bukkit.broadcast(getMessageManager().getAndFormatMsg(
-                MessageManager.Style.MODERATION,
-                "chatCleared",
-                "{spaces}{prefix}&7Chat has been cleared by {ac}{player}&7.",
+                PluginMessage.CHAT_CLEARED,
                 new MessageManager.Replaceable<>("{spaces}", spaces),
                 new MessageManager.Replaceable<>("{player}", sender.getName())
         ));

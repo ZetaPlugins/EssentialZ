@@ -2,6 +2,7 @@ package com.zetaplugins.essentialz.commands.movement;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.PluginMessage;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
@@ -53,17 +54,9 @@ public class FlyCommand extends EszCommand {
 
     public void sendSelfConfirmationMessage(Player player) {
         if (player.getAllowFlight()) {
-            player.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.MOVEMENT,
-                    "allowedToFly",
-                    "&7You are now allowed to fly!"
-            ));
+            player.sendMessage(getMessageManager().getAndFormatMsg(PluginMessage.ALLOWED_TO_FLY));
         } else {
-            player.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.MOVEMENT,
-                    "disallowedToFly",
-                    "&7You are no longer allowed to fly."
-            ));
+            player.sendMessage(getMessageManager().getAndFormatMsg(PluginMessage.NOT_ALLOWED_TO_FLY));
         }
     }
 
@@ -72,16 +65,12 @@ public class FlyCommand extends EszCommand {
 
         if (targetPlayer.getAllowFlight()) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.MOVEMENT,
-                    "allowedToFlyOther",
-                    "&7{ac}{player}&7 is now allowed to fly!",
+                    PluginMessage.ALLOWED_TO_FLY_OTHER,
                     new MessageManager.Replaceable<>("{player}", targetPlayer.getName())
             ));
         } else {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.MOVEMENT,
-                    "disallowedToFlyOther",
-                    "&7{ac}{player}&7 is no longer allowed to fly!",
+                    PluginMessage.NOT_ALLOWED_TO_FLY_OTHER,
                     new MessageManager.Replaceable<>("{player}", targetPlayer.getName())
             ));
         }

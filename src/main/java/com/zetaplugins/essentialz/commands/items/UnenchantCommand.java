@@ -3,6 +3,7 @@ package com.zetaplugins.essentialz.commands.items;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.features.EnchantmentManager;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.MessageStyle;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
@@ -39,7 +40,7 @@ public class UnenchantCommand extends EszCommand {
         ItemStack heldItem = player.getInventory().getItemInMainHand();
         if (heldItem.getType().isAir()) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "mustHoldAnItem",
                     "ac}You must be holding an item!"
             ));
@@ -53,7 +54,7 @@ public class UnenchantCommand extends EszCommand {
 
         if (enchantment == null) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "invalidEnchantment",
                     "{ac}The enchantment '{enchantment}' does not exist.",
                     new MessageManager.Replaceable<>("{enchantment}", enchantmentName)
@@ -63,7 +64,7 @@ public class UnenchantCommand extends EszCommand {
 
         if (!heldItem.containsEnchantment(enchantment)) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "itemLacksEnchantment",
                     "{ac}The item you are holding does not have the '{enchantment}' enchantment.",
                     new MessageManager.Replaceable<>("{enchantment}", enchantment.getKey().getKey())
@@ -73,7 +74,7 @@ public class UnenchantCommand extends EszCommand {
 
         heldItem.removeEnchantment(enchantment);
         sender.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageManager.Style.ITEMS,
+                MessageStyle.ITEMS,
                 "unenchantSuccess",
                 "&7Successfully removed {ac}{enchantment} &7from your item.",
                 new MessageManager.Replaceable<>("{enchantment}", enchantment.getKey().getKey())

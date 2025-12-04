@@ -4,6 +4,7 @@ import com.zetaplugins.essentialz.features.economy.EconomyConfig;
 import com.zetaplugins.essentialz.features.economy.manager.EconomyManager;
 import com.zetaplugins.essentialz.util.EszConfig;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.MessageStyle;
 import com.zetaplugins.zetacore.annotations.AutoRegisterListener;
 import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.services.config.ConfigService;
@@ -37,7 +38,7 @@ public class PlayerCommandPreprocessListener implements Listener {
         double senderBalance = economyManager.getBalance(sender);
         if (senderBalance < cmdFee) {
             sender.sendMessage(messageManager.getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "insufficientFundsCommandFee",
                     "{ac}You do not have enough funds to pay the command fee of {fee}!",
                     new MessageManager.Replaceable<>("{fee}", economyManager.format(cmdFee))

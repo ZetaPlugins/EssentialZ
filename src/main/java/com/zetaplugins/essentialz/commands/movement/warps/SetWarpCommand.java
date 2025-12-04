@@ -4,6 +4,7 @@ import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.storage.Storage;
 import com.zetaplugins.essentialz.storage.model.WarpData;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.PluginMessage;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
@@ -43,9 +44,7 @@ public class SetWarpCommand extends EszCommand {
         storage.getWarpsRepository().save(new WarpData(warpName, player.getLocation()));
 
         player.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageManager.Style.MOVEMENT,
-                "setWarpSucess",
-                "&7Warp {ac}{warpName}&7 has been set at {ac}{x} {y} {z}&7.",
+                PluginMessage.WARP_SET_SUCCESS,
                 new MessageManager.Replaceable<>("{warpName}", warpName),
                 new MessageManager.Replaceable<>("{x}", String.valueOf(player.getLocation().getBlockX())),
                 new MessageManager.Replaceable<>("{y}", String.valueOf(player.getLocation().getBlockY())),

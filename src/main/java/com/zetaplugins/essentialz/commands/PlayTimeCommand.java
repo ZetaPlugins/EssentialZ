@@ -1,17 +1,22 @@
 package com.zetaplugins.essentialz.commands;
 
+import com.zetaplugins.essentialz.EssentialZ;
+import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.PluginMessage;
+import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.commands.ArgumentList;
+import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBeOrSpecifyPlayerException;
 import org.bukkit.Statistic;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandException;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import com.zetaplugins.essentialz.EssentialZ;
-import com.zetaplugins.essentialz.util.MessageManager;
-import com.zetaplugins.essentialz.util.commands.EszCommand;
 
 import java.util.List;
+
+import static com.zetaplugins.essentialz.util.PluginMessage.PLAYER_NOT_FOUND;
+import static com.zetaplugins.essentialz.util.PluginMessage.PLAYTIME_SELF;
 
 @AutoRegisterCommand(
         commands = "playtime",
@@ -26,42 +31,23 @@ public class PlayTimeCommand extends EszCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandException {
+    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandException, CommandSenderMustBeOrSpecifyPlayerException {
         if (args.hasArg(0)) {
             Player target = getPlugin().getServer().getPlayer(args.getArg(0));
 
             if (target == null) {
-                sender.sendMessage(getMessageManager().getAndFormatMsg(
-                        MessageManager.Style.ERROR,
-                        "playerNotFound",
-                        "&cPlayer not found."
-                ));
+                sender.sendMessage(getMessageManager().getAndFormatMsg(PLAYER_NOT_FOUND));
                 return false;
             }
 
-            sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.DEFAULT,
-                    "playTime",
-                    "&7{player} has played for {ac}{time}&7.",
-                    new MessageManager.Replaceable<>("{player}", target.getName()),
-                    new MessageManager.Replaceable<>("{time}", getPlayTime(target))
-            ));
+            sender.sendMessage(getMessageManager().getAndFormatMsg(PluginMessage.PLAYTIME));
             return true;
         }
 
-        if (!(sender instanceof Player player)) {
-            sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
-                    "specifyPlayerOrBePlayer",
-                    "&cYou must specify a player or be a player to use this command."
-            ));
-            return false;
-        }
+        if (!(sender instanceof Player player)) throw new CommandSenderMustBeOrSpecifyPlayerException();
 
         sender.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageManager.Style.DEFAULT,
-                "playTimeSelf",
-                "&7You have played for {ac}{time}&7.",
+                PLAYTIME_SELF,
                 new MessageManager.Replaceable<>("{time}", getPlayTime(player))
         ));
         return true;

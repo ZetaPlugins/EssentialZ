@@ -2,6 +2,7 @@ package com.zetaplugins.essentialz.commands.moderation;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.PluginMessage;
 import com.zetaplugins.essentialz.util.commands.CommandPlayerNotFoundException;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
@@ -38,9 +39,7 @@ public class SudoCommand extends EszCommand {
 
         player.performCommand(cmd);
         sender.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageManager.Style.MODERATION,
-                "sudoSuccess",
-                "&7Successfully forced {ac}{player} &7to run the command: {ac}{command}&7.",
+                PluginMessage.SUDO_SUCCESS,
                 new MessageManager.Replaceable<>("{player}", player.getName()),
                 new MessageManager.Replaceable<>("{command}", cmd)
         ));

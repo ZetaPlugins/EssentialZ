@@ -2,11 +2,13 @@ package com.zetaplugins.essentialz.commands.movement;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.PluginMessage;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandPermissionException;
+import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBeOrSpecifyPlayerException;
 import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -27,7 +29,7 @@ public class FlySpeedCommand extends EszCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandPermissionException, CommandUsageException {
+    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandPermissionException, CommandUsageException, CommandSenderMustBeOrSpecifyPlayerException {
         int speed = 1;
 
         try {
@@ -48,23 +50,14 @@ public class FlySpeedCommand extends EszCommand {
             targetPlayer.setFlySpeed((float) speed / 10);
             sendConfirmMessage(targetPlayer, speed);
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.MOVEMENT,
-                    "flySpeedSetOther",
-                    "&7Set {ac}{player}&7's fly speed to {ac}{speed}&7.",
+                    PluginMessage.FLYSPEED_SET_OTHER,
                     new MessageManager.Replaceable<>("{player}", targetPlayer.getName()),
                     new MessageManager.Replaceable<>("{speed}", String.valueOf(speed))
             ));
             return true;
         }
 
-        if (!(sender instanceof Player player)) {
-            sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
-                    "specifyPlayerOrBePlayer",
-                    "{ac}You must specify a player or be a player to use this command."
-            ));
-            return false;
-        }
+        if (!(sender instanceof Player player)) throw new CommandSenderMustBeOrSpecifyPlayerException();
 
         player.setFlySpeed((float) speed / 10);
         sendConfirmMessage(player, speed);
@@ -73,9 +66,7 @@ public class FlySpeedCommand extends EszCommand {
 
     private void sendConfirmMessage(Player player, int speed) {
         player.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageManager.Style.MOVEMENT,
-                "flySpeedSet",
-                "&7Set your fly speed to {ac}{speed}&7.",
+                PluginMessage.FLYSPEED_SET,
                 new MessageManager.Replaceable<>("{speed}", String.valueOf(speed))
         ));
     }

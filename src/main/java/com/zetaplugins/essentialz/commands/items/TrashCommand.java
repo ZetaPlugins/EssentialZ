@@ -1,7 +1,7 @@
 package com.zetaplugins.essentialz.commands.items;
 
 import com.zetaplugins.essentialz.EssentialZ;
-import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.MessageStyle;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.commands.ArgumentList;
@@ -35,7 +35,7 @@ public class TrashCommand extends EszCommand {
                 null,
                 5 * 9,
                 getMessageManager().getAndFormatMsg(
-                        MessageManager.Style.NONE,
+                        MessageStyle.NONE,
                         "trashInventoryTitle",
                         "&8Trash Can"
                 )

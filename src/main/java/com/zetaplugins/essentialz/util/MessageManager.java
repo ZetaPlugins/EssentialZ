@@ -57,7 +57,7 @@ public class MessageManager {
 
         msg = replaceColorCodes(msg);
 
-        ResolverResult result = buildResolvers(mm, msg, Style.NONE, replaceables);
+        ResolverResult result = buildResolvers(mm, msg, MessageStyle.NONE, replaceables);
 
         return mm.deserialize("<!i>" + result.msg(), result.resolvers());
     }
@@ -71,7 +71,7 @@ public class MessageManager {
      * @param replaceables The placeholders to replace
      * @return The formatted message
      */
-    public Component getAndFormatMsg(Style style, String path, String fallback, Replaceable<?>... replaceables) {
+    public Component getAndFormatMsg(MessageStyle style, String path, String fallback, Replaceable<?>... replaceables) {
         return getAndFormatMsg(style, path, fallback, true, replaceables);
     }
 
@@ -85,11 +85,14 @@ public class MessageManager {
      * @param replaceables The placeholders to replace
      * @return The formatted message
      */
-    public Component getAndFormatMsg(Style style, String path, String fallback, boolean addPrefix, Replaceable<?>... replaceables) {
+    public Component getAndFormatMsg(MessageStyle style, String path, String fallback, boolean addPrefix, Replaceable<?>... replaceables) {
         if (path.startsWith("messages.")) path = path.substring("messages.".length());
 
         MiniMessage mm = MiniMessage.miniMessage();
         String msg = languageManager.getString(path, fallback);
+
+        // Remove any style tags from the message
+        msg = msg.replaceAll("\\{style\\.[^}]+}", "");
 
         if (addPrefix) msg = style.getPrefix(plugin) + msg;
 
@@ -102,9 +105,37 @@ public class MessageManager {
         return mm.deserialize("<!i>" + result.msg(), result.resolvers());
     }
 
-    private ResolverResult buildResolvers(MiniMessage mm, String msg, Style valueStyle, Replaceable<?>... replaceables) {
+    /**
+     * Gets and formats a message from the config using a PluginMessage
+     *
+     * @param message The PluginMessage to get the message from
+     * @param replaceables The placeholders to replace
+     * @return The formatted message
+     */
+    public Component getAndFormatMsg(PluginMessage message, Replaceable<?>... replaceables) {
+        return getAndFormatMsg(message, true, replaceables);
+    }
+
+    /**
+     * Gets and formats a message from the config using a PluginMessage
+     *
+     * @param pluginMessage The PluginMessage to get the message from
+     * @param replaceables The placeholders to replace
+     * @return The formatted message
+     */
+    public Component getAndFormatMsg(PluginMessage pluginMessage, boolean addPrefix, Replaceable<?>... replaceables) {
+        return getAndFormatMsg(
+                pluginMessage.getStyle(languageManager),
+                pluginMessage.getKey(),
+                pluginMessage.getDefaultMessage(),
+                addPrefix,
+                replaceables
+        );
+    }
+
+    private ResolverResult buildResolvers(MiniMessage mm, String msg, MessageStyle valueStyle, Replaceable<?>... replaceables) {
         List<TagResolver> resolvers = new ArrayList<>();
-        Style replacementStyle = valueStyle == null ? Style.NONE : valueStyle;
+        MessageStyle replacementStyle = valueStyle == null ? MessageStyle.NONE : valueStyle;
 
         for (Replaceable<?> r : replaceables) {
             String rawName = r.placeholder().replaceAll("^\\{?|\\}?$", "");
@@ -126,13 +157,13 @@ public class MessageManager {
     }
 
     private String replaceColorCodes(String msg) {
-        return replaceColorCodes(msg, Style.NONE);
+        return replaceColorCodes(msg, MessageStyle.NONE);
     }
 
-    private String replaceColorCodes(String msg, Style style) {
+    private String replaceColorCodes(String msg, MessageStyle style) {
         msg = msg.replace("{ac}", "<" + style.getAccentColor(plugin) + ">");
 
-        for (Style currentStyle : Style.values()) {
+        for (MessageStyle currentStyle : MessageStyle.values()) {
             String styleAccentColor = currentStyle.getAccentColor(plugin);
             msg = msg.replace("{ac_" + currentStyle.getId() + "}", "<" + styleAccentColor + ">");
         }
@@ -152,70 +183,4 @@ public class MessageManager {
 
     private record ResolverResult(String msg, TagResolver[] resolvers) {}
 
-    /**
-     * The style of a message
-     */
-    public enum Style {
-        NONE("none"),
-        DEFAULT("default"),
-        ERROR("error"),
-        WARNING("warning"),
-        SUCCESS("success"),
-        MOVEMENT("movement"),
-        COMBAT("combat"),
-        MODERATION("moderation"),
-        ITEMS("items"),
-        STATS("stats"),
-        COMMUNICATION("communication"),
-        TEAMCHAT("teamchat"),
-        WORLDCONTROL("worldcontrol"),
-        ECONOMY("economy")
-        ;
-
-        public final String id;
-
-        Style(String id) {
-            this.id = id;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        /**
-         * Gets the accent color of the style
-         * @param plugin The plugin instance
-         * @return The accent color
-         */
-        public String getAccentColor(EssentialZ plugin) {
-            if (Objects.equals(getId(), "none")) return "#ba7cf8";
-            String accentColor = plugin.getConfig().getString("styles." + getId() + ".accentColor");
-            return accentColor == null ? "#ba7cf8" : accentColor;
-        }
-
-        /**
-         * Gets the prefix of the style
-         * @param plugin The plugin instance
-         * @return The prefix
-         */
-        public String getPrefix(EssentialZ plugin) {
-            if (Objects.equals(getId(), "none")) return "";
-            String prefix = plugin.getConfig().getString("styles." + getId() + ".prefix");
-            return prefix == null ? "&8[<gradient:#ba7cf8:#ba7cf8>EssentialZ&8]" : prefix;
-        }
-
-        /**
-         * Gets a style by its id
-         * @param id The id of the style
-         * @return The style
-         */
-        public static Style of(String id) {
-            for (Style style : values()) {
-                if (style.id.equals(id)) {
-                    return style;
-                }
-            }
-            return null;
-        }
-    }
 }

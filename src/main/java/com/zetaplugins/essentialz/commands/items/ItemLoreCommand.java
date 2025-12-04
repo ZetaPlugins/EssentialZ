@@ -2,6 +2,7 @@ package com.zetaplugins.essentialz.commands.items;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.MessageStyle;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.commands.ArgumentList;
@@ -41,7 +42,7 @@ public class ItemLoreCommand extends EszCommand {
 
         if (item.getType() == Material.AIR) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "mustHoldAnItem",
                     "{ac}You must be holding an item."
             ));
@@ -114,7 +115,7 @@ public class ItemLoreCommand extends EszCommand {
         int maxLoreLines = getPlugin().getConfig().getInt("maxLoreLines");
         if (currentLore.size() >= maxLoreLines || currentLore.size() >= 128) {
             player.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "loreTooLong",
                     "{ac}The lore is too long! The maximum length is {max} lines.",
                     new MessageManager.Replaceable<>("{max}", String.valueOf(maxLoreLines))
@@ -126,7 +127,7 @@ public class ItemLoreCommand extends EszCommand {
         setItemLore(item, currentLore);
 
         player.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageManager.Style.ITEMS,
+                MessageStyle.ITEMS,
                 "loreAdded",
                 "&7Added '{lore}&r&7' to the lore.",
                 new MessageManager.Replaceable<>("{lore}", lore)
@@ -150,7 +151,7 @@ public class ItemLoreCommand extends EszCommand {
         setItemLore(item, currentLore);
 
         player.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageManager.Style.ITEMS,
+                MessageStyle.ITEMS,
                 "loreSet",
                 "&7Set lore line {ac}{line}&7 to '{lore}&r&7'.",
                 new MessageManager.Replaceable<>("{line}", String.valueOf(line + 1)),
@@ -176,7 +177,7 @@ public class ItemLoreCommand extends EszCommand {
         setItemLore(item, currentLore);
 
         player.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageManager.Style.ITEMS,
+                MessageStyle.ITEMS,
                 "loreRemoved",
                 "&7Removed lore line {ac}{line}&7.",
                 new MessageManager.Replaceable<>("{line}", String.valueOf(line + 1))
@@ -200,7 +201,7 @@ public class ItemLoreCommand extends EszCommand {
         int maxLoreLines = getPlugin().getConfig().getInt("maxLoreLines");
         if (currentLore.size() >= maxLoreLines || currentLore.size() >= 128) {
             player.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "loreTooLong",
                     "{ac}The lore is too long! The maximum length is {max} lines.",
                     new MessageManager.Replaceable<>("{max}", String.valueOf(maxLoreLines))
@@ -212,7 +213,7 @@ public class ItemLoreCommand extends EszCommand {
         setItemLore(item, currentLore);
 
         player.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageManager.Style.ITEMS,
+                MessageStyle.ITEMS,
                 "loreInserted",
                 "&7Inserted '{lore}&r&7' at line {ac}{line}&7.",
                 new MessageManager.Replaceable<>("{line}", String.valueOf(line + 1)),
@@ -248,7 +249,7 @@ public class ItemLoreCommand extends EszCommand {
 
     private void sendLoreLineDoesNotExistMessage(Player player) {
         player.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageManager.Style.ERROR,
+                MessageStyle.ERROR,
                 "loreLineDoesNotExist",
                 "{ac}This lore line does not exist!"
         ));

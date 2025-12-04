@@ -2,6 +2,7 @@ package com.zetaplugins.essentialz.listeners;
 
 import com.zetaplugins.essentialz.util.EszConfig;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.MessageStyle;
 import com.zetaplugins.zetacore.annotations.AutoRegisterListener;
 import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.annotations.InjectPlugin;
@@ -34,7 +35,7 @@ public class JoinMessageListener implements Listener {
 
         if (!event.getPlayer().hasPlayedBefore() && chatConfig.getBoolean("specialWelcomeJoinMessage", true)) {
             event.joinMessage(messageManager.getAndFormatMsg(
-                    MessageManager.Style.NONE,
+                    MessageStyle.NONE,
                     "welcomeMessage",
                     "&8[&a+&8] &7Welcome {player} to the server for the first time!",
                     new MessageManager.Replaceable<>("{player}", event.getPlayer().getName())
@@ -43,7 +44,7 @@ public class JoinMessageListener implements Listener {
         }
 
         event.joinMessage(messageManager.getAndFormatMsg(
-                MessageManager.Style.NONE,
+                MessageStyle.NONE,
                 "joinMessage",
                 "&8[&a+&8] &7{player} joined the game.",
                 new MessageManager.Replaceable<>("{player}", event.getPlayer().getName())

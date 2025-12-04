@@ -2,11 +2,13 @@ package com.zetaplugins.essentialz.commands.movement;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.PluginMessage;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandPermissionException;
+import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBeOrSpecifyPlayerException;
 import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -28,7 +30,7 @@ public class WalkSpeedCommand extends EszCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandUsageException, CommandPermissionException {
+    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandUsageException, CommandPermissionException, CommandSenderMustBeOrSpecifyPlayerException {
         int speed = 2;// Default walk speed is 0.2 not 0.1 for whatever reason
 
         try {
@@ -49,23 +51,14 @@ public class WalkSpeedCommand extends EszCommand {
             targetPlayer.setWalkSpeed((float) speed / 10);
             sendConfirmMessage(targetPlayer, speed);
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.MOVEMENT,
-                    "walkSpeedSetOther",
-                    "&7Set {ac}{player}&7's walk speed to {ac}{speed}&7.",
+                    PluginMessage.WALKSPEED_SET_OTHER,
                     new MessageManager.Replaceable<>("{player}", targetPlayer.getName()),
                     new MessageManager.Replaceable<>("{speed}", String.valueOf(speed))
             ));
             return true;
         }
 
-        if (!(sender instanceof Player player)) {
-            sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
-                    "specifyPlayerOrBePlayer",
-                    "{ac}You must specify a player or be a player to use this command."
-            ));
-            return false;
-        }
+        if (!(sender instanceof Player player)) throw new CommandSenderMustBeOrSpecifyPlayerException();
 
         player.setWalkSpeed((float) speed / 10);
         sendConfirmMessage(player, speed);
@@ -74,9 +67,7 @@ public class WalkSpeedCommand extends EszCommand {
 
     private void sendConfirmMessage(Player player, int speed) {
         player.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageManager.Style.MOVEMENT,
-                "walkSpeedSet",
-                "&7Set your walk speed to {ac}{speed}&7.",
+                PluginMessage.WALKSPEED_SET,
                 new MessageManager.Replaceable<>("{speed}", String.valueOf(speed))
         ));
     }

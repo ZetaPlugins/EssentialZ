@@ -2,6 +2,7 @@ package com.zetaplugins.essentialz.commands.items;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.MessageStyle;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.commands.ArgumentList;
@@ -35,7 +36,7 @@ public class ItemNameCommand extends EszCommand {
 
         if (item.getType() == Material.AIR) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "mustHoldAnItem",
                     "{ac}You must be holding an item."
             ));
@@ -54,7 +55,7 @@ public class ItemNameCommand extends EszCommand {
 
         if (newName.length() > maxLength && maxLength != -1) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "itemNameTooLong",
                     "{ac}The item name is too long! The maximum length is {max} characters.",
                     new MessageManager.Replaceable<>("{max}", String.valueOf(maxLength))
@@ -67,7 +68,7 @@ public class ItemNameCommand extends EszCommand {
         item.setItemMeta(newMeta);
 
         sender.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageManager.Style.ITEMS,
+                MessageStyle.ITEMS,
                 "itemNameSet",
                 "&7Item name set to '{name}&r&7'.",
                 new MessageManager.Replaceable<>("{name}", newName.toString())

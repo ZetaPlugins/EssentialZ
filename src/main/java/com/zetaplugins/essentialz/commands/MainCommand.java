@@ -3,6 +3,7 @@ package com.zetaplugins.essentialz.commands;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.features.RulesManager;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.PluginMessage;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
@@ -42,9 +43,7 @@ public class MainCommand extends EszCommand {
         switch (subcommand) {
             case "about" -> {
                 sender.sendMessage(messageManager.getAndFormatMsg(
-                        MessageManager.Style.DEFAULT,
-                        "aboutMessage",
-                        "\n{ac}<b><grey>></grey> EssentialZ</b> <grey>v%version%</grey>\n\n{ac} <u><click:open_url:'https://docs.zetaplugins.com/essentialz/'>Documentation</click></u>  {ac}<u><click:open_url:'https://strassburger.org/discord'>Support Discord</click></u>\n",
+                        PluginMessage.ABOUT_MESSAGE,
                         false,
                         new MessageManager.Replaceable<>("%version%", getPlugin().getDescription().getVersion())
                 ));
@@ -55,11 +54,7 @@ public class MainCommand extends EszCommand {
                 getPlugin().reloadConfig();
                 configService.clearCache();
                 rulesManager.reload();
-                sender.sendMessage(messageManager.getAndFormatMsg(
-                        MessageManager.Style.SUCCESS,
-                        "reloaded",
-                        "&7EssentialZ has been successfully reloaded!"
-                ));
+                sender.sendMessage(messageManager.getAndFormatMsg(PluginMessage.RELOAD_SUCCESS));
                 return true;
             }
             default -> throw new CommandException("Unknown subcommand. Use /essentialz help for a list of commands.");

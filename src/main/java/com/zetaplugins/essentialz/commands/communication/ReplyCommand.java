@@ -5,6 +5,7 @@ import com.zetaplugins.essentialz.features.LastMsgManager;
 import com.zetaplugins.essentialz.storage.Storage;
 import com.zetaplugins.essentialz.storage.model.PlayerData;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.MessageStyle;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
@@ -43,7 +44,7 @@ public class ReplyCommand extends EszCommand {
         UUID lastMsgUUID = lastMsgManager.getLastMsg(player.getUniqueId());
         if (lastMsgUUID == null) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "noRecentMessages",
                     "{ac}You have no recent messages to reply to."
             ));
@@ -53,7 +54,7 @@ public class ReplyCommand extends EszCommand {
         Player targetPlayer = getPlugin().getServer().getPlayer(lastMsgUUID);
         if (targetPlayer == null || !targetPlayer.isOnline()) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "playerNotFound",
                     "{ac}Player not found."
             ));
@@ -63,7 +64,7 @@ public class ReplyCommand extends EszCommand {
         PlayerData targetPlayerData = storage.getPlayerRepository().load(targetPlayer.getUniqueId());
         if (targetPlayerData == null) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "playerDataNotFound",
                     "{ac}The player data for {player} could not be found. Please try again later."
             ));
@@ -71,7 +72,7 @@ public class ReplyCommand extends EszCommand {
         }
         if (!targetPlayerData.isEnableDms()) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "playerDmsDisabled",
                     "{ac}{player} has disabled private messages.",
                     new MessageManager.Replaceable<>("{player}", targetPlayer.getName())
@@ -82,7 +83,7 @@ public class ReplyCommand extends EszCommand {
         boolean isIgnoring = storage.getIgnoresRepository().isPlayerIgnoring(targetPlayer.getUniqueId(), player.getUniqueId());
         if (isIgnoring) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "playerIsIgnoringYou",
                     "{ac}{player} is ignoring you. Your message was not sent.",
                     new MessageManager.Replaceable<>("{player}", targetPlayer.getName())
@@ -93,7 +94,7 @@ public class ReplyCommand extends EszCommand {
         boolean youAreIgnoring = storage.getIgnoresRepository().isPlayerIgnoring(player.getUniqueId(), targetPlayer.getUniqueId());
         if (youAreIgnoring) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "youAreIgnoringPlayer",
                     "{ac}You are ignoring {player}. Unignore them to send messages.",
                     new MessageManager.Replaceable<>("{player}", targetPlayer.getName())
@@ -108,7 +109,7 @@ public class ReplyCommand extends EszCommand {
         boolean allowToUseColor = sender.hasPermission("essentialz.msg.color");
 
         sender.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageManager.Style.COMMUNICATION,
+                MessageStyle.COMMUNICATION,
                 "privateMessageSent",
                 "&7&8[&7To &r{ac}{recipient}&7&8]&7: {message}",
                 new MessageManager.Replaceable<>("{recipient}", targetPlayer.getName()),
@@ -116,7 +117,7 @@ public class ReplyCommand extends EszCommand {
         ));
 
         targetPlayer.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageManager.Style.COMMUNICATION,
+                MessageStyle.COMMUNICATION,
                 "privateMessageReceived",
                 "&7&8[&7From &r{ac}{sender}&7&8]&7: {message}",
                 new MessageManager.Replaceable<>("{sender}", sender.getName()),

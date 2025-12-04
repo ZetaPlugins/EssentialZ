@@ -2,6 +2,7 @@ package com.zetaplugins.essentialz.listeners;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.MessageStyle;
 import com.zetaplugins.zetacore.annotations.AutoRegisterListener;
 import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.annotations.InjectPlugin;
@@ -32,7 +33,7 @@ public class UpdateNotifyOnJoinListener implements Listener {
         }
 
         player.sendMessage(messageManager.getAndFormatMsg(
-                MessageManager.Style.DEFAULT,
+                MessageStyle.DEFAULT,
                 "updateAvailable",
                 "&7A new version of {ac}EssentialZ &7is available! Download it from {ac}{url}&7.",
                 new MessageManager.Replaceable<>("{url}", updateChecker.getLatestVersionUrl())

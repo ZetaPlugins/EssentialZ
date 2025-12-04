@@ -6,6 +6,7 @@ import com.zetaplugins.essentialz.features.economy.EconomyUtil;
 import com.zetaplugins.essentialz.features.economy.manager.EconomyManager;
 import com.zetaplugins.essentialz.util.EszConfig;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.MessageStyle;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
@@ -64,7 +65,7 @@ public class BalanceCommand extends EszCommand {
                     double balance = economyManager.getBalance(player);
                     if (isOtherPlayer) {
                         sender.sendMessage(getMessageManager().getAndFormatMsg(
-                                MessageManager.Style.ECONOMY,
+                                MessageStyle.ECONOMY,
                                 "otherPlayerBalance",
                                 "{ac}{player}&7's balance is {ac}{balance}",
                                 new MessageManager.Replaceable<>("{player}", targetPlayer.getName()),
@@ -72,7 +73,7 @@ public class BalanceCommand extends EszCommand {
                         ));
                     } else {
                         player.sendMessage(getMessageManager().getAndFormatMsg(
-                                MessageManager.Style.ECONOMY,
+                                MessageStyle.ECONOMY,
                                 "yourBalance",
                                 "&7Your balance is {ac}{balance}",
                                 new MessageManager.Replaceable<>("{balance}", economyManager.format(balance))
@@ -86,7 +87,7 @@ public class BalanceCommand extends EszCommand {
                     }
                     economyManager.setBalance(player, amount);
                     sender.sendMessage(getMessageManager().getAndFormatMsg(
-                            MessageManager.Style.ECONOMY,
+                            MessageStyle.ECONOMY,
                             "setBalance",
                             "&7Set {ac}{player}&7's balance to {ac}{balance}",
                             new MessageManager.Replaceable<>("{player}", player.getName()),
@@ -100,7 +101,7 @@ public class BalanceCommand extends EszCommand {
                     }
                     economyManager.deposit(player, amount);
                     sender.sendMessage(getMessageManager().getAndFormatMsg(
-                            MessageManager.Style.ECONOMY,
+                            MessageStyle.ECONOMY,
                             "addBalance",
                             "&7Added {ac}{amount} &7to {ac}{player}&7's balance",
                             new MessageManager.Replaceable<>("{player}", player.getName()),
@@ -115,7 +116,7 @@ public class BalanceCommand extends EszCommand {
                     boolean success = economyManager.withdraw(player, amount);
                     if (success) {
                         sender.sendMessage(getMessageManager().getAndFormatMsg(
-                                MessageManager.Style.ECONOMY,
+                                MessageStyle.ECONOMY,
                                 "removeBalance",
                                 "&7Removed {ac}{amount} &7from {ac}{player}&7's balance",
                                 new MessageManager.Replaceable<>("{player}", player.getName()),
@@ -123,7 +124,7 @@ public class BalanceCommand extends EszCommand {
                         ));
                     } else {
                         sender.sendMessage(getMessageManager().getAndFormatMsg(
-                                MessageManager.Style.ERROR,
+                                MessageStyle.ERROR,
                                 "insufficientFundsWithdraw",
                                 "{ac}{player} does not have enough funds to remove {amount}",
                                 new MessageManager.Replaceable<>("{player}", player.getName()),
@@ -136,7 +137,7 @@ public class BalanceCommand extends EszCommand {
             return false;
         } catch (NumberFormatException e) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "invalidNumber",
                     "{ac}'{number}' is not a valid number.",
                     new MessageManager.Replaceable<>("{number}", amountString)

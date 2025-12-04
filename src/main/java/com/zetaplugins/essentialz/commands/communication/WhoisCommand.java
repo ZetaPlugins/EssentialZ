@@ -2,6 +2,7 @@ package com.zetaplugins.essentialz.commands.communication;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.MessageStyle;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.commands.ArgumentList;
@@ -40,7 +41,7 @@ public class WhoisCommand extends EszCommand {
             // Check if input matches real name or display name
             if (realName.equalsIgnoreCase(targetName) || displayName.equalsIgnoreCase(targetName)) {
                 sender.sendMessage(getMessageManager().getAndFormatMsg(
-                        MessageManager.Style.NONE,
+                        MessageStyle.NONE,
                         "whoisInfo",
                         """
                         &8┌─ <#81C784>Whois Info&r&8 ─────────────────
@@ -57,7 +58,7 @@ public class WhoisCommand extends EszCommand {
 
         if (!found) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "noOneWithNameFound",
                     "{ac}Could not find online player with name or nickname '{name}'!",
                     new MessageManager.Replaceable<>("{name}", targetName)

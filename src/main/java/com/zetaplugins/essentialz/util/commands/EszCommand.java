@@ -2,6 +2,7 @@ package com.zetaplugins.essentialz.util.commands;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.PluginMessage;
 import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.PluginCommand;
 import com.zetaplugins.zetacore.commands.exceptions.CommandPermissionException;
@@ -20,12 +21,7 @@ public abstract class EszCommand extends PluginCommand<EssentialZ> {
         registerExceptionHandler(
                 CommandUsageException.class,
                 (ctx, e) -> {
-                    ctx.getSender().sendMessage(messageManager.getAndFormatMsg(
-                            com.zetaplugins.essentialz.util.MessageManager.Style.ERROR,
-                            "usageError",
-                            "{ac}Usage: {usage}",
-                            new MessageManager.Replaceable<>("{usage}", e.getUsage())
-                    ));
+                    ctx.getSender().sendMessage(messageManager.getAndFormatMsg(PluginMessage.USAGE_ERROR));
                     return false;
                 }
         );
@@ -33,11 +29,7 @@ public abstract class EszCommand extends PluginCommand<EssentialZ> {
         registerExceptionHandler(
                 CommandPermissionException.class,
                 (ctx, e) -> {
-                    ctx.getSender().sendMessage(messageManager.getAndFormatMsg(
-                            com.zetaplugins.essentialz.util.MessageManager.Style.ERROR,
-                            "noPermsError",
-                            "{ac}You do not have permission to do this!"
-                    ));
+                    ctx.getSender().sendMessage(messageManager.getAndFormatMsg(PluginMessage.NO_PERMS_ERROR));
                     return false;
                 }
         );
@@ -45,11 +37,7 @@ public abstract class EszCommand extends PluginCommand<EssentialZ> {
         registerExceptionHandler(
                 CommandSenderMustBePlayerException.class,
                 (ctx, e) -> {
-                    ctx.getSender().sendMessage(messageManager.getAndFormatMsg(
-                            com.zetaplugins.essentialz.util.MessageManager.Style.ERROR,
-                            "playerOnly",
-                            "{ac}You must be a player to use this command."
-                    ));
+                    ctx.getSender().sendMessage(messageManager.getAndFormatMsg(PluginMessage.PLAYER_ONLY));
                     return false;
                 }
         );
@@ -57,11 +45,7 @@ public abstract class EszCommand extends PluginCommand<EssentialZ> {
         registerExceptionHandler(
                 CommandSenderMustBeOrSpecifyPlayerException.class,
                 (ctx, e) -> {
-                    ctx.getSender().sendMessage(messageManager.getAndFormatMsg(
-                            MessageManager.Style.ERROR,
-                            "specifyPlayerOrBePlayer",
-                            "{ac}You must specify a player or be a player to use this command."
-                    ));
+                    ctx.getSender().sendMessage(messageManager.getAndFormatMsg(PluginMessage.SPECIFY_PLAYER_OR_BE_PLAYER));
                     return false;
                 }
         );
@@ -69,11 +53,7 @@ public abstract class EszCommand extends PluginCommand<EssentialZ> {
         registerExceptionHandler(
                 CommandPlayerNotFoundException.class,
                 (ctx, e) -> {
-                    ctx.getSender().sendMessage(messageManager.getAndFormatMsg(
-                            MessageManager.Style.ERROR,
-                            "playerNotFound",
-                            "{ac}Player not found."
-                    ));
+                    ctx.getSender().sendMessage(messageManager.getAndFormatMsg(PluginMessage.PLAYER_NOT_FOUND));
                     return false;
                 }
         );

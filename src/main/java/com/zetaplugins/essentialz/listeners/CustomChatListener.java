@@ -2,6 +2,7 @@ package com.zetaplugins.essentialz.listeners;
 
 import com.zetaplugins.essentialz.util.EszConfig;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.MessageStyle;
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterListener;
 import com.zetaplugins.zetacore.annotations.InjectManager;
@@ -30,7 +31,7 @@ public class CustomChatListener implements Listener {
 
         if (!Permission.CHAT.has(event.getPlayer())) {
             player.sendMessage(messageManager.getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "notAllowedToChat",
                     "{ac}You are not allowed to chat."
             ));

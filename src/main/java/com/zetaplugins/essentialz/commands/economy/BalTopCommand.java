@@ -3,6 +3,7 @@ package com.zetaplugins.essentialz.commands.economy;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.features.economy.manager.EconomyManager;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.MessageStyle;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
@@ -37,7 +38,7 @@ public class BalTopCommand extends EszCommand {
     public boolean execute(CommandSender sender, Command command, String s, ArgumentList args) throws CommandException {
         var topBalances = economyManager.getTopBalances(10);
         sender.sendMessage(messageManager.getAndFormatMsg(
-                MessageManager.Style.ECONOMY,
+                MessageStyle.ECONOMY,
                 "balTopHeader",
                 "\n&8┌─ {ac}Top Balances&r&8 ────────────────",
                 false
@@ -49,7 +50,7 @@ public class BalTopCommand extends EszCommand {
             String playerName = (player != null) ? player.getName() : offlinePlayer.getName();
             double balance = topBalances.get(uuuid);
             sender.sendMessage(messageManager.getAndFormatMsg(
-                    MessageManager.Style.ECONOMY,
+                    MessageStyle.ECONOMY,
                     "balTopEntry",
                     "&8│ {ac}{rank}. &7{player} &8- {ac}{balance}",
                     false,
@@ -59,7 +60,7 @@ public class BalTopCommand extends EszCommand {
             ));
         }
         sender.sendMessage(messageManager.getAndFormatMsg(
-                MessageManager.Style.ECONOMY,
+                MessageStyle.ECONOMY,
                 "balTopFooter",
                 "&8└─────────────────────────────\n",
                 false

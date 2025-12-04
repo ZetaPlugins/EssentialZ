@@ -2,6 +2,7 @@ package com.zetaplugins.essentialz.commands.communication;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.MessageStyle;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
@@ -40,7 +41,7 @@ public class UnnickCommand extends EszCommand {
 
         if (!setForSelf && !Permission.NICK_OTHERS.has(sender)) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "notAllowedToNickOthers",
                     "{ac}You do not have permission to set other players' nicknames."
             ));
@@ -49,13 +50,13 @@ public class UnnickCommand extends EszCommand {
 
         if (setForSelf) {
             targetPlayer.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.SUCCESS,
+                    MessageStyle.SUCCESS,
                     "nicknameCleared",
                     "&7Your nickname has been {ac}cleared&7."
             ));
         } else {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.SUCCESS,
+                    MessageStyle.SUCCESS,
                     "nicknameClearedOther",
                     "&7You have {ac}cleared &7the nickname of {ac}{player}&7.",
                     new MessageManager.Replaceable<>("{player}", targetPlayer.getName())

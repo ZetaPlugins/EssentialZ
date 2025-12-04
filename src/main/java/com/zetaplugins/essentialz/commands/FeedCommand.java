@@ -2,10 +2,12 @@ package com.zetaplugins.essentialz.commands;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.PluginMessage;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.commands.ArgumentList;
+import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBeOrSpecifyPlayerException;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandException;
 import org.bukkit.command.CommandSender;
@@ -26,26 +28,15 @@ public class FeedCommand extends EszCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandException {
+    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandException, CommandSenderMustBeOrSpecifyPlayerException {
         Player targetPlayer = args.getPlayer(0, sender instanceof Player ? (Player) sender : null, getPlugin());
 
-        if (targetPlayer == null) {
-            sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
-                    "specifyPlayerOrBePlayer",
-                    "{ac}You must specify a player or be a player to use this command."
-            ));
-            return false;
-        }
+        if (targetPlayer == null) throw new CommandSenderMustBeOrSpecifyPlayerException();
 
         boolean isSelfFeed = (sender instanceof Player && ((Player) sender).getUniqueId().equals(targetPlayer.getUniqueId()));
 
         if (!isSelfFeed && !Permission.HEAL_OTHERS.has(sender)) {
-            sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
-                    "noPermissionFeedOthers",
-                    "{ac}You do not have permission to feed other players."
-            ));
+            sender.sendMessage(getMessageManager().getAndFormatMsg(PluginMessage.NO_PERMISSION_FEED_OTHERS));
             return false;
         }
 
@@ -53,16 +44,10 @@ public class FeedCommand extends EszCommand {
         targetPlayer.setSaturation(20f);
 
         if (isSelfFeed) {
-            sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.SUCCESS,
-                    "feededSelf",
-                    "&7Your hunger has been fully restored."
-            ));
+            sender.sendMessage(getMessageManager().getAndFormatMsg(PluginMessage.FEED_SELF));
         } else {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.SUCCESS,
-                    "feededOther",
-                    "&7You have fully restored {ac}{player}&7's hunger.",
+                    PluginMessage.FEED_OTHER,
                     new MessageManager.Replaceable<>("{player}", targetPlayer.getName())
             ));
         }

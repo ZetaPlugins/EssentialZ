@@ -2,10 +2,12 @@ package com.zetaplugins.essentialz.commands;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.PluginMessage;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.commands.ArgumentList;
+import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBeOrSpecifyPlayerException;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandException;
@@ -28,26 +30,15 @@ public class HealCommand extends EszCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandException {
+    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandException, CommandSenderMustBeOrSpecifyPlayerException {
         Player targetPlayer = args.getPlayer(0, sender instanceof Player ? (Player) sender : null, getPlugin());
 
-        if (targetPlayer == null) {
-            sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
-                    "specifyPlayerOrBePlayer",
-                    "{ac}You must specify a player or be a player to use this command."
-            ));
-            return false;
-        }
+        if (targetPlayer == null) throw new CommandSenderMustBeOrSpecifyPlayerException();
 
         boolean isSelfHeal = (sender instanceof Player && ((Player) sender).getUniqueId().equals(targetPlayer.getUniqueId()));
 
         if (!isSelfHeal && !Permission.HEAL_OTHERS.has(sender)) {
-            sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
-                    "noPermissionHealOthers",
-                    "{ac}You do not have permission to heal other players."
-            ));
+            sender.sendMessage(getMessageManager().getAndFormatMsg(PluginMessage.NO_PERMISSION_HEAL_OTHERS));
             return false;
         }
 
@@ -57,16 +48,10 @@ public class HealCommand extends EszCommand {
         targetPlayer.setHealth(maxHealth);
 
         if (isSelfHeal) {
-            sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.SUCCESS,
-                    "healedSelf",
-                    "&7You have been healed to full health."
-            ));
+            sender.sendMessage(getMessageManager().getAndFormatMsg(PluginMessage.HEAL_SELF));
         } else {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.SUCCESS,
-                    "healedOther",
-                    "&7You have healed {ac}{player}&7 to full health.",
+                    PluginMessage.HEAL_OTHER,
                     new MessageManager.Replaceable<>("{player}", targetPlayer.getName())
             ));
         }

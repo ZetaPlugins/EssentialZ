@@ -2,6 +2,7 @@ package com.zetaplugins.essentialz.commands.items;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.MessageStyle;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.commands.ArgumentList;
@@ -32,7 +33,7 @@ public class MoreCommand extends EszCommand {
         ItemStack item = player.getInventory().getItemInMainHand();
         if (item.getType().isAir()) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "mustHoldAnItem",
                     "{ac}You must be holding an item!"
             ));
@@ -41,7 +42,7 @@ public class MoreCommand extends EszCommand {
 
         if (item.getType().getMaxStackSize() == 1) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
+                    MessageStyle.ERROR,
                     "itemCannotBeStacked",
                     "{ac}The item you are holding cannot be stacked!"
             ));
@@ -52,7 +53,7 @@ public class MoreCommand extends EszCommand {
         player.getInventory().setItemInMainHand(item);
 
         sender.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageManager.Style.ITEMS,
+                MessageStyle.ITEMS,
                 "stackedItems",
                 "&7Stacked {ac}{amount}&7 items in your hand.",
                 new MessageManager.Replaceable<>("{amount}", String.valueOf(item.getAmount()))

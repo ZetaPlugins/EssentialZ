@@ -3,12 +3,14 @@ package com.zetaplugins.essentialz.commands.moderation;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.features.GodModeManager;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.PluginMessage;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandPermissionException;
+import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBeOrSpecifyPlayerException;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -31,7 +33,7 @@ public class GodModeCommand extends EszCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandPermissionException {
+    public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandPermissionException, CommandSenderMustBeOrSpecifyPlayerException {
         Player targetPlayer = args.getPlayer(0, getPlugin());
 
         if (targetPlayer != null && !(sender instanceof Player player && player.getUniqueId().equals(targetPlayer.getUniqueId()))) {
@@ -44,23 +46,14 @@ public class GodModeCommand extends EszCommand {
 
             sendConfirmMessage(targetPlayer, !isInGodMode);
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.MODERATION,
-                    "godModeToggledOther",
-                    "&7God mode for {ac}{player}&7 is now {ac}{status}&7.",
+                    PluginMessage.GODMODE_TOGGLED_OTHER,
                     new MessageManager.Replaceable<>("{player}", targetPlayer.getName()),
                     new MessageManager.Replaceable<>("{status}", !isInGodMode ? "enabled" : "disabled")
             ));
             return true;
         }
 
-        if (!(sender instanceof Player player)) {
-            sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
-                    "specifyPlayerOrBePlayer",
-                    "{ac}You must specify a player or be a player to use this command."
-            ));
-            return false;
-        }
+        if (!(sender instanceof Player player)) throw new CommandSenderMustBeOrSpecifyPlayerException();
 
         boolean isInGodMode = godModeManager.isInGodMode(player);
         godModeManager.setGodMode(player, !isInGodMode);
@@ -71,9 +64,7 @@ public class GodModeCommand extends EszCommand {
 
     public void sendConfirmMessage(Player player, boolean isInGodMode) {
         player.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageManager.Style.MODERATION,
-                "godModeToggled",
-                "&7God mode is now {ac}{status}&7.",
+                PluginMessage.GODMODE_TOGGLED_SELF,
                 new MessageManager.Replaceable<>("{status}", isInGodMode ? "enabled" : "disabled")
         ));
     }

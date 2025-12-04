@@ -3,6 +3,7 @@ package com.zetaplugins.essentialz.commands.movement.warps;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.storage.Storage;
 import com.zetaplugins.essentialz.util.MessageManager;
+import com.zetaplugins.essentialz.util.PluginMessage;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
@@ -39,16 +40,12 @@ public class DelWarpCommand extends EszCommand {
 
         if (success) {
             commandSender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.MOVEMENT,
-                    "deleteWarpSuccess",
-                    "&7Warp {ac}{warpName}&7 has been deleted.",
+                    PluginMessage.WARP_DELETE_SUCCESS,
                     new MessageManager.Replaceable<>("{warpName}", warpName)
             ));
         } else {
             commandSender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageManager.Style.ERROR,
-                    "warpNotFound",
-                    "{ac}Warp '{warpName}' does not exist.",
+                    PluginMessage.WARP_NOT_FOUND,
                     new MessageManager.Replaceable<>("{warpName}", warpName)
             ));
         }
