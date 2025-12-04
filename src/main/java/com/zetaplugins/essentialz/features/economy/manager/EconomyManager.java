@@ -1,5 +1,6 @@
 package com.zetaplugins.essentialz.features.economy.manager;
 
+import com.zetaplugins.zetacore.annotations.Manager;
 import org.bukkit.OfflinePlayer;
 
 import java.util.Map;
@@ -8,6 +9,7 @@ import java.util.UUID;
 /**
  * Interface for managing player economy.
  */
+@Manager
 public interface EconomyManager {
     /**
      * Get the balance of a player.

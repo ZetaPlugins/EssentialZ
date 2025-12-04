@@ -1,9 +1,12 @@
 package com.zetaplugins.essentialz.features;
 
+import com.zetaplugins.zetacore.annotations.Manager;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+@Manager
 public class LastMsgManager {
     Map<UUID, UUID> lastMsgMap;
 

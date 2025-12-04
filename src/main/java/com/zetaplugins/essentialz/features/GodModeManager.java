@@ -1,11 +1,13 @@
 package com.zetaplugins.essentialz.features;
 
+import com.zetaplugins.zetacore.annotations.Manager;
 import org.bukkit.OfflinePlayer;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Manager
 public class GodModeManager {
     private final List<UUID> godModePlayers = new ArrayList<>();
 

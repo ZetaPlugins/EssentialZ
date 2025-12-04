@@ -1,6 +1,7 @@
 package com.zetaplugins.essentialz.util;
 
 import com.zetaplugins.essentialz.EssentialZ;
+import com.zetaplugins.zetacore.annotations.Manager;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -8,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.util.List;
 
+@Manager
 public class LanguageManager {
     private final JavaPlugin plugin;
     public static final List<String> defaultLangs = List.of("en-US");

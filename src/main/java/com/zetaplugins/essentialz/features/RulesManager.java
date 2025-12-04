@@ -2,6 +2,7 @@ package com.zetaplugins.essentialz.features;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.zetacore.annotations.InjectPlugin;
+import com.zetaplugins.zetacore.annotations.Manager;
 import com.zetaplugins.zetacore.annotations.PostManagerConstruct;
 import org.jetbrains.annotations.Nullable;
 
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 
+@Manager
 public class RulesManager {
     private List<String> lines;
 

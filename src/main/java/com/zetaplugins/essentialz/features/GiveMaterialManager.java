@@ -3,6 +3,7 @@ package com.zetaplugins.essentialz.features;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.EszConfig;
 import com.zetaplugins.zetacore.annotations.InjectManager;
+import com.zetaplugins.zetacore.annotations.Manager;
 import com.zetaplugins.zetacore.services.config.ConfigService;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -12,6 +13,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Manager
 public class GiveMaterialManager {
     private final EssentialZ plugin;
     private final Map<String, Material> normalizedLookup;

@@ -4,12 +4,14 @@ import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.storage.repositories.ignores.IgnoresRepository;
 import com.zetaplugins.essentialz.storage.repositories.player.PlayerRepository;
 import com.zetaplugins.essentialz.storage.repositories.warps.WarpsRepository;
+import com.zetaplugins.zetacore.annotations.Manager;
 import com.zetaplugins.zetacore.annotations.PostManagerConstruct;
 
 /**
  * Abstract class representing the storage system for EssentialZ plugin.
  * It provides methods to initialize the database and access various repositories.
  */
+@Manager
 public abstract class Storage {
     private final EssentialZ plugin;
 

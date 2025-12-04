@@ -1,5 +1,6 @@
 package com.zetaplugins.essentialz.features;
 
+import com.zetaplugins.zetacore.annotations.Manager;
 import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;
 import net.kyori.adventure.key.Key;
@@ -8,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
+@Manager
 public class EnchantmentManager {
 
     /**

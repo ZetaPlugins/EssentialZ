@@ -9,8 +9,6 @@ import com.zetaplugins.essentialz.storage.MySQLStorage;
 import com.zetaplugins.essentialz.storage.SQLiteStorage;
 import com.zetaplugins.essentialz.storage.Storage;
 import com.zetaplugins.essentialz.util.EszConfig;
-import com.zetaplugins.essentialz.util.LanguageManager;
-import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.permissions.Permission;
 import com.zetaplugins.zetacore.services.bStats.Metrics;
 import com.zetaplugins.zetacore.services.commands.AutoCommandRegistrar;
@@ -43,12 +41,10 @@ public final class EssentialZ extends JavaPlugin {
         saveDefaultConfig();
         configManager = new ConfigService(this);
 
-        managerRegistry = new ManagerRegistry(this);
+        managerRegistry = new ManagerRegistry(this, true, PACKAGE_PREFIX);
 
         managerRegistry.registerInstance(configManager);
         managerRegistry.registerInstance(Storage.class, createPlayerDataStorage());
-        managerRegistry.registerInstance(new LanguageManager(this));
-        managerRegistry.registerInstance(new MessageManager(this));
         // Registry will automatically create and register other managers as needed
 
         initUpdateChecker();
