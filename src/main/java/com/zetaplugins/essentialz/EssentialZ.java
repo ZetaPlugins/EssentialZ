@@ -143,7 +143,7 @@ public final class EssentialZ extends JavaPlugin {
     }
 
     private void initBstats() {
-        final int pluginId = 28159;
+        final int pluginId = 28226;
         Metrics metrics = new Metrics(this, pluginId);
 
         metrics.addCustomChart(new Metrics.SimplePie("storage_type", () -> configManager.getConfig(EszConfig.STORAGE).getString("type")));
