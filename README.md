@@ -207,4 +207,4 @@ If you need help with the setup of the plugin, or found a bug, you can join our 
 
 ---
 
-[![Usage](https://bstats.org/signatures/bukkit/ZetaPlugins%20EssentialZ.svg)](https://bstats.org/plugin/bukkit/ZetaPlugins%20EssentialZ/28159)
+[![Usage](https://bstats.org/signatures/bukkit/EssentialZ.svg)](https://bstats.org/plugin/bukkit/EssentialZ/28226)
