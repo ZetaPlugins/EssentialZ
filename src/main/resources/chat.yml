@@ -3,9 +3,10 @@ enableCustomChat: true
 
 # Format for regular chat messages
 # Placeholders:
-# {player_displayname} - The display name of the player
+# {player_displayname} - The display name of the player (e.g. nickname)
 # {player_name} - The name of the player
 # {message} - The message sent by the player
+# If you have PlaceholderAPI installed, you can also use its placeholders, like %vault_prefix%
 chatFormat: "&7{player_displayname} &8» &f{message}"
 
 # Maximum length for nicknames

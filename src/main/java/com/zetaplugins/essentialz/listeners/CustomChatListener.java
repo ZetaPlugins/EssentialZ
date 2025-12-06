@@ -1,5 +1,6 @@
 package com.zetaplugins.essentialz.listeners;
 
+import com.zetaplugins.essentialz.features.PapiInsertionManager;
 import com.zetaplugins.essentialz.util.EszConfig;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.MessageStyle;
@@ -22,6 +23,8 @@ public class CustomChatListener implements Listener {
     private ConfigService configManager;
     @InjectManager
     private MessageManager messageManager;
+    @InjectManager
+    private PapiInsertionManager papiInsertionManager;
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerChat(AsyncChatEvent event) {
@@ -42,12 +45,13 @@ public class CustomChatListener implements Listener {
 
         String rawText = PlainTextComponentSerializer.plainText().serialize(event.message());
         String format = configManager.getConfig(EszConfig.CHAT).getString("chatFormat", "&7{player_displayname} &8» &f{message}");
+        String papiProcessedFormat = papiInsertionManager.insertPapi(format, player);
 
         String rawDisplayName = PlainTextComponentSerializer.plainText().serialize(player.displayName());
 
         for (var onlinePlayer : Bukkit.getOnlinePlayers()) {
             onlinePlayer.sendMessage(messageManager.formatMsg(
-                    format,
+                    papiProcessedFormat,
                     new MessageManager.Replaceable<>("{player_displayname}", rawDisplayName),
                     new MessageManager.Replaceable<>("{player_name}", event.getPlayer().getName()),
                     new MessageManager.Replaceable<>("{message}", rawText, allowColors)
