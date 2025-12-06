@@ -5,25 +5,28 @@ import com.zetaplugins.essentialz.features.economy.manager.BuiltinEconomyManager
 import com.zetaplugins.essentialz.features.economy.manager.EconomyManager;
 import com.zetaplugins.essentialz.features.economy.manager.UnusedEconomyManager;
 import com.zetaplugins.essentialz.features.economy.manager.VaultEconomyManager;
+import com.zetaplugins.essentialz.features.papi.EconomyPlaceholders;
+import com.zetaplugins.essentialz.features.papi.OtherPlaceholders;
 import com.zetaplugins.essentialz.storage.MySQLStorage;
 import com.zetaplugins.essentialz.storage.SQLiteStorage;
 import com.zetaplugins.essentialz.storage.Storage;
 import com.zetaplugins.essentialz.util.EszConfig;
 import com.zetaplugins.essentialz.util.permissions.Permission;
+import com.zetaplugins.zetacore.ZetaCorePlugin;
 import com.zetaplugins.zetacore.services.bStats.Metrics;
 import com.zetaplugins.zetacore.services.commands.AutoCommandRegistrar;
 import com.zetaplugins.zetacore.services.config.ConfigService;
 import com.zetaplugins.zetacore.services.di.ManagerRegistry;
 import com.zetaplugins.zetacore.services.events.AutoEventRegistrar;
+import com.zetaplugins.zetacore.services.papi.PapiExpansionService;
 import com.zetaplugins.zetacore.services.updatechecker.ModrinthUpdateChecker;
 import com.zetaplugins.zetacore.services.updatechecker.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
 
-public final class EssentialZ extends JavaPlugin {
+public final class EssentialZ extends ZetaCorePlugin {
     private static final String PACKAGE_PREFIX = "com.zetaplugins.essentialz";
     private static final List<String> ECONOMY_COMMANDS = List.of("balance", "pay", "baltop");
 
@@ -53,6 +56,7 @@ public final class EssentialZ extends JavaPlugin {
         registerCommands();
         registerListeners();
 
+        initPlaceholderAPI();
         initBstats();
 
         getLogger().info("EssentialZ enabled!");
@@ -142,9 +146,23 @@ public final class EssentialZ extends JavaPlugin {
         return configManager.getConfig(EszConfig.COMMANDS).getBoolean(commandName, true);
     }
 
+    private void initPlaceholderAPI() {
+        if (!hasPlaceholderApi) return;
+
+        boolean success = new PapiExpansionService(this)
+                .setIdentifier("essentialz")
+                .setAuthor("ZetaPlugins")
+                .addAnnotatedPlaceholders(managerRegistry.getOrCreate(EconomyPlaceholders.class))
+                .addAnnotatedPlaceholders(managerRegistry.getOrCreate(OtherPlaceholders.class))
+                .register();
+
+        if (success) getLogger().info("PlaceholderAPI expansion registered successfully.");
+        else getLogger().warning("Failed to register PlaceholderAPI expansion.");
+    }
+
     private void initBstats() {
         final int pluginId = 28226;
-        Metrics metrics = new Metrics(this, pluginId);
+        Metrics metrics = createBStatsMetrics(pluginId);
 
         metrics.addCustomChart(new Metrics.SimplePie("storage_type", () -> configManager.getConfig(EszConfig.STORAGE).getString("type")));
         metrics.addCustomChart(new Metrics.SimplePie("language", () -> getConfig().getString("lang")));

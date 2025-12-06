@@ -1,6 +1,6 @@
 package com.zetaplugins.essentialz.listeners;
 
-import com.zetaplugins.essentialz.features.PapiInsertionManager;
+import com.zetaplugins.essentialz.features.papi.PapiInsertionManager;
 import com.zetaplugins.essentialz.util.EszConfig;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.MessageStyle;

@@ -1,4 +1,4 @@
-package com.zetaplugins.essentialz.features;
+package com.zetaplugins.essentialz.features.papi;
 
 import com.zetaplugins.zetacore.annotations.Manager;
 import org.bukkit.Bukkit;
