@@ -3,7 +3,7 @@ package com.zetaplugins.essentialz.commands.economy;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.features.economy.manager.EconomyManager;
 import com.zetaplugins.essentialz.util.MessageManager;
-import com.zetaplugins.essentialz.util.MessageStyle;
+import com.zetaplugins.essentialz.util.PluginMessage;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
@@ -37,12 +37,7 @@ public class BalTopCommand extends EszCommand {
     @Override
     public boolean execute(CommandSender sender, Command command, String s, ArgumentList args) throws CommandException {
         var topBalances = economyManager.getTopBalances(10);
-        sender.sendMessage(messageManager.getAndFormatMsg(
-                MessageStyle.ECONOMY,
-                "balTopHeader",
-                "\n&8┌─ {ac}Top Balances&r&8 ────────────────",
-                false
-        ));
+        sender.sendMessage(messageManager.getAndFormatMsg(PluginMessage.BALTOP_HEADER, false));
         int i = 1;
         for (UUID uuuid : topBalances.keySet()) {
             Player player = getPlugin().getServer().getPlayer(uuuid);
@@ -50,21 +45,14 @@ public class BalTopCommand extends EszCommand {
             String playerName = (player != null) ? player.getName() : offlinePlayer.getName();
             double balance = topBalances.get(uuuid);
             sender.sendMessage(messageManager.getAndFormatMsg(
-                    MessageStyle.ECONOMY,
-                    "balTopEntry",
-                    "&8│ {ac}{rank}. &7{player} &8- {ac}{balance}",
+                    PluginMessage.BALTOP_ENTRY,
                     false,
                     new MessageManager.Replaceable<>("{rank}", String.valueOf(i++)),
                     new MessageManager.Replaceable<>("{player}", playerName),
                     new MessageManager.Replaceable<>("{balance}", economyManager.format(balance))
             ));
         }
-        sender.sendMessage(messageManager.getAndFormatMsg(
-                MessageStyle.ECONOMY,
-                "balTopFooter",
-                "&8└─────────────────────────────\n",
-                false
-        ));
+        sender.sendMessage(messageManager.getAndFormatMsg(PluginMessage.BALTOP_FOOTER, false));
         return true;
     }
 

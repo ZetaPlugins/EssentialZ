@@ -38,11 +38,23 @@ public enum PluginMessage {
     SUDO_SUCCESS("sudoSuccess", "&7Successfully forced {ac}{player} &7to run the command: {ac}{command}&7.", MessageStyle.MODERATION),
     GODMODE_TOGGLED_OTHER("godModeToggledOther", "&7God mode for {ac}{player}&7 is now {ac}{status}&7.", MessageStyle.MODERATION),
     GODMODE_TOGGLED_SELF("godModeToggled", "&7God mode is now {ac}{status}&7.", MessageStyle.MODERATION),
-    CHAT_CLEARED("chatCleared", "{spaces}{prefix}&7Chat has been cleared by {ac}{player}&7.", MessageStyle.MODERATION)
+    CHAT_CLEARED("chatCleared", "{spaces}{prefix}&7Chat has been cleared by {ac}{player}&7.", MessageStyle.MODERATION),
+    INSUFFICIENT_FUNDS("insufficientFunds", "{ac}You do not have enough funds!", MessageStyle.ERROR),
+    PAY_SENDER("paySender", "&7You have paid {ac}{player} {amount}&7.", MessageStyle.ECONOMY),
+    PAY_RECEIVER("payReceiver", "&7You have received {ac}{amount} &7from {ac}{player}&7.", MessageStyle.ECONOMY),
+    BALTOP_HEADER("balTopHeader", "\n&8┌─ {ac}Top Balances&r&8 ────────────────", MessageStyle.ECONOMY),
+    BALTOP_ENTRY("balTopEntry", "&8│ {ac}{rank}. &7{player} &8- {ac}{balance}", MessageStyle.ECONOMY),
+    BALTOP_FOOTER("balTopFooter", "&8└─────────────────────────────\n", MessageStyle.ECONOMY),
+    OTHER_PLAYER_BALANCE("otherPlayerBalance", "{ac}{player}&7's balance is {ac}{balance}", MessageStyle.ECONOMY),
+    YOUR_BALANCE("yourBalance", "&7Your balance is {ac}{balance}", MessageStyle.ECONOMY),
+    SET_BALANCE("setBalance", "&7Set {ac}{player}&7's balance to {ac}{balance}", MessageStyle.ECONOMY),
+    ADD_BALANCE("addBalance", "&7Added {ac}{amount} &7to {ac}{player}&7's balance", MessageStyle.ECONOMY),
+    REMOVE_BALANCE("removeBalance", "&7Removed {ac}{amount} &7from {ac}{player}&7's balance", MessageStyle.ECONOMY),
+    INSUFFICIENT_FUNDS_TO_WITHDRAW("insufficientFundsWithdraw", "{ac}{player} does not have enough funds to remove {amount}", MessageStyle.ERROR),
+    INVALID_NUMBER("invalidNumber", "{ac}'{input}' is not a valid number.", MessageStyle.ERROR)
     /*
      * Still missing:
      * - items
-     * - economy
      * - communication
      */
     ;

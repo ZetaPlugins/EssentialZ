@@ -6,7 +6,7 @@ import com.zetaplugins.essentialz.features.economy.EconomyUtil;
 import com.zetaplugins.essentialz.features.economy.manager.EconomyManager;
 import com.zetaplugins.essentialz.util.EszConfig;
 import com.zetaplugins.essentialz.util.MessageManager;
-import com.zetaplugins.essentialz.util.MessageStyle;
+import com.zetaplugins.essentialz.util.PluginMessage;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
@@ -55,11 +55,7 @@ public class PayCommand extends EszCommand {
         double senderBalance = economyManager.getBalance(player);
         if (senderBalance < 0) throw new RuntimeException("Sender balance is negative!");
         if (senderBalance < amount) {
-            sender.sendMessage(messageManager.getAndFormatMsg(
-                    MessageStyle.ERROR,
-                    "insufficientFunds",
-                    "{ac}You do not have enough funds!"
-            ));
+            sender.sendMessage(messageManager.getAndFormatMsg(PluginMessage.INSUFFICIENT_FUNDS));
             return false;
         }
 
@@ -67,16 +63,12 @@ public class PayCommand extends EszCommand {
         economyManager.deposit(targetPlayer, amount);
 
         sender.sendMessage(messageManager.getAndFormatMsg(
-                MessageStyle.ECONOMY,
-                "paySender",
-                "&7You have paid {ac}{player} {amount}&7.",
+                PluginMessage.PAY_SENDER,
                 new MessageManager.Replaceable<>("{player}", targetPlayer.getName()),
                 new MessageManager.Replaceable<>("{amount}", economyManager.format(amount))
         ));
         targetPlayer.sendMessage(messageManager.getAndFormatMsg(
-                MessageStyle.ECONOMY,
-                "payReceiver",
-                "&7You have received {ac}{amount} &7from {ac}{player}.",
+                PluginMessage.PAY_RECEIVER,
                 new MessageManager.Replaceable<>("{player}", player.getName()),
                 new MessageManager.Replaceable<>("{amount}", economyManager.format(amount))
         ));
