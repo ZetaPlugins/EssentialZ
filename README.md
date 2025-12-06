@@ -45,6 +45,14 @@ If you want to customize messages, you can either change the colros and prefixes
 <summary>config.yml</summary>
 
 ```yml
+
+# Set the language for the plugin.
+# Available languages can be found in the 'lang' folder.
+language: "en_US"
+
+# Wether or not OP players should get notified when a new version is available when they join.
+updateNotifications: true
+
 # The max length an item name can be. Set to -1 to disable.
 maxItemNameLength: 100
 
@@ -105,9 +113,10 @@ enableCustomChat: true
 
 # Format for regular chat messages
 # Placeholders:
-# {player_displayname} - The display name of the player
+# {player_displayname} - The display name of the player (e.g. nickname)
 # {player_name} - The name of the player
 # {message} - The message sent by the player
+# If you have PlaceholderAPI installed, you can also use its placeholders, like %vault_prefix%
 chatFormat: "&7{player_displayname} &8» &f{message}"
 
 # Maximum length for nicknames
