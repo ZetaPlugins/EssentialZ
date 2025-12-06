@@ -165,7 +165,7 @@ public final class EssentialZ extends ZetaCorePlugin {
         Metrics metrics = createBStatsMetrics(pluginId);
 
         metrics.addCustomChart(new Metrics.SimplePie("storage_type", () -> configManager.getConfig(EszConfig.STORAGE).getString("type")));
-        metrics.addCustomChart(new Metrics.SimplePie("language", () -> getConfig().getString("lang")));
+        metrics.addCustomChart(new Metrics.SimplePie("language", () -> getConfig().getString("language")));
         metrics.addCustomChart(new Metrics.SimplePie("economy_system", () -> {
             EconomyManager economyManager = managerRegistry.getOrCreate(EconomyManager.class);
             if (economyManager instanceof VaultEconomyManager) return "vault";
