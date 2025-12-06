@@ -192,6 +192,20 @@ password: "password"
 
 </details>
 
+## Placeholders
+
+To use PlaceholderAPI with EssentialZ, you only need to have both plugins installed on your server. EssentialZ will automatically register its placeholders with PlaceholderAPI.
+
+You can use the following placeholders:
+
+- `%essentialz_balance%` - The player's current balance.
+- `%essentialz_balance_raw%` - The player's current balance as a raw number (without formatting).
+- `%essentialz_baltop_{rank}_balance%` - The balance of the player at the specified rank in the baltop (e.g., `%essentialz_baltop_1_balance%` for the richest player).
+- `%essentialz_baltop_{rank}_balance_raw%` - The raw balance of the player at the specified rank in the baltop.
+- `%essentialz_baltop_{rank}_player%` - The name of the player at the specified rank in the baltop.
+- `%essentialz_baltop_godmode%` - Whether the player is in godmode (true/false).
+- `%essentialz_fly%` - Whether the player is allowed to fly (true/false).
+
 ## Languages
 
 EssentialZ supports multiple languages. You can find the language files in the `plugins/EssentialZ/lang` directory. To change the language, simply edit the `language` option in the `config.yml` file to match the desired language file name (without the `.yml` extension).
