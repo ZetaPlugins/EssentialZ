@@ -164,15 +164,15 @@ public final class EssentialZ extends ZetaCorePlugin {
         final int pluginId = 28226;
         Metrics metrics = createBStatsMetrics(pluginId);
 
-        metrics.addCustomChart(new Metrics.SimplePie("storage_type", () -> configManager.getConfig(EszConfig.STORAGE).getString("type")));
+        metrics.addCustomChart(new Metrics.SimplePie("storageType", () -> configManager.getConfig(EszConfig.STORAGE).getString("type")));
         metrics.addCustomChart(new Metrics.SimplePie("language", () -> getConfig().getString("language")));
-        metrics.addCustomChart(new Metrics.SimplePie("economy_system", () -> {
+        metrics.addCustomChart(new Metrics.SimplePie("economySystem", () -> {
             EconomyManager economyManager = managerRegistry.getOrCreate(EconomyManager.class);
             if (economyManager instanceof VaultEconomyManager) return "vault";
             else if (economyManager instanceof BuiltinEconomyManager) return "builtin";
             else return "disabled";
         }));
-        metrics.addCustomChart(new Metrics.SimplePie("chat_enabled", () -> {
+        metrics.addCustomChart(new Metrics.SimplePie("chatEnabled", () -> {
             boolean chatEnabled = configManager.getConfig(EszConfig.CHAT).getBoolean("enableCustomChat", true);
             return chatEnabled ? "true" : "false";
         }));
