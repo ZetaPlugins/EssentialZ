@@ -6,13 +6,13 @@
 
     <groupId>com.zetaplugins</groupId>
     <artifactId>EssentialZ</artifactId>
-    <version>1.0.0-alpha6</version>
+    <version>1.0.0-alpha7</version>
     <packaging>jar</packaging>
 
     <name>EssentialZ</name>
 
     <description>A modern essentials plugin for Minecraft</description>
-    <url>https://github.com/KartoffelChipss/EssentialZ</url>
+    <url>https://github.com/ZetaPlugins/EssentialZ</url>
 
     <properties>
         <java.version>21</java.version>
@@ -22,7 +22,7 @@
     <licenses>
         <license>
             <name>GNU General Public License v3.0</name>
-            <url>https://github.com/KartoffelChipss/LifeStealZ/blob/main/LICENSE</url>
+            <url>https://github.com/ZetaPlugins/EssentialZ/blob/main/LICENSE</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
@@ -37,19 +37,19 @@
 
     <issueManagement>
         <system>GitHub Issues</system>
-        <url>https://github.com/KartoffelChipss/EssentialZ/issues</url>
+        <url>https://github.com/ZetaPlugins/EssentialZ/issues</url>
     </issueManagement>
 
     <scm>
-        <url>https://github.com/KartoffelChipss/EssentialZ</url>
-        <connection>scm:git:git://github.com/KartoffelChipss/EssentialZ.git</connection>
-        <developerConnection>scm:git:ssh://github.com/KartoffelChipss/EssentialZ.git</developerConnection>
+        <url>https://github.com/ZetaPlugins/EssentialZ</url>
+        <connection>scm:git:git://github.com/ZetaPlugins/EssentialZ.git</connection>
+        <developerConnection>scm:git:ssh://github.com/ZetaPlugins/EssentialZ.git</developerConnection>
     </scm>
 
     <distributionManagement>
         <repository>
             <id>github</id>
-            <url>https://maven.pkg.github.com/KartoffelChipss/EssentialZ</url>
+            <url>https://maven.pkg.github.com/ZetaPlugins/EssentialZ</url>
         </repository>
     </distributionManagement>
 
