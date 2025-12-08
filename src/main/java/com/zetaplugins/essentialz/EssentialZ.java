@@ -1,5 +1,6 @@
 package com.zetaplugins.essentialz;
 
+import com.zetaplugins.essentialz.config.main.MainConfig;
 import com.zetaplugins.essentialz.features.economy.VaultEconomyImplProvider;
 import com.zetaplugins.essentialz.features.economy.manager.BuiltinEconomyManager;
 import com.zetaplugins.essentialz.features.economy.manager.EconomyManager;
@@ -164,8 +165,10 @@ public final class EssentialZ extends ZetaCorePlugin {
         final int pluginId = 28226;
         Metrics metrics = createBStatsMetrics(pluginId);
 
+        MainConfig mainConfig = configManager.getConfig(MainConfig.class);
+
         metrics.addCustomChart(new Metrics.SimplePie("storageType", () -> configManager.getConfig(EszConfig.STORAGE).getString("type")));
-        metrics.addCustomChart(new Metrics.SimplePie("language", () -> getConfig().getString("language")));
+        metrics.addCustomChart(new Metrics.SimplePie("language", () -> mainConfig.getLanguage()));
         metrics.addCustomChart(new Metrics.SimplePie("economySystem", () -> {
             EconomyManager economyManager = managerRegistry.getOrCreate(EconomyManager.class);
             if (economyManager instanceof VaultEconomyManager) return "vault";

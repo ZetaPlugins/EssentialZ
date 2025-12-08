@@ -1,12 +1,15 @@
 package com.zetaplugins.essentialz.commands.items;
 
 import com.zetaplugins.essentialz.EssentialZ;
+import com.zetaplugins.essentialz.config.main.MainConfig;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.MessageStyle;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBePlayerException;
+import com.zetaplugins.zetacore.services.config.ConfigService;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -23,6 +26,9 @@ import java.util.List;
         permission = "essentialz.itemname"
 )
 public class ItemNameCommand extends EszCommand {
+
+    @InjectManager
+    private ConfigService configService;
 
     public ItemNameCommand(EssentialZ plugin) {
         super(plugin);
@@ -51,7 +57,7 @@ public class ItemNameCommand extends EszCommand {
             }
         }
 
-        int maxLength = getPlugin().getConfig().getInt("maxItemNameLength");
+        int maxLength = configService.getConfig(MainConfig.class).getMaxItemNameLength();
 
         if (newName.length() > maxLength && maxLength != -1) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(

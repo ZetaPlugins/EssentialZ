@@ -1,8 +1,8 @@
 package com.zetaplugins.essentialz.util;
 
-import com.zetaplugins.zetacore.services.config.PluginConfig;
+import com.zetaplugins.zetacore.services.config.PluginConfigFile;
 
-public enum EszConfig implements PluginConfig {
+public enum EszConfig implements PluginConfigFile {
     MAIN("config"),
     STORAGE("storage"),
     CHAT("chat"),

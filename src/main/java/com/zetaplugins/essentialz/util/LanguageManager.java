@@ -1,7 +1,11 @@
 package com.zetaplugins.essentialz.util;
 
 import com.zetaplugins.essentialz.EssentialZ;
+import com.zetaplugins.essentialz.config.main.MainConfig;
+import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.annotations.Manager;
+import com.zetaplugins.zetacore.annotations.PostManagerConstruct;
+import com.zetaplugins.zetacore.services.config.ConfigService;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -16,8 +20,15 @@ public class LanguageManager {
 
     private FileConfiguration langConfig;
 
+    @InjectManager
+    private ConfigService configService;
+
     public LanguageManager(EssentialZ plugin) {
         this.plugin = plugin;
+    }
+
+    @PostManagerConstruct
+    public void init() {
         loadLanguageConfig();
     }
 
@@ -40,7 +51,8 @@ public class LanguageManager {
             }
         }
 
-        String langOption = plugin.getConfig().getString("language") != null ? plugin.getConfig().getString("language") : "en-US";
+        MainConfig mainConfig = configService.getConfig(MainConfig.class);
+        String langOption = mainConfig.getLanguage() != null ? mainConfig.getLanguage() : "en-US";
         File selectedLangFile = new File(languageDirectory, langOption + ".yml");
 
         if (!selectedLangFile.exists()) {

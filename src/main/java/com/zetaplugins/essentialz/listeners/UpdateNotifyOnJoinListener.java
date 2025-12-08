@@ -1,11 +1,13 @@
 package com.zetaplugins.essentialz.listeners;
 
 import com.zetaplugins.essentialz.EssentialZ;
+import com.zetaplugins.essentialz.config.main.MainConfig;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.MessageStyle;
 import com.zetaplugins.zetacore.annotations.AutoRegisterListener;
 import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.annotations.InjectPlugin;
+import com.zetaplugins.zetacore.services.config.ConfigService;
 import com.zetaplugins.zetacore.services.updatechecker.UpdateChecker;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,6 +21,8 @@ public class UpdateNotifyOnJoinListener implements Listener {
     private UpdateChecker updateChecker;
     @InjectManager
     private MessageManager messageManager;
+    @InjectManager
+    private ConfigService configService;
 
     @InjectPlugin
     private EssentialZ plugin;
@@ -27,7 +31,7 @@ public class UpdateNotifyOnJoinListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         if (!player.isOp()
-                || !plugin.getConfig().getBoolean("updateNotifications")
+                || !configService.getConfig(MainConfig.class).isUpdateNotifications()
                 || !updateChecker.isNewVersionAvailable()) {
             return;
         }

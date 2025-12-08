@@ -1,5 +1,6 @@
 package com.zetaplugins.essentialz.listeners;
 
+import com.zetaplugins.essentialz.config.chat.ChatConfig;
 import com.zetaplugins.essentialz.features.papi.PapiInsertionManager;
 import com.zetaplugins.essentialz.util.EszConfig;
 import com.zetaplugins.essentialz.util.MessageManager;
@@ -28,7 +29,8 @@ public class CustomChatListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerChat(AsyncChatEvent event) {
-        if (!configManager.getConfig(EszConfig.CHAT).getBoolean("enableCustomChat", true)) return;
+        ChatConfig chatConfig = configManager.getConfig(ChatConfig.class);
+        if (!chatConfig.isEnableCustomChat()) return;
         event.setCancelled(true);
         Player player = event.getPlayer();
 
@@ -44,7 +46,7 @@ public class CustomChatListener implements Listener {
         boolean allowColors = Permission.CHAT_COLOR.has(event.getPlayer());
 
         String rawText = PlainTextComponentSerializer.plainText().serialize(event.message());
-        String format = configManager.getConfig(EszConfig.CHAT).getString("chatFormat", "&7{player_displayname} &8» &f{message}");
+        String format = chatConfig.getChatFormat();
         String papiProcessedFormat = papiInsertionManager.insertPapi(format, player);
 
         String rawDisplayName = PlainTextComponentSerializer.plainText().serialize(player.displayName());

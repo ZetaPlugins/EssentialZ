@@ -1,5 +1,6 @@
 package com.zetaplugins.essentialz.listeners;
 
+import com.zetaplugins.essentialz.config.chat.ChatConfig;
 import com.zetaplugins.essentialz.util.EszConfig;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.MessageStyle;
@@ -26,8 +27,8 @@ public class LeaveMessageListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerQuitEvent event) {
-        FileConfiguration chatConfig = configService.getConfig(EszConfig.CHAT);
-        if (chatConfig.getBoolean("enableLeaveMessages", true)) {
+        ChatConfig chatConfig = configService.getConfig(ChatConfig.class);
+        if (chatConfig.isEnableLeaveMessages()) {
             event.quitMessage(messageManager.getAndFormatMsg(
                     MessageStyle.NONE,
                     "quitMessage",

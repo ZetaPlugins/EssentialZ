@@ -1,13 +1,16 @@
 package com.zetaplugins.essentialz.commands.items;
 
 import com.zetaplugins.essentialz.EssentialZ;
+import com.zetaplugins.essentialz.config.main.MainConfig;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.MessageStyle;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
+import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.commands.ArgumentList;
 import com.zetaplugins.zetacore.commands.exceptions.CommandSenderMustBePlayerException;
 import com.zetaplugins.zetacore.commands.exceptions.CommandUsageException;
+import com.zetaplugins.zetacore.services.config.ConfigService;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -29,6 +32,9 @@ import java.util.stream.Collectors;
         aliases = {"lore"}
 )
 public class ItemLoreCommand extends EszCommand {
+
+    @InjectManager
+    private ConfigService configService;
 
     public ItemLoreCommand(EssentialZ plugin) {
         super(plugin);
@@ -112,7 +118,7 @@ public class ItemLoreCommand extends EszCommand {
         List<Component> currentLore = item.getItemMeta().lore();
         if (currentLore == null) currentLore = new ArrayList<>();
 
-        int maxLoreLines = getPlugin().getConfig().getInt("maxLoreLines");
+        int maxLoreLines = configService.getConfig(MainConfig.class).getMaxLoreLines();
         if (currentLore.size() >= maxLoreLines || currentLore.size() >= 128) {
             player.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageStyle.ERROR,
@@ -198,7 +204,7 @@ public class ItemLoreCommand extends EszCommand {
             return false;
         }
 
-        int maxLoreLines = getPlugin().getConfig().getInt("maxLoreLines");
+        int maxLoreLines = configService.getConfig(MainConfig.class).getMaxLoreLines();
         if (currentLore.size() >= maxLoreLines || currentLore.size() >= 128) {
             player.sendMessage(getMessageManager().getAndFormatMsg(
                     MessageStyle.ERROR,

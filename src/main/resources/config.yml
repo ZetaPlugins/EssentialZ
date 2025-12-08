@@ -1,7 +1,7 @@
 
 # Set the language for the plugin.
 # Available languages can be found in the 'lang' folder.
-language: "en_US"
+language: "en-US"
 
 # Wether or not OP players should get notified when a new version is available when they join.
 updateNotifications: true

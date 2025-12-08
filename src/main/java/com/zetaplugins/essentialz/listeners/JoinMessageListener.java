@@ -1,5 +1,6 @@
 package com.zetaplugins.essentialz.listeners;
 
+import com.zetaplugins.essentialz.config.chat.ChatConfig;
 import com.zetaplugins.essentialz.util.EszConfig;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.MessageStyle;
@@ -26,14 +27,14 @@ public class JoinMessageListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        FileConfiguration chatConfig = configService.getConfig(EszConfig.CHAT);
+        ChatConfig chatConfig = configService.getConfig(ChatConfig.class);
 
-        if (!chatConfig.getBoolean("enableJoinMessages", true)) {
+        if (!chatConfig.isEnableJoinMessages()) {
             event.joinMessage(null);
             return;
         }
 
-        if (!event.getPlayer().hasPlayedBefore() && chatConfig.getBoolean("specialWelcomeJoinMessage", true)) {
+        if (!event.getPlayer().hasPlayedBefore() && chatConfig.isSpecialWelcomeJoinMessage()) {
             event.joinMessage(messageManager.getAndFormatMsg(
                     MessageStyle.NONE,
                     "welcomeMessage",
