@@ -4,6 +4,7 @@ import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.features.GiveMaterialManager;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.MessageStyle;
+import com.zetaplugins.essentialz.util.PluginMessage;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
@@ -42,9 +43,7 @@ public class ICommand extends EszCommand {
         Material material = giveMaterialManager.getMaterialByKey(materialName);
         if (material == null) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageStyle.ERROR,
-                    "invalidMaterial",
-                    "{ac}'{material}' is not a valid material.",
+                    PluginMessage.INVALID_MATERIAL,
                     new MessageManager.Replaceable<>("{material}", materialName)
             ));
             return false;
@@ -56,9 +55,7 @@ public class ICommand extends EszCommand {
         player.getInventory().addItem(itemStack);
 
         sender.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageStyle.ITEMS,
-                "giveYourselfConfirmation",
-                "&7You have been given {ac}{amount}x {material}&7.",
+                PluginMessage.GIVE_YOURSELF_CONFIRMATION,
                 new MessageManager.Replaceable<>("{amount}", String.valueOf(amount)),
                 new MessageManager.Replaceable<>("{material}", material.name())
         ));

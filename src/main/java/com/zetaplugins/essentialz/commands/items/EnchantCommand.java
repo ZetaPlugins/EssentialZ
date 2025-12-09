@@ -4,6 +4,7 @@ import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.features.EnchantmentManager;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.MessageStyle;
+import com.zetaplugins.essentialz.util.PluginMessage;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
@@ -41,11 +42,7 @@ public class EnchantCommand extends EszCommand {
 
         ItemStack heldItem = player.getInventory().getItemInMainHand();
         if (heldItem.getType().isAir()) {
-            sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageStyle.ERROR,
-                    "mustHoldAnItem",
-                    "ac}You must be holding an item!"
-            ));
+            sender.sendMessage(getMessageManager().getAndFormatMsg(PluginMessage.MUST_HOLD_AN_ITEM));
             return false;
         }
 
@@ -56,9 +53,7 @@ public class EnchantCommand extends EszCommand {
 
         if (enchantment == null) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageStyle.ERROR,
-                    "invalidEnchantment",
-                    "{ac}The enchantment '{enchantment}' does not exist.",
+                    PluginMessage.INVALID_ENCHANTMENT,
                     new MessageManager.Replaceable<>("{enchantment}", enchantmentName)
             ));
             return false;
@@ -68,9 +63,7 @@ public class EnchantCommand extends EszCommand {
 
         heldItem.addUnsafeEnchantment(enchantment, level);
         sender.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageStyle.ITEMS,
-                "enchantSuccess",
-                "&7Successfully enchanted your item with {ac}{enchantment} &7level {ac}{level}&7.",
+                PluginMessage.ENCHANT_SUCCESS,
                 new MessageManager.Replaceable<>("{enchantment}", enchantment.getKey().getKey()),
                 new MessageManager.Replaceable<>("{level}", String.valueOf(level))
         ));

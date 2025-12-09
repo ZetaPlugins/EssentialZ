@@ -3,6 +3,7 @@ package com.zetaplugins.essentialz.commands.items;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.MessageStyle;
+import com.zetaplugins.essentialz.util.PluginMessage;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.commands.ArgumentList;
@@ -37,9 +38,7 @@ public class RepairCommand extends EszCommand {
         if (operation.equals("all")) {
             int repairedCount = repairAllItems(player);
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageStyle.SUCCESS,
-                    "itemsRepairedAll",
-                    "&7Repaired {ac}{count} &7items in your inventory.",
+                    PluginMessage.ITEMS_REPAIRED_ALL,
                     new MessageManager.Replaceable<>("{count}", String.valueOf(repairedCount))
             ));
             return true;
@@ -47,30 +46,18 @@ public class RepairCommand extends EszCommand {
 
         ItemStack item = player.getInventory().getItemInMainHand();
         if (item.getType().isAir()) {
-            sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageStyle.ERROR,
-                    "repairMustHoldAnItem",
-                    "{ac}You must be holding an item to repair."
-            ));
+            sender.sendMessage(getMessageManager().getAndFormatMsg(PluginMessage.REPAIR_MUST_HOLD_ITEM));
             return false;
         }
 
         boolean success = repair(item);
 
         if (!success) {
-            sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageStyle.ERROR,
-                    "itemNotRepairable",
-                    "{ac}The item you are holding cannot be repaired."
-            ));
+            sender.sendMessage(getMessageManager().getAndFormatMsg(PluginMessage.ITEM_NOT_REPAIRABLE));
             return false;
         }
 
-        sender.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageStyle.SUCCESS,
-                "itemRepaired",
-                "&7Your held item has been repaired."
-        ));
+        sender.sendMessage(getMessageManager().getAndFormatMsg(PluginMessage.ITEM_REPAIRED));
 
         return true;
     }

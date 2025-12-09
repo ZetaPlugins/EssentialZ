@@ -3,6 +3,7 @@ package com.zetaplugins.essentialz.commands.items;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.MessageStyle;
+import com.zetaplugins.essentialz.util.PluginMessage;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.commands.ArgumentList;
@@ -41,20 +42,14 @@ public class SkullCommand extends EszCommand {
             Player targetPlayer = args.getPlayer(1, getPlugin());
 
             if (targetPlayer == null) {
-                sender.sendMessage(getMessageManager().getAndFormatMsg(
-                        MessageStyle.ERROR,
-                        "playerNotFound",
-                        "{ac}Player not found."
-                ));
+                sender.sendMessage(getMessageManager().getAndFormatMsg(PluginMessage.PLAYER_NOT_FOUND));
                 return false;
             }
 
             targetPlayer.getInventory().addItem(getSkull(skullPlayer));
 
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageStyle.ITEMS,
-                    "skullGiven",
-                    "&7Seccessfully gave {ac}{player}&7's head to {ac}{receiver}&7.",
+                    PluginMessage.SKULL_GIVEN,
                     new MessageManager.Replaceable<>("{receiver}", targetPlayer.getName()),
                     new MessageManager.Replaceable<>("{player}", skullPlayer.getName())
             ));
@@ -62,20 +57,14 @@ public class SkullCommand extends EszCommand {
         }
 
         if (!(sender instanceof Player targetPlayer)) {
-            sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageStyle.ERROR,
-                    "specifyPlayerOrBePlayer",
-                    "{ac}You must specify a player or be a player to use this command."
-            ));
+            sender.sendMessage(getMessageManager().getAndFormatMsg(PluginMessage.SPECIFY_PLAYER_OR_BE_PLAYER));
             return false;
         }
 
         targetPlayer.getInventory().addItem(getSkull(skullPlayer));
 
         sender.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageStyle.ITEMS,
-                "skullReceived",
-                "&7You received {ac}{player}&7's head.",
+                PluginMessage.SKULL_RECEIVED,
                 new MessageManager.Replaceable<>("{player}", skullPlayer.getName())
         ));
         return false;

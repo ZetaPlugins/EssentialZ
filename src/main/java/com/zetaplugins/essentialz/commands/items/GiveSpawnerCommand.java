@@ -3,6 +3,7 @@ package com.zetaplugins.essentialz.commands.items;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.MessageStyle;
+import com.zetaplugins.essentialz.util.PluginMessage;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.commands.ArgumentList;
@@ -40,11 +41,7 @@ public class GiveSpawnerCommand extends EszCommand {
         if (args.size() < 2) throw new CommandUsageException("/<command> <player> <mobType> [amount]");
 
         if (entityType == null || !entityType.isSpawnable() || !entityType.isAlive()) {
-            sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageStyle.ERROR,
-                    "invalidMobType",
-                    "{ac}You have to specify a valid mob type."
-            ));
+            sender.sendMessage(getMessageManager().getAndFormatMsg(PluginMessage.INVALID_MOB_TYPE));
             return false;
         }
 
@@ -60,9 +57,7 @@ public class GiveSpawnerCommand extends EszCommand {
         targetPlayer.getInventory().addItem(spawnerItem);
 
         sender.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageStyle.ITEMS,
-                "givespawnerSuccess",
-                "&7Gave {ac}{amount} {mobType} &7spawner(s) to {ac}{player}&7.",
+                PluginMessage.GIVE_SPAWNER_SUCCESS,
                 new MessageManager.Replaceable<>("{player}", targetPlayer.getName()),
                 new MessageManager.Replaceable<>("{amount}", String.valueOf(amount)),
                 new MessageManager.Replaceable<>("{mobType}", entityType.name())

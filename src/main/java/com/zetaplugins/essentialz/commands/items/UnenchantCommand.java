@@ -4,6 +4,7 @@ import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.features.EnchantmentManager;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.MessageStyle;
+import com.zetaplugins.essentialz.util.PluginMessage;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
@@ -39,11 +40,7 @@ public class UnenchantCommand extends EszCommand {
 
         ItemStack heldItem = player.getInventory().getItemInMainHand();
         if (heldItem.getType().isAir()) {
-            sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageStyle.ERROR,
-                    "mustHoldAnItem",
-                    "ac}You must be holding an item!"
-            ));
+            sender.sendMessage(getMessageManager().getAndFormatMsg(PluginMessage.MUST_HOLD_AN_ITEM));
             return false;
         }
 
@@ -54,9 +51,7 @@ public class UnenchantCommand extends EszCommand {
 
         if (enchantment == null) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageStyle.ERROR,
-                    "invalidEnchantment",
-                    "{ac}The enchantment '{enchantment}' does not exist.",
+                    PluginMessage.INVALID_ENCHANTMENT,
                     new MessageManager.Replaceable<>("{enchantment}", enchantmentName)
             ));
             return false;
@@ -64,9 +59,7 @@ public class UnenchantCommand extends EszCommand {
 
         if (!heldItem.containsEnchantment(enchantment)) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(
-                    MessageStyle.ERROR,
-                    "itemLacksEnchantment",
-                    "{ac}The item you are holding does not have the '{enchantment}' enchantment.",
+                    PluginMessage.ITEM_LACKS_ENCHANTMENT,
                     new MessageManager.Replaceable<>("{enchantment}", enchantment.getKey().getKey())
             ));
             return false;
@@ -74,9 +67,7 @@ public class UnenchantCommand extends EszCommand {
 
         heldItem.removeEnchantment(enchantment);
         sender.sendMessage(getMessageManager().getAndFormatMsg(
-                MessageStyle.ITEMS,
-                "unenchantSuccess",
-                "&7Successfully removed {ac}{enchantment} &7from your item.",
+                PluginMessage.UNENCHAT_SUCCESS,
                 new MessageManager.Replaceable<>("{enchantment}", enchantment.getKey().getKey())
         ));
         return true;

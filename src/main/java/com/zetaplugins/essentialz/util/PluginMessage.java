@@ -51,10 +51,37 @@ public enum PluginMessage {
     ADD_BALANCE("addBalance", "&7Added {ac}{amount} &7to {ac}{player}&7's balance", MessageStyle.ECONOMY),
     REMOVE_BALANCE("removeBalance", "&7Removed {ac}{amount} &7from {ac}{player}&7's balance", MessageStyle.ECONOMY),
     INSUFFICIENT_FUNDS_TO_WITHDRAW("insufficientFundsWithdraw", "{ac}{player} does not have enough funds to remove {amount}", MessageStyle.ERROR),
-    INVALID_NUMBER("invalidNumber", "{ac}'{input}' is not a valid number.", MessageStyle.ERROR)
+    INVALID_NUMBER("invalidNumber", "{ac}'{input}' is not a valid number.", MessageStyle.ERROR),
+    MUST_HOLD_AN_ITEM("mustHoldAnItem", "{ac}You must be holding an item!", MessageStyle.ERROR),
+    INVALID_ENCHANTMENT("invalidEnchantment", "{ac}The enchantment '{enchantment}' does not exist.", MessageStyle.ERROR),
+    ITEM_LACKS_ENCHANTMENT("itemLacksEnchantment", "{ac}The item you are holding does not have the '{enchantment}' enchantment.", MessageStyle.ERROR),
+    UNENCHAT_SUCCESS("unenchantSuccess", "&7Successfully removed {ac}{enchantment} &7from your item.", MessageStyle.ITEMS),
+    TRASH_INVENTORY_TITLE("trashInventoryTitle", "&8Trash Can", MessageStyle.ITEMS),
+    SKULL_GIVEN("skullGiven", "&7Seccessfully gave {ac}{player}&7's head to {ac}{receiver}&7.", MessageStyle.ITEMS),
+    SKULL_RECEIVED("skullReceived", "&7You received {ac}{player}&7's head.", MessageStyle.ITEMS),
+    ITEMS_REPAIRED_ALL("itemsRepairedAll", "&7Repaired {ac}{count} &7items in your inventory.", MessageStyle.ITEMS),
+    REPAIR_MUST_HOLD_ITEM("repairMustHoldAnItem", "{ac}You must be holding an item to repair.", MessageStyle.ERROR),
+    ITEM_NOT_REPAIRABLE("itemNotRepairable", "{ac}The item you are holding cannot be repaired.", MessageStyle.ERROR),
+    ITEM_REPAIRED("itemRepaired", "&7Your held item has been repaired.", MessageStyle.ITEMS),
+    ITEM_CANNOT_BE_STACKED("itemCannotBeStacked", "{ac}The item you are holding cannot be stacked.", MessageStyle.ERROR),
+    STACKED_ITEMS("stackedItems", "&7Stacked {ac}{amount}&7 items in your hand.", MessageStyle.ITEMS),
+    ITEM_NAME_TOO_LONG("itemNameTooLong", "{ac}The item name is too long! The maximum length is {max} characters.", MessageStyle.ERROR),
+    ITEM_NAME_SET("itemNameSet", "&7Item name set to '{name}&r&7'.", MessageStyle.ITEMS),
+    LORE_TOO_LONG("loreTooLong", "{ac}The lore is too long! The maximum length is {max} lines.", MessageStyle.ERROR),
+    LORE_ADDED("loreAdded", "&7Added '{lore}&r&7' to the lore.", MessageStyle.ITEMS),
+    LORE_SET("loreSet", "&7Set lore line {ac}{line}&7 to '{lore}&r&7'.", MessageStyle.ITEMS),
+    LORE_REMOVED("loreRemoved", "&7Removed lore line {ac}{line}&7.", MessageStyle.ITEMS),
+    LORE_INSERTED("loreInserted", "&7Inserted '{lore}&r&7' at line {ac}{line}&7.", MessageStyle.ITEMS),
+    LORE_LINE_DOES_NOT_EXIST("loreLineDoesNotExist", "{ac}This lore line does not exist!", MessageStyle.ERROR),
+    INVALID_MATERIAL("invalidMaterial", "{ac}'{material}' is not a valid material.", MessageStyle.ERROR),
+    GIVE_YOURSELF_CONFIRMATION("giveYourselfConfirmation", "&7You have been given {ac}{amount}x {material}&7.", MessageStyle.ITEMS),
+    HAT_SET("hatSet", "&7You are now wearing your held item as a hat.", MessageStyle.ITEMS),
+    INVALID_MOB_TYPE("invalidMobType", "{ac}You have to specify a valid mob type.", MessageStyle.ERROR),
+    GIVE_SPAWNER_SUCCESS("giveSpawnerSuccess", "&7Gave {ac}{amount} {mobType} &7spawner(s) to {ac}{player}&7.", MessageStyle.ITEMS),
+    GIVE_CONFIRMATION("giveConfirmation", "&7Gave {ac}{amount}x {material}&7 to {ac}{player}&7.", MessageStyle.ITEMS),
+    ENCHANT_SUCCESS("enchantSuccess", "&7Successfully enchanted your item with {ac}{enchantment} &7level {ac}{level}&7.", MessageStyle.ITEMS)
     /*
      * Still missing:
-     * - items
      * - communication
      */
     ;
