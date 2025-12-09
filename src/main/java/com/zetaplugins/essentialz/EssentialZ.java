@@ -20,6 +20,7 @@ import com.zetaplugins.zetacore.services.config.ConfigService;
 import com.zetaplugins.zetacore.services.di.ManagerRegistry;
 import com.zetaplugins.zetacore.services.events.AutoEventRegistrar;
 import com.zetaplugins.zetacore.services.papi.PapiExpansionService;
+import com.zetaplugins.zetacore.services.updatechecker.HangarUpdateChecker;
 import com.zetaplugins.zetacore.services.updatechecker.ModrinthUpdateChecker;
 import com.zetaplugins.zetacore.services.updatechecker.UpdateChecker;
 import org.bukkit.Bukkit;
@@ -69,7 +70,7 @@ public final class EssentialZ extends ZetaCorePlugin {
     }
 
     private void initUpdateChecker() {
-        UpdateChecker updateChecker = new ModrinthUpdateChecker(this, "FTVoyulY");
+        UpdateChecker updateChecker = new HangarUpdateChecker(this, "KartoffelChipss", "EssentialZ");
         managerRegistry.registerInstance(UpdateChecker.class, updateChecker);
         updateChecker.checkForUpdates(true);
     }
