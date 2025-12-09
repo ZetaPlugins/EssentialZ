@@ -1,7 +1,7 @@
 package com.zetaplugins.essentialz.commands.economy;
 
 import com.zetaplugins.essentialz.EssentialZ;
-import com.zetaplugins.essentialz.features.economy.EconomyConfig;
+import com.zetaplugins.essentialz.config.economy.EconomyConfig;
 import com.zetaplugins.essentialz.features.economy.EconomyUtil;
 import com.zetaplugins.essentialz.features.economy.manager.EconomyManager;
 import com.zetaplugins.essentialz.util.EszConfig;
@@ -48,7 +48,7 @@ public class BalanceCommand extends EszCommand {
         Action action = args.getEnumIgnoreCase(1, Action.class, Action.GET);
         String amountString = args.getString(2, "0");
         try {
-            double amount = EconomyUtil.parseNumber(amountString, new EconomyConfig(configService.getConfig(EszConfig.ECONOMY)));
+            double amount = EconomyUtil.parseNumber(amountString, configService.getConfig(EconomyConfig.class).getCurrencyFormat());
 
             boolean isOtherPlayer = targetPlayer != null && !(sender instanceof Player player && player.getUniqueId().equals(targetPlayer.getUniqueId()));
 

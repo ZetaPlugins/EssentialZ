@@ -1,6 +1,9 @@
 package com.zetaplugins.essentialz;
 
+import com.zetaplugins.essentialz.config.chat.ChatConfig;
+import com.zetaplugins.essentialz.config.economy.EconomyConfig;
 import com.zetaplugins.essentialz.config.main.MainConfig;
+import com.zetaplugins.essentialz.config.storage.StorageConfig;
 import com.zetaplugins.essentialz.features.economy.VaultEconomyImplProvider;
 import com.zetaplugins.essentialz.features.economy.manager.BuiltinEconomyManager;
 import com.zetaplugins.essentialz.features.economy.manager.EconomyManager;
@@ -21,7 +24,6 @@ import com.zetaplugins.zetacore.services.di.ManagerRegistry;
 import com.zetaplugins.zetacore.services.events.AutoEventRegistrar;
 import com.zetaplugins.zetacore.services.papi.PapiExpansionService;
 import com.zetaplugins.zetacore.services.updatechecker.HangarUpdateChecker;
-import com.zetaplugins.zetacore.services.updatechecker.ModrinthUpdateChecker;
 import com.zetaplugins.zetacore.services.updatechecker.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -76,7 +78,7 @@ public final class EssentialZ extends ZetaCorePlugin {
     }
 
     private void initEconomy() {
-        boolean economyEnabled = configManager.getConfig(EszConfig.ECONOMY).getBoolean("enabled", true);
+        boolean economyEnabled = configManager.getConfig(EconomyConfig.class).isEnabled();
         if (hasVault && economyEnabled) {
             getLogger().info("Vault detected, enabling Vault economy support.");
             VaultEconomyImplProvider.register(this, managerRegistry);
@@ -91,10 +93,10 @@ public final class EssentialZ extends ZetaCorePlugin {
     }
 
     private Storage createPlayerDataStorage() {
-        return switch (configManager.getConfig(EszConfig.STORAGE).getString("type").toLowerCase()) {
+        return switch (configManager.getConfig(StorageConfig.class).getType().toLowerCase()) {
             case "mysql" -> {
                 getLogger().info("Using MySQL storage");
-                yield new MySQLStorage(this, configManager.getConfig(EszConfig.STORAGE));
+                yield new MySQLStorage(this, configManager.getConfig(StorageConfig.class));
             }
             case "sqlite" -> {
                 getLogger().info("Using SQLite storage");
@@ -143,7 +145,7 @@ public final class EssentialZ extends ZetaCorePlugin {
      * @return True if the command should be registered, false otherwise.
      */
     private boolean shouldRegisterCommand(String commandName) {
-        boolean economyEnabled = configManager.getConfig(EszConfig.ECONOMY).getBoolean("enabled", true);
+        boolean economyEnabled = configManager.getConfig(EconomyConfig.class).isEnabled();
         if (ECONOMY_COMMANDS.contains(commandName) && !economyEnabled) return false;
         return configManager.getConfig(EszConfig.COMMANDS).getBoolean(commandName, true);
     }
@@ -168,8 +170,8 @@ public final class EssentialZ extends ZetaCorePlugin {
 
         MainConfig mainConfig = configManager.getConfig(MainConfig.class);
 
-        metrics.addCustomChart(new Metrics.SimplePie("storageType", () -> configManager.getConfig(EszConfig.STORAGE).getString("type")));
-        metrics.addCustomChart(new Metrics.SimplePie("language", () -> mainConfig.getLanguage()));
+        metrics.addCustomChart(new Metrics.SimplePie("storageType", () -> configManager.getConfig(StorageConfig.class).getType()));
+        metrics.addCustomChart(new Metrics.SimplePie("language", mainConfig::getLanguage));
         metrics.addCustomChart(new Metrics.SimplePie("economySystem", () -> {
             EconomyManager economyManager = managerRegistry.getOrCreate(EconomyManager.class);
             if (economyManager instanceof VaultEconomyManager) return "vault";
@@ -177,7 +179,7 @@ public final class EssentialZ extends ZetaCorePlugin {
             else return "disabled";
         }));
         metrics.addCustomChart(new Metrics.SimplePie("chatEnabled", () -> {
-            boolean chatEnabled = configManager.getConfig(EszConfig.CHAT).getBoolean("enableCustomChat", true);
+            boolean chatEnabled = configManager.getConfig(ChatConfig.class).isEnableCustomChat();
             return chatEnabled ? "true" : "false";
         }));
 

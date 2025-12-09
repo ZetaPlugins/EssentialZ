@@ -1,6 +1,7 @@
 package com.zetaplugins.essentialz.storage;
 
 import com.zetaplugins.essentialz.EssentialZ;
+import com.zetaplugins.essentialz.config.storage.StorageConfig;
 import com.zetaplugins.essentialz.storage.connectionPool.MySQLConnectionPool;
 import com.zetaplugins.essentialz.storage.repositories.ignores.IgnoresRepository;
 import com.zetaplugins.essentialz.storage.repositories.ignores.SQLIgnoresRepository;
@@ -28,16 +29,16 @@ public final class MySQLStorage extends Storage {
      * @param plugin The EssentialZ plugin instance.
      * @param storageConfig The configuration file containing MySQL connection details.
      */
-    public MySQLStorage(EssentialZ plugin, FileConfiguration storageConfig) {
+    public MySQLStorage(EssentialZ plugin, StorageConfig storageConfig) {
         super(plugin);
 
-        final String HOST = storageConfig.getString("host");
-        final String PORT = storageConfig.getString("port");
-        final String DATABASE = storageConfig.getString("database");
-        final String USERNAME = storageConfig.getString("username");
-        final String PASSWORD = storageConfig.getString("password");
-
-        var connectionPool = new MySQLConnectionPool(HOST, PORT, DATABASE, USERNAME, PASSWORD);
+        var connectionPool = new MySQLConnectionPool(
+                storageConfig.getHost(),
+                String.valueOf(storageConfig.getPort()),
+                storageConfig.getDatabase(),
+                storageConfig.getUsername(),
+                storageConfig.getPassword()
+        );
         playerRepository = new SQLPlayerRepository(plugin, connectionPool);
         ignoresRepository = new SQLIgnoresRepository(plugin, connectionPool);
         warpsRepository = new MySQLWarpsRepository(plugin, connectionPool);

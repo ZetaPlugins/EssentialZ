@@ -1,5 +1,7 @@
 package com.zetaplugins.essentialz.features.economy;
 
+import com.zetaplugins.essentialz.config.economy.CurrencyFormatConfigSection;
+import com.zetaplugins.essentialz.config.economy.EconomyConfig;
 import com.zetaplugins.essentialz.storage.Storage;
 import com.zetaplugins.essentialz.storage.model.PlayerData;
 import com.zetaplugins.essentialz.util.EszConfig;
@@ -14,7 +16,7 @@ import org.bukkit.OfflinePlayer;
 import java.util.List;
 
 public class VaultEconomyImpl implements Economy {
-    private EconomyConfig currencyConfig;
+    private CurrencyFormatConfigSection currencyConfig;
 
     @InjectManager
     private ConfigService configService;
@@ -24,7 +26,7 @@ public class VaultEconomyImpl implements Economy {
 
     @PostManagerConstruct
     public void init() {
-        currencyConfig = new EconomyConfig(configService.getConfig(EszConfig.ECONOMY));
+        currencyConfig = configService.getConfig(EconomyConfig.class).getCurrencyFormat();
     }
 
     @Override

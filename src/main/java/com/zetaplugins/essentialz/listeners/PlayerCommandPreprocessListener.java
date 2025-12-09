@@ -1,6 +1,7 @@
 package com.zetaplugins.essentialz.listeners;
 
-import com.zetaplugins.essentialz.features.economy.EconomyConfig;
+import com.zetaplugins.essentialz.config.economy.CommandFeesConfigSection;
+import com.zetaplugins.essentialz.config.economy.EconomyConfig;
 import com.zetaplugins.essentialz.features.economy.manager.EconomyManager;
 import com.zetaplugins.essentialz.util.EszConfig;
 import com.zetaplugins.essentialz.util.MessageManager;
@@ -29,9 +30,10 @@ public class PlayerCommandPreprocessListener implements Listener {
     public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
         String message = event.getMessage().toLowerCase();
         Player sender = event.getPlayer();
-        EconomyConfig economyConfig = new EconomyConfig(configService.getConfig(EszConfig.ECONOMY));
+        CommandFeesConfigSection commandFeesConfig = configService.getConfig(EconomyConfig.class).getCommandFees();
+        if (!commandFeesConfig.isEnabled()) return;
         String commandName = message.contains("/") ? message.split(" ")[0].substring(1) : message;
-        double cmdFee = economyConfig.getCommandFee(commandName);
+        double cmdFee = commandFeesConfig.getFees().getOrDefault(commandName, 0.0);
 
         if (cmdFee <= 0) return;
 

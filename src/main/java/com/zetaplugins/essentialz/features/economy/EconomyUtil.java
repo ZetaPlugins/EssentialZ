@@ -1,5 +1,6 @@
 package com.zetaplugins.essentialz.features.economy;
 
+import com.zetaplugins.essentialz.config.economy.CurrencyFormatConfigSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.Map;
@@ -15,7 +16,7 @@ public class EconomyUtil {
 
     private EconomyUtil() {}
 
-    public static String formatCurrency(double amount, EconomyConfig config) {
+    public static String formatCurrency(double amount, CurrencyFormatConfigSection config) {
         return formatCurrency(amount, config.getSymbol(), config.getDecimalPlaces(), config.getThousandSeparator(), config.getDecimalSeparator(), config.getSymbolPosition());
     }
 
@@ -56,7 +57,7 @@ public class EconomyUtil {
      * @return The parsed double value.
      * @throws NumberFormatException If the input cannot be parsed into a valid number.
      */
-    public static double parseNumber(String input, EconomyConfig config) throws NumberFormatException {
+    public static double parseNumber(String input, CurrencyFormatConfigSection config) throws NumberFormatException {
         String sanitizedInput = input.replace(config.getSymbol(), "")
                 .replace(config.getThousandSeparator(), "")
                 .replace(config.getDecimalSeparator(), ".")

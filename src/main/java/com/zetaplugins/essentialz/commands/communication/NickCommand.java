@@ -1,6 +1,7 @@
 package com.zetaplugins.essentialz.commands.communication;
 
 import com.zetaplugins.essentialz.EssentialZ;
+import com.zetaplugins.essentialz.config.chat.ChatConfig;
 import com.zetaplugins.essentialz.util.EszConfig;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.MessageStyle;
@@ -54,7 +55,7 @@ public class NickCommand extends EszCommand {
             return true;
         }
 
-        int maxNickLenth = configManager.getConfig(EszConfig.CHAT).getInt("maxNicknameLength", 16);
+        int maxNickLenth = configManager.getConfig(ChatConfig.class).getMaxNicknameLength();
 
         if (nickName.length() > maxNickLenth) {
             sender.sendMessage(getMessageManager().getAndFormatMsg(

@@ -1,8 +1,8 @@
 package com.zetaplugins.essentialz.listeners;
 
+import com.zetaplugins.essentialz.config.economy.EconomyConfig;
 import com.zetaplugins.essentialz.storage.Storage;
 import com.zetaplugins.essentialz.storage.model.PlayerData;
-import com.zetaplugins.essentialz.util.EszConfig;
 import com.zetaplugins.zetacore.annotations.AutoRegisterListener;
 import com.zetaplugins.zetacore.annotations.InjectManager;
 import com.zetaplugins.zetacore.services.config.ConfigService;
@@ -26,8 +26,7 @@ public class FirstPlayerJoinListener implements Listener {
         PlayerData playerData = storage.getPlayerRepository().load(player.getUniqueId());
         if (playerData != null) {
             PlayerData newPlayerData = new PlayerData(player.getUniqueId());
-            double startingBalance = configService.getConfig(EszConfig.ECONOMY)
-                    .getDouble("startingBalance", 1000.0);
+            double startingBalance = configService.getConfig(EconomyConfig.class).getStartingBalance();
             newPlayerData.setBalance(startingBalance);
             storage.getPlayerRepository().save(newPlayerData);
         }

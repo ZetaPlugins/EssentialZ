@@ -1,7 +1,8 @@
 package com.zetaplugins.essentialz.features.economy.manager;
 
 import com.zetaplugins.essentialz.EssentialZ;
-import com.zetaplugins.essentialz.features.economy.EconomyConfig;
+import com.zetaplugins.essentialz.config.economy.CurrencyFormatConfigSection;
+import com.zetaplugins.essentialz.config.economy.EconomyConfig;
 import com.zetaplugins.essentialz.features.economy.EconomyUtil;
 import com.zetaplugins.essentialz.storage.Storage;
 import com.zetaplugins.essentialz.storage.model.PlayerData;
@@ -15,7 +16,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class BuiltinEconomyManager implements EconomyManager {
-    private EconomyConfig currencyConfig;
+    private CurrencyFormatConfigSection currencyConfig;
 
     @InjectManager
     private ConfigService configService;
@@ -28,7 +29,7 @@ public class BuiltinEconomyManager implements EconomyManager {
 
     @PostManagerConstruct
     public void init() {
-        currencyConfig = new EconomyConfig(configService.getConfig(EszConfig.ECONOMY));
+        currencyConfig = configService.getConfig(EconomyConfig.class).getCurrencyFormat();
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.zetaplugins.essentialz.commands.economy;
 
 import com.zetaplugins.essentialz.EssentialZ;
-import com.zetaplugins.essentialz.features.economy.EconomyConfig;
+import com.zetaplugins.essentialz.config.economy.EconomyConfig;
 import com.zetaplugins.essentialz.features.economy.EconomyUtil;
 import com.zetaplugins.essentialz.features.economy.manager.EconomyManager;
 import com.zetaplugins.essentialz.util.EszConfig;
@@ -49,7 +49,7 @@ public class PayCommand extends EszCommand {
         String stringAamount = args.getArg(1);
         double amount = EconomyUtil.parseNumber(
                 stringAamount,
-                new EconomyConfig(configService.getConfig(EszConfig.ECONOMY))
+                configService.getConfig(EconomyConfig.class).getCurrencyFormat()
         );
 
         double senderBalance = economyManager.getBalance(player);
