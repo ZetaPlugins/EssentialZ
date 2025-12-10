@@ -39,7 +39,7 @@ EssentialsZ gives you the option to fully customize your experience without any 
 
 You can configure EssentialZ by editing the `.yml` files located in the `plugins/EssentialZ` directory. The main configuration file is `config.yml`.
 
-If you want to customize messages, you can either change the colros and prefixes for message types in `config.yml`, or edit the individual messages for your language in the `lang` directory.
+If you want to customize messages, you can either change the colors and prefixes for message types in `config.yml`, or edit the individual messages for your language in the `lang` directory.
 
 <details>
 <summary>config.yml</summary>
