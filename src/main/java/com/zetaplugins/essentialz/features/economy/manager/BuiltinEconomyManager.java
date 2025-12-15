@@ -6,8 +6,8 @@ import com.zetaplugins.essentialz.config.economy.EconomyConfig;
 import com.zetaplugins.essentialz.features.economy.EconomyUtil;
 import com.zetaplugins.essentialz.storage.Storage;
 import com.zetaplugins.essentialz.storage.model.PlayerData;
-import com.zetaplugins.essentialz.util.EszConfig;
 import com.zetaplugins.zetacore.annotations.InjectManager;
+import com.zetaplugins.zetacore.annotations.InjectPlugin;
 import com.zetaplugins.zetacore.annotations.PostManagerConstruct;
 import com.zetaplugins.zetacore.services.config.ConfigService;
 import org.bukkit.OfflinePlayer;
@@ -24,7 +24,7 @@ public class BuiltinEconomyManager implements EconomyManager {
     @InjectManager
     private Storage storage;
 
-    @InjectManager
+    @InjectPlugin
     private EssentialZ plugin;
 
     @PostManagerConstruct
