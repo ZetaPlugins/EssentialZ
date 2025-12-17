@@ -2,6 +2,8 @@ package com.zetaplugins.essentialz.storage;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.storage.connectionPool.SQLiteConnectionPool;
+import com.zetaplugins.essentialz.storage.repositories.homes.HomesRepository;
+import com.zetaplugins.essentialz.storage.repositories.homes.SQLiteHomesRepository;
 import com.zetaplugins.essentialz.storage.repositories.ignores.IgnoresRepository;
 import com.zetaplugins.essentialz.storage.repositories.ignores.SQLIgnoresRepository;
 import com.zetaplugins.essentialz.storage.repositories.player.PlayerRepository;
@@ -16,6 +18,7 @@ public final class SQLiteStorage extends Storage {
     private final SQLPlayerRepository playerRepository;
     private final SQLIgnoresRepository ignoresRepository;
     private final SQLiteWarpsRepository warpsRepository;
+    private final SQLiteHomesRepository homesRepository;
 
     public SQLiteStorage(EssentialZ plugin) {
         super(plugin);
@@ -23,6 +26,7 @@ public final class SQLiteStorage extends Storage {
         playerRepository = new SQLPlayerRepository(plugin, connectionPool);
         ignoresRepository = new SQLIgnoresRepository(plugin, connectionPool);
         warpsRepository = new SQLiteWarpsRepository(plugin, connectionPool);
+        homesRepository = new SQLiteHomesRepository(plugin, connectionPool);
     }
 
     @Override
@@ -30,6 +34,7 @@ public final class SQLiteStorage extends Storage {
         playerRepository.initializeTable();
         ignoresRepository.initializeTable();
         warpsRepository.initializeTable();
+        homesRepository.initializeTable();
     }
 
     @Override
@@ -45,5 +50,10 @@ public final class SQLiteStorage extends Storage {
     @Override
     public WarpsRepository getWarpsRepository() {
         return warpsRepository;
+    }
+
+    @Override
+    public HomesRepository getHomesRepository() {
+        return homesRepository;
     }
 }

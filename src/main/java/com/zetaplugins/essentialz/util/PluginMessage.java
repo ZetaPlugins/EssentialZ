@@ -42,7 +42,7 @@ public enum PluginMessage {
     INSUFFICIENT_FUNDS("insufficientFunds", "{ac}You do not have enough funds!", MessageStyle.ERROR),
     PAY_SENDER("paySender", "&7You have paid {ac}{player} {amount}&7.", MessageStyle.ECONOMY),
     PAY_RECEIVER("payReceiver", "&7You have received {ac}{amount} &7from {ac}{player}&7.", MessageStyle.ECONOMY),
-    BALTOP_HEADER("balTopHeader", "\n&8┌─ {ac}Top Balances&r&8 ────────────────", MessageStyle.ECONOMY),
+    BALTOP_HEADER("balTopHeader", "\n&8┌─ {ac}Top Balances&r&8 ────────────────────", MessageStyle.ECONOMY),
     BALTOP_ENTRY("balTopEntry", "&8│ {ac}{rank}. &7{player} &8- {ac}{balance}", MessageStyle.ECONOMY),
     BALTOP_FOOTER("balTopFooter", "&8└─────────────────────────────\n", MessageStyle.ECONOMY),
     OTHER_PLAYER_BALANCE("otherPlayerBalance", "{ac}{player}&7's balance is {ac}{balance}", MessageStyle.ECONOMY),
@@ -79,7 +79,15 @@ public enum PluginMessage {
     INVALID_MOB_TYPE("invalidMobType", "{ac}You have to specify a valid mob type.", MessageStyle.ERROR),
     GIVE_SPAWNER_SUCCESS("giveSpawnerSuccess", "&7Gave {ac}{amount} {mobType} &7spawner(s) to {ac}{player}&7.", MessageStyle.ITEMS),
     GIVE_CONFIRMATION("giveConfirmation", "&7Gave {ac}{amount}x {material}&7 to {ac}{player}&7.", MessageStyle.ITEMS),
-    ENCHANT_SUCCESS("enchantSuccess", "&7Successfully enchanted your item with {ac}{enchantment} &7level {ac}{level}&7.", MessageStyle.ITEMS)
+    ENCHANT_SUCCESS("enchantSuccess", "&7Successfully enchanted your item with {ac}{enchantment} &7level {ac}{level}&7.", MessageStyle.ITEMS),
+    HOME_SET_SUCCESS("setHomeSucess", "&7Home {ac}{homeName}&7 has been set at {ac}{x} {y} {z}&7.", MessageStyle.MOVEMENT),
+    HOME_DELETE_SUCCESS("deleteHomeSuccess", "&7Home {ac}{homeName}&7 has been deleted.", MessageStyle.MOVEMENT),
+    HOME_DELETE_FAIL("homeDeleteFail", "{ac}You do not have a home named '{homeName}'.", MessageStyle.ERROR),
+    HOME_NOT_FOUND("homeNotFound", "{ac}Home '{homeName}' does not exist.", MessageStyle.ERROR),
+    NO_HOMES_SET("noHomesSet", "{ac}You have not set any homes yet.", MessageStyle.ERROR),
+    HOMES_LIST_HEADER("homesListHeader", "\n&8┌─ {ac}Your Homes&r&8 ─────────────────────", MessageStyle.MOVEMENT),
+    HOMES_LIST_ENTRY("homesListEntry", "&8│ &7{index}. {ac}{homeName} &8- &7{x} {y} {z}", MessageStyle.MOVEMENT),
+    HOMES_LIST_FOOTER("homesListFooter", "&8└─────────────────────────────\n", MessageStyle.MOVEMENT)
     /*
      * Still missing:
      * - communication

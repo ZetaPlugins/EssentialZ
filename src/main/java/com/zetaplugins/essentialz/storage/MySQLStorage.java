@@ -3,6 +3,8 @@ package com.zetaplugins.essentialz.storage;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.config.storage.StorageConfig;
 import com.zetaplugins.essentialz.storage.connectionPool.MySQLConnectionPool;
+import com.zetaplugins.essentialz.storage.repositories.homes.HomesRepository;
+import com.zetaplugins.essentialz.storage.repositories.homes.MySQLHomesRepository;
 import com.zetaplugins.essentialz.storage.repositories.ignores.IgnoresRepository;
 import com.zetaplugins.essentialz.storage.repositories.ignores.SQLIgnoresRepository;
 import com.zetaplugins.essentialz.storage.repositories.player.PlayerRepository;
@@ -20,6 +22,7 @@ public final class MySQLStorage extends Storage {
     private final SQLPlayerRepository playerRepository;
     private final SQLIgnoresRepository ignoresRepository;
     private final MySQLWarpsRepository warpsRepository;
+    private final MySQLHomesRepository homesRepository;
 
     @InjectManager
     private ConfigService configManager;
@@ -42,6 +45,7 @@ public final class MySQLStorage extends Storage {
         playerRepository = new SQLPlayerRepository(plugin, connectionPool);
         ignoresRepository = new SQLIgnoresRepository(plugin, connectionPool);
         warpsRepository = new MySQLWarpsRepository(plugin, connectionPool);
+        homesRepository = new MySQLHomesRepository(plugin, connectionPool);
     }
 
     @Override
@@ -49,6 +53,7 @@ public final class MySQLStorage extends Storage {
         playerRepository.initializeTable();
         ignoresRepository.initializeTable();
         warpsRepository.initializeTable();
+        homesRepository.initializeTable();
     }
 
     @Override
@@ -64,5 +69,10 @@ public final class MySQLStorage extends Storage {
     @Override
     public WarpsRepository getWarpsRepository() {
         return warpsRepository;
+    }
+
+    @Override
+    public HomesRepository getHomesRepository() {
+        return homesRepository;
     }
 }

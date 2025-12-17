@@ -53,7 +53,11 @@ public enum Permission implements PermissionNode {
     PAY("pay", PermissionDefault.TRUE, "Allows the user to pay another player"),
     BALTOP("baltop", PermissionDefault.TRUE, "Allows the user to see the top balances on the server"),
     RULES("rules", PermissionDefault.TRUE, "Allows the user to view the server rules"),
-    RELOAD("reload", PermissionDefault.OP, "Allows the user to reload the plugin")
+    RELOAD("reload", PermissionDefault.OP, "Allows the user to reload the plugin"),
+    HOME("home", PermissionDefault.TRUE, "Allows the user to teleport to their homes"),
+    SETHOME("sethome", PermissionDefault.TRUE, "Allows the user to set homes"),
+    DELHOME("delhome", PermissionDefault.TRUE, "Allows the user to delete their homes"),
+    HOMELIST("homelist", PermissionDefault.TRUE, "Allows the user to list their homes")
     ;
 
     private final String node;

@@ -1,6 +1,7 @@
 package com.zetaplugins.essentialz.storage;
 
 import com.zetaplugins.essentialz.EssentialZ;
+import com.zetaplugins.essentialz.storage.repositories.homes.HomesRepository;
 import com.zetaplugins.essentialz.storage.repositories.ignores.IgnoresRepository;
 import com.zetaplugins.essentialz.storage.repositories.player.PlayerRepository;
 import com.zetaplugins.essentialz.storage.repositories.warps.WarpsRepository;
@@ -38,4 +39,6 @@ public abstract class Storage {
     public abstract IgnoresRepository getIgnoresRepository();
 
     public abstract WarpsRepository getWarpsRepository();
+
+    public abstract HomesRepository getHomesRepository();
 }

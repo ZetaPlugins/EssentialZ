@@ -33,10 +33,10 @@ public abstract class SQLWarpsRepository extends Repository implements WarpsRepo
                         .append(");");
                 statement.executeUpdate(warpsTableSql.toString());
             } catch (SQLException e) {
-                getPlugin().getLogger().log(Level.SEVERE, "Failed to create warps SQLite table:", e);
+                getPlugin().getLogger().log(Level.SEVERE, "Failed to create warps SQL table:", e);
             }
         } catch (SQLException e) {
-            getPlugin().getLogger().log(Level.SEVERE, "Failed to create warps SQLite table:", e);
+            getPlugin().getLogger().log(Level.SEVERE, "Failed to create warps SQL table:", e);
         }
     }
 
