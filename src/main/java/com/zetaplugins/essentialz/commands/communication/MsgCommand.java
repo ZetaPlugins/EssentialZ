@@ -2,10 +2,12 @@ package com.zetaplugins.essentialz.commands.communication;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.features.LastMsgManager;
+import com.zetaplugins.essentialz.features.SocialSpyManager;
 import com.zetaplugins.essentialz.storage.Storage;
 import com.zetaplugins.essentialz.storage.model.PlayerData;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.MessageStyle;
+import com.zetaplugins.essentialz.util.PluginMessage;
 import com.zetaplugins.essentialz.util.commands.EszCommand;
 import com.zetaplugins.zetacore.annotations.AutoRegisterCommand;
 import com.zetaplugins.zetacore.annotations.InjectManager;
@@ -16,6 +18,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
+import java.util.UUID;
 
 @AutoRegisterCommand(
         commands = "msg",
@@ -30,6 +33,8 @@ public class MsgCommand extends EszCommand {
     private Storage storage;
     @InjectManager
     private LastMsgManager lastMsgManager;
+    @InjectManager
+    private SocialSpyManager socialSpyManager;
 
     public MsgCommand(EssentialZ plugin) {
         super(plugin);
@@ -130,6 +135,27 @@ public class MsgCommand extends EszCommand {
                 new MessageManager.Replaceable<>("{sender}", sender.getName()),
                 new MessageManager.Replaceable<>("{message}", message, allowToUseColor)
         ));
+
+        for (UUID spy : socialSpyManager.getAllSpyingViewers(targetPlayer.getUniqueId(), sender instanceof Player p ? p.getUniqueId() : EssentialZ.CONSOLE_UUID)) {
+            Player spyPlayer = getPlugin().getServer().getPlayer(spy);
+            if (spyPlayer != null
+                    && !spyPlayer.getUniqueId().equals(sender instanceof Player ? ((Player) sender).getUniqueId() : null)
+                    && !spyPlayer.getUniqueId().equals(targetPlayer.getUniqueId())) {// if spy is not sender or recipient
+                spyPlayer.sendMessage(getMessageManager().getAndFormatMsg(
+                        PluginMessage.SOCIALSPY_FORMAT,
+                        new MessageManager.Replaceable<>("{sender}", sender.getName()),
+                        new MessageManager.Replaceable<>("{recipient}", targetPlayer.getName()),
+                        new MessageManager.Replaceable<>("{message}", message, allowToUseColor)
+                ));
+            } else if (spy.equals(EssentialZ.CONSOLE_UUID)) {
+                sender.getServer().getConsoleSender().sendMessage(getMessageManager().getAndFormatMsg(
+                        PluginMessage.SOCIALSPY_FORMAT,
+                        new MessageManager.Replaceable<>("{sender}", sender.getName()),
+                        new MessageManager.Replaceable<>("{recipient}", targetPlayer.getName()),
+                        new MessageManager.Replaceable<>("{message}", message, allowToUseColor)
+                ));
+            }
+        }
 
         if (sender instanceof Player senderPlayer) {
             lastMsgManager.setLastMsg(senderPlayer.getUniqueId(), targetPlayer.getUniqueId());

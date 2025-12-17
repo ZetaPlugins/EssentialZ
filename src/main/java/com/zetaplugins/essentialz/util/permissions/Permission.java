@@ -63,7 +63,8 @@ public enum Permission implements PermissionNode {
     ENDERCHEST_OTHERS("enderchest.others", PermissionDefault.OP, "Allows the user to access other players' ender chests via a command"),
     ENDERCHEST_OTHERS_MODIFY("enderchest.others.modify", PermissionDefault.OP, "Allows the user to modify other players' ender chests via a command"),
     INVSEE("invsee", PermissionDefault.OP, "Allows the user to view other players' inventories"),
-    INVSEE_MODIFY("invsee.modify", PermissionDefault.OP, "Allows the user to modify other players' inventories")
+    INVSEE_MODIFY("invsee.modify", PermissionDefault.OP, "Allows the user to modify other players' inventories"),
+    SOCIALSPY("socialspy", PermissionDefault.OP, "Allows the user to spy on private messages between players")
     ;
 
     private final String node;

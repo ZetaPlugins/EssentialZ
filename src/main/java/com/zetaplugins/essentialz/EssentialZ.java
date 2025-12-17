@@ -29,8 +29,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.List;
+import java.util.UUID;
 
 public final class EssentialZ extends ZetaCorePlugin {
+    public static final UUID CONSOLE_UUID = UUID.fromString("00000000-0000-0000-0000-000000000000");
     private static final String PACKAGE_PREFIX = "com.zetaplugins.essentialz";
     private static final List<String> ECONOMY_COMMANDS = List.of("balance", "pay", "baltop");
 

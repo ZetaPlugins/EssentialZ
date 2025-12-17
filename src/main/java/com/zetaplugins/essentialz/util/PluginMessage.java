@@ -90,7 +90,11 @@ public enum PluginMessage {
     HOMES_LIST_FOOTER("homesListFooter", "&8└─────────────────────────────\n", MessageStyle.MOVEMENT),
     HOME_SET_MAX_HOMES_REACHED("homeSetMaxHomesReached", "{ac}You have reached the maximum number of homes you can set ({maxHomes}).", MessageStyle.ERROR),
     NO_ENDERCHEST_EDIT_ACCESS("noEnderchestEditAccess", "{ac}You do not have permission to modify other players' enderchests.", MessageStyle.ERROR),
-    CANNOT_INVSEE_SELF("cannotInvseeSelf", "{ac}You cannot view your own inventory with /invsee.", MessageStyle.ERROR)
+    CANNOT_INVSEE_SELF("cannotInvseeSelf", "{ac}You cannot view your own inventory with /invsee.", MessageStyle.ERROR),
+    SOCIALSPY_ENABLED("socialSpyEnabled", "&7Socialspy enabled for {ac}{player}&7.", MessageStyle.MODERATION),
+    SOCIALSPY_DISABLED("socialSpyDisabled", "&7Socialspy disabled for {ac}{player}&7.", MessageStyle.MODERATION),
+    SOCIALSPY_DISABLED_ALL("socialSpyDisabledAll", "&7Socialspy disabled for all targets.", MessageStyle.MODERATION),
+    SOCIALSPY_FORMAT("socialSpyFormat", "&8[{ac}\uD83D\uDC41&8] &8[{ac}{sender} &7→ {ac}{recipient}&8] &7{message}", MessageStyle.MODERATION)
     /*
      * Still missing:
      * - communication

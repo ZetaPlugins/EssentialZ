@@ -129,3 +129,7 @@ homesListFooter: "&8└───────────────────
 homeSetMaxHomesReached: "{ac}You have reached the maximum number of homes you can set ({maxHomes})."
 noEnderchestEditAccess: "{ac}You do not have permission to modify other players' enderchests."
 cannotInvseeSelf: "{ac}You cannot view your own inventory with /invsee."
+socialSpyEnabled: "&7Socialspy enabled for {ac}{player}&7."
+socialSpyDisabled: "&7Socialspy disabled for {ac}{player}&7."
+socialSpyDisabledAll: "&7Socialspy disabled for all targets."
+socialSpyFormat: "&8[{ac}👁&8] &8[{ac}{sender} &7→ {ac}{recipient}&8] &7{message}"
