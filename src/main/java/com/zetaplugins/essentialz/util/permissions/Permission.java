@@ -57,7 +57,8 @@ public enum Permission implements PermissionNode {
     HOME("home", PermissionDefault.TRUE, "Allows the user to teleport to their homes"),
     SETHOME("sethome", PermissionDefault.TRUE, "Allows the user to set homes"),
     DELHOME("delhome", PermissionDefault.TRUE, "Allows the user to delete their homes"),
-    HOMELIST("homelist", PermissionDefault.TRUE, "Allows the user to list their homes")
+    HOMELIST("homelist", PermissionDefault.TRUE, "Allows the user to list their homes"),
+    MAXHOMES("maxhomes", PermissionDefault.TRUE, "Set how many homes a player can have")
     ;
 
     private final String node;

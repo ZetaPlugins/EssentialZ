@@ -36,4 +36,11 @@ public interface HomesRepository {
      * @return A list of all homes
      */
     List<HomeData> getAllHomes(UUID owner);
+
+    /**
+     * Gets the count of homes for a specific owner.
+     * @param owner The UUID of the owner.
+     * @return The count of homes
+     */
+    int getHomeCount(UUID owner);
 }

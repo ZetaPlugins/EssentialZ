@@ -87,7 +87,8 @@ public enum PluginMessage {
     NO_HOMES_SET("noHomesSet", "{ac}You have not set any homes yet.", MessageStyle.ERROR),
     HOMES_LIST_HEADER("homesListHeader", "\n&8┌─ {ac}Your Homes&r&8 ─────────────────────", MessageStyle.MOVEMENT),
     HOMES_LIST_ENTRY("homesListEntry", "&8│ &7{index}. {ac}{homeName} &8- &7{x} {y} {z}", MessageStyle.MOVEMENT),
-    HOMES_LIST_FOOTER("homesListFooter", "&8└─────────────────────────────\n", MessageStyle.MOVEMENT)
+    HOMES_LIST_FOOTER("homesListFooter", "&8└─────────────────────────────\n", MessageStyle.MOVEMENT),
+    HOME_SET_MAX_HOMES_REACHED("homeSetMaxHomesReached", "{ac}You have reached the maximum number of homes you can set ({maxHomes}).", MessageStyle.ERROR)
     /*
      * Still missing:
      * - communication

@@ -12,6 +12,9 @@ maxItemNameLength: 100
 # The max amount of lines a lore can have. Set to -1 to disable. (128 is the max amount of lines an item can have in Minecraft)
 maxLoreLines: 10
 
+# The default max amount of homes a player can set if not specified by a permission.
+defaultMaxHomes: 3
+
 # Set the message styles for each message type.
 styles:
   default:

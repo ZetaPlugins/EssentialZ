@@ -172,4 +172,31 @@ public abstract class SQLHomesRepository extends Repository implements HomesRepo
         return homes;
     }
 
+    @Override
+    public int getHomeCount(UUID owner) {
+        final String sql = "SELECT COUNT(*) AS homeCount FROM homes WHERE owner = ?";
+
+        try (Connection connection = getConnection()) {
+            if (connection == null) return 0;
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, owner.toString());
+                statement.setQueryTimeout(30);
+
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                        return resultSet.getInt("homeCount");
+                    }
+                } catch (SQLException e) {
+                    getPlugin().getLogger().log(Level.SEVERE, "Failed to count homes for owner \"" + owner.toString() + "\" from SQL database:", e);
+                }
+            } catch (SQLException e) {
+                getPlugin().getLogger().log(Level.SEVERE, "Failed to count homes for owner \"" + owner.toString() + "\" from SQL database:", e);
+            }
+        } catch (SQLException e) {
+            getPlugin().getLogger().log(Level.SEVERE, "Failed to count homes for owner \"" + owner.toString() + "\" from SQL database:", e);
+        }
+
+        return 0;
+    }
 }
