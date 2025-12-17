@@ -21,7 +21,10 @@ public abstract class EszCommand extends PluginCommand<EssentialZ> {
         registerExceptionHandler(
                 CommandUsageException.class,
                 (ctx, e) -> {
-                    ctx.getSender().sendMessage(messageManager.getAndFormatMsg(PluginMessage.USAGE_ERROR));
+                    ctx.getSender().sendMessage(messageManager.getAndFormatMsg(
+                            PluginMessage.USAGE_ERROR,
+                            new MessageManager.Replaceable<>("{usage}", e.getUsage())
+                    ));
                     return false;
                 }
         );
