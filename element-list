@@ -16,6 +16,7 @@ com.zetaplugins.essentialz.features
 com.zetaplugins.essentialz.features.economy
 com.zetaplugins.essentialz.features.economy.manager
 com.zetaplugins.essentialz.features.papi
+com.zetaplugins.essentialz.inventory.holders
 com.zetaplugins.essentialz.listeners
 com.zetaplugins.essentialz.storage
 com.zetaplugins.essentialz.storage.connectionPool
