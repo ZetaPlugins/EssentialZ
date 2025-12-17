@@ -45,10 +45,9 @@ If you want to customize messages, you can either change the colors and prefixes
 <summary>config.yml</summary>
 
 ```yml
-
 # Set the language for the plugin.
 # Available languages can be found in the 'lang' folder.
-language: "en_US"
+language: "en-US"
 
 # Wether or not OP players should get notified when a new version is available when they join.
 updateNotifications: true
@@ -58,6 +57,15 @@ maxItemNameLength: 100
 
 # The max amount of lines a lore can have. Set to -1 to disable. (128 is the max amount of lines an item can have in Minecraft)
 maxLoreLines: 10
+
+# The default max amount of homes a player can set if not specified by a permission.
+defaultMaxHomes: 3
+
+# Wether or not to play a sound when a player opens their enderchest.
+enderchestSound: true
+
+# Wether or not to play a sound when a player uses the /invsee command.
+invseeSound: true
 
 # Set the message styles for each message type.
 styles:
