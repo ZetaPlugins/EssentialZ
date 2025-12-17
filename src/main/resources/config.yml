@@ -15,6 +15,9 @@ maxLoreLines: 10
 # The default max amount of homes a player can set if not specified by a permission.
 defaultMaxHomes: 3
 
+# Wether or not to play a sound when a player opens their enderchest.
+enderchestSound: true
+
 # Set the message styles for each message type.
 styles:
   default:

@@ -11,6 +11,7 @@ public class MainConfig {
     private int maxItemNameLength = 100;
     private int maxLoreLines = 10;
     private int defaultMaxHomes = 3;
+    private boolean enderchestSound = true;
     private Map<String, MessageStyleConfigSection> styles;
 
     public String getLanguage() {
@@ -31,6 +32,10 @@ public class MainConfig {
 
     public int getDefaultMaxHomes() {
         return defaultMaxHomes;
+    }
+
+    public boolean isEnderchestSound() {
+        return enderchestSound;
     }
 
     public Map<String, MessageStyleConfigSection> getStyles() {

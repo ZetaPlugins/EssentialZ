@@ -127,3 +127,4 @@ homesListHeader: "\n&8┌─ {ac}Your Homes&r&8 ──────────�
 homesListEntry: "&8│ &7{index}. {ac}{homeName} &8- &7{x} {y} {z}"
 homesListFooter: "&8└─────────────────────────────\n"
 homeSetMaxHomesReached: "{ac}You have reached the maximum number of homes you can set ({maxHomes})."
+noEnderchestEditAccess: "{ac}You do not have permission to modify other players' enderchests."
