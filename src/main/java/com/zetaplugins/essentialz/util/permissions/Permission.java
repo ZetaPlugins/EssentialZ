@@ -61,7 +61,9 @@ public enum Permission implements PermissionNode {
     MAXHOMES("maxhomes", PermissionDefault.TRUE, "Set how many homes a player can have"),
     ENDERCHEST("enderchest", PermissionDefault.TRUE, "Allows the user to access their ender chest via a command"),
     ENDERCHEST_OTHERS("enderchest.others", PermissionDefault.OP, "Allows the user to access other players' ender chests via a command"),
-    ENDERCHEST_OTHERS_MODIFY("enderchest.others.modify", PermissionDefault.OP, "Allows the user to modify other players' ender chests via a command")
+    ENDERCHEST_OTHERS_MODIFY("enderchest.others.modify", PermissionDefault.OP, "Allows the user to modify other players' ender chests via a command"),
+    INVSEE("invsee", PermissionDefault.OP, "Allows the user to view other players' inventories"),
+    INVSEE_MODIFY("invsee.modify", PermissionDefault.OP, "Allows the user to modify other players' inventories")
     ;
 
     private final String node;

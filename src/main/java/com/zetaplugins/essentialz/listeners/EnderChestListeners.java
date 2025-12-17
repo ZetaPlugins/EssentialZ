@@ -11,6 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.InventoryHolder;
 
@@ -27,6 +28,13 @@ public class EnderChestListeners implements Listener {
         if (holder instanceof UnmodifiableEnderchestInventoryHolder) {
             event.setCancelled(true); // read-only
             event.getWhoClicked().sendMessage(messageManager.getAndFormatMsg(PluginMessage.NO_ENDERCHEST_EDIT_ACCESS));
+        }
+    }
+
+    @EventHandler
+    public void onInventoryDrag(InventoryDragEvent event) {
+        if (event.getInventory().getHolder() instanceof UnmodifiableEnderchestInventoryHolder) {
+            event.setCancelled(true);
         }
     }
 

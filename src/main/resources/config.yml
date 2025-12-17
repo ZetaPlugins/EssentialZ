@@ -18,6 +18,9 @@ defaultMaxHomes: 3
 # Wether or not to play a sound when a player opens their enderchest.
 enderchestSound: true
 
+# Wether or not to play a sound when a player uses the /invsee command.
+invseeSound: true
+
 # Set the message styles for each message type.
 styles:
   default:

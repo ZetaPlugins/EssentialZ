@@ -89,7 +89,8 @@ public enum PluginMessage {
     HOMES_LIST_ENTRY("homesListEntry", "&8│ &7{index}. {ac}{homeName} &8- &7{x} {y} {z}", MessageStyle.MOVEMENT),
     HOMES_LIST_FOOTER("homesListFooter", "&8└─────────────────────────────\n", MessageStyle.MOVEMENT),
     HOME_SET_MAX_HOMES_REACHED("homeSetMaxHomesReached", "{ac}You have reached the maximum number of homes you can set ({maxHomes}).", MessageStyle.ERROR),
-    NO_ENDERCHEST_EDIT_ACCESS("noEnderchestEditAccess", "{ac}You do not have permission to modify other players' enderchests.", MessageStyle.ERROR)
+    NO_ENDERCHEST_EDIT_ACCESS("noEnderchestEditAccess", "{ac}You do not have permission to modify other players' enderchests.", MessageStyle.ERROR),
+    CANNOT_INVSEE_SELF("cannotInvseeSelf", "{ac}You cannot view your own inventory with /invsee.", MessageStyle.ERROR)
     /*
      * Still missing:
      * - communication
