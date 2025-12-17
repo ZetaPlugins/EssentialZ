@@ -5,6 +5,7 @@ com.zetaplugins.essentialz.commands.economy
 com.zetaplugins.essentialz.commands.items
 com.zetaplugins.essentialz.commands.moderation
 com.zetaplugins.essentialz.commands.movement
+com.zetaplugins.essentialz.commands.movement.homes
 com.zetaplugins.essentialz.commands.movement.warps
 com.zetaplugins.essentialz.commands.worldcontrol
 com.zetaplugins.essentialz.config.chat
@@ -20,6 +21,7 @@ com.zetaplugins.essentialz.storage
 com.zetaplugins.essentialz.storage.connectionPool
 com.zetaplugins.essentialz.storage.model
 com.zetaplugins.essentialz.storage.repositories
+com.zetaplugins.essentialz.storage.repositories.homes
 com.zetaplugins.essentialz.storage.repositories.ignores
 com.zetaplugins.essentialz.storage.repositories.player
 com.zetaplugins.essentialz.storage.repositories.warps
