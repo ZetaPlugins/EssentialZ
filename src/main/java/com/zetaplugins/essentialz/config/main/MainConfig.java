@@ -14,6 +14,7 @@ public class MainConfig {
     private boolean enderchestSound = true;
     private boolean invseeSound = true;
     private Map<String, MessageStyleConfigSection> styles;
+    private String spawnLocation = "";
 
     public String getLanguage() {
         return language;
@@ -45,5 +46,9 @@ public class MainConfig {
 
     public Map<String, MessageStyleConfigSection> getStyles() {
         return styles;
+    }
+
+    public String getSpawnLocation() {
+        return spawnLocation;
     }
 }

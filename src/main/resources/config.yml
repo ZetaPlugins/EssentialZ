@@ -62,3 +62,6 @@ styles:
   economy:
     accentColor: "#FFD700"
     prefix: "&8[<#FFD700>💰&8] "
+
+# This is the server spawn location. Use the format: world,x,y,z,yaw,pitch. You can also use the /setspawn command to set it.
+spawnLocation: ""

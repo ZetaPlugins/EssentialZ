@@ -94,7 +94,9 @@ public enum PluginMessage {
     SOCIALSPY_ENABLED("socialSpyEnabled", "&7Socialspy enabled for {ac}{player}&7.", MessageStyle.MODERATION),
     SOCIALSPY_DISABLED("socialSpyDisabled", "&7Socialspy disabled for {ac}{player}&7.", MessageStyle.MODERATION),
     SOCIALSPY_DISABLED_ALL("socialSpyDisabledAll", "&7Socialspy disabled for all targets.", MessageStyle.MODERATION),
-    SOCIALSPY_FORMAT("socialSpyFormat", "&8[{ac}\uD83D\uDC41&8] &8[{ac}{sender} &7→ {ac}{recipient}&8] &7{message}", MessageStyle.MODERATION)
+    SOCIALSPY_FORMAT("socialSpyFormat", "&8[{ac}\uD83D\uDC41&8] &8[{ac}{sender} &7→ {ac}{recipient}&8] &7{message}", MessageStyle.MODERATION),
+    SPAWN_SET_SUCCESS("setSpawnSuccess", "&7Server spawn has been set at {ac}{x} {y} {z}&7.", MessageStyle.MOVEMENT),
+    NO_SPAWN_SET("noSpawnSet", "{ac}The server spawn point is not set.", MessageStyle.ERROR)
     /*
      * Still missing:
      * - communication
