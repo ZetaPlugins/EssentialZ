@@ -7,7 +7,8 @@ com.zetaplugins.essentialz.commands.moderation
 com.zetaplugins.essentialz.commands.movement
 com.zetaplugins.essentialz.commands.movement.homes
 com.zetaplugins.essentialz.commands.movement.warps
-com.zetaplugins.essentialz.commands.worldcontrol
+com.zetaplugins.essentialz.commands.worldcontrol.time
+com.zetaplugins.essentialz.commands.worldcontrol.weather
 com.zetaplugins.essentialz.config.chat
 com.zetaplugins.essentialz.config.economy
 com.zetaplugins.essentialz.config.main
