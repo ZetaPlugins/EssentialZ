@@ -9,6 +9,7 @@
 [![hangar](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/available/hangar_vector.svg)](https://hangar.papermc.io/KartoffelChipss/EssentialZ)
 [![discord-plural](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/social/discord-plural_vector.svg)](https://strassburger.org/discord)
 [![gitbook](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/documentation/gitbook_vector.svg)](https://docs.zetaplugins.com/essentialz/)
+[![generic-plural](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/translate/generic-plural_vector.svg)](https://gitlocalize.com/repo/10607)
 
 EssentialZ is a powerful and versatile plugin, designed to enhance gameplay and provide server administrators with a wide range of tools and features. It is inspired by the popular EssentialsX plugin but has been rebuilt from the ground up specifically for modern Paper servers.
 
