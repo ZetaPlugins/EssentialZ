@@ -139,3 +139,6 @@ invalidDurationFormat: "{ac}The duration format is invalid. Use formats like '10
 weatherChangedTime: "&7Weather changed to {ac}{weather}&7 for {ac}{duration} &7seconds."
 weatherChanged: "&7Weather changed to {ac}{weather}&7."
 durationMustBePositive: "{ac}The duration must be a positive number."
+currentTime: "&7The current time is {ac}{time} &7({ticks} ticks)"
+invalidTimeFormat: "{ac}The time format is invalid. Use 'day', 'night', 'dawn', 'dusk', 'HH:MM', or 'Xticks'."
+timeSet: "&7Time set to {ac}{time} &7({ticks} ticks)."
