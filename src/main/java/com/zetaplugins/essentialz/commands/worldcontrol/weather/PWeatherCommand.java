@@ -1,4 +1,4 @@
-package com.zetaplugins.essentialz.commands.worldcontrol;
+package com.zetaplugins.essentialz.commands.worldcontrol.weather;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.LanguageManager;

@@ -100,7 +100,10 @@ public enum PluginMessage {
     INVALID_DURATION_FORMAT("invalidDurationFormat", "{ac}The duration format is invalid. Use formats like '10s', '5m', '1h'.", MessageStyle.ERROR),
     WEATHER_CHANGED_TIME("weatherChangedTime", "&7Weather changed to {ac}{weather}&7 for {ac}{duration} &7seconds.", MessageStyle.WORLDCONTROL),
     WEATHER_CHANGED("weatherChanged", "&7Weather changed to {ac}{weather}&7.", MessageStyle.WORLDCONTROL),
-    DURATION_MUST_BE_POSITIVE("durationMustBePositive", "{ac}The duration must be a positive number.", MessageStyle.ERROR)
+    DURATION_MUST_BE_POSITIVE("durationMustBePositive", "{ac}The duration must be a positive number.", MessageStyle.ERROR),
+    CURRENT_TIME("currentTime", "&7The current time is {ac}{time} &7({ticks} ticks).", MessageStyle.WORLDCONTROL),
+    INVALID_TIME_FORMAT("invalidTimeFormat", "{ac}The time format is invalid. Use 'day', 'night', 'dawn', 'dusk', 'HH:MM', or 'Xticks'.", MessageStyle.ERROR),
+    TIME_SET("timeSet", "&7Time set to {ac}{time} &7({ticks} ticks).", MessageStyle.WORLDCONTROL)
     /*
      * Still missing:
      * - communication

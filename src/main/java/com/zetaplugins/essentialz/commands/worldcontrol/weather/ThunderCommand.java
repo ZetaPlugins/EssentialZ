@@ -1,4 +1,4 @@
-package com.zetaplugins.essentialz.commands.worldcontrol;
+package com.zetaplugins.essentialz.commands.worldcontrol.weather;
 
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
@@ -15,14 +15,14 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 @AutoRegisterCommand(
-        commands = "rain",
+        commands = "thunder",
         permission = "essentialz.weather",
-        description = "Set the weather to rain in your world.",
-        usage = "/rain"
+        description = "Set the weather to thunder in your world.",
+        usage = "/thunder"
 )
-public class RainCommand extends EszCommand {
+public class ThunderCommand extends EszCommand {
 
-    public RainCommand(EssentialZ plugin) {
+    public ThunderCommand(EssentialZ plugin) {
         super(plugin);
     }
 
@@ -31,11 +31,11 @@ public class RainCommand extends EszCommand {
         if (!(commandSender instanceof Player player)) throw new CommandSenderMustBePlayerException();
 
         player.getWorld().setStorm(true);
-        player.getWorld().setThundering(false);
+        player.getWorld().setThundering(true);
 
         player.sendMessage(getMessageManager().getAndFormatMsg(
                 PluginMessage.WEATHER_CHANGED,
-                new MessageManager.Replaceable<>("{weather}", "rain")
+                new MessageManager.Replaceable<>("{weather}", "thunder")
         ));
         return true;
     }
