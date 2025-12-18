@@ -40,7 +40,11 @@ public class PlayTimeCommand extends EszCommand {
                 return false;
             }
 
-            sender.sendMessage(getMessageManager().getAndFormatMsg(PluginMessage.PLAYTIME));
+            sender.sendMessage(getMessageManager().getAndFormatMsg(
+                    PluginMessage.PLAYTIME,
+                    new MessageManager.Replaceable<>("{player}", target.getName()),
+                    new MessageManager.Replaceable<>("{time}", getPlayTime(target))
+            ));
             return true;
         }
 
