@@ -66,7 +66,8 @@ public enum Permission implements PermissionNode {
     INVSEE_MODIFY("invsee.modify", PermissionDefault.OP, "Allows the user to modify other players' inventories"),
     SOCIALSPY("socialspy", PermissionDefault.OP, "Allows the user to spy on private messages between players"),
     SPAWN("spawn", PermissionDefault.TRUE, "Allows the user to teleport to the server spawn point"),
-    SETSPAWN("setspawn", PermissionDefault.OP, "Allows the user to set the server spawn point")
+    SETSPAWN("setspawn", PermissionDefault.OP, "Allows the user to set the server spawn point"),
+    WEATHER("weather", PermissionDefault.OP, "Allows the user to change the weather in their world"),
     ;
 
     private final String node;

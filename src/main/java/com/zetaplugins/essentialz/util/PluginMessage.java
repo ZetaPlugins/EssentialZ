@@ -96,7 +96,11 @@ public enum PluginMessage {
     SOCIALSPY_DISABLED_ALL("socialSpyDisabledAll", "&7Socialspy disabled for all targets.", MessageStyle.MODERATION),
     SOCIALSPY_FORMAT("socialSpyFormat", "&8[{ac}\uD83D\uDC41&8] &8[{ac}{sender} &7→ {ac}{recipient}&8] &7{message}", MessageStyle.MODERATION),
     SPAWN_SET_SUCCESS("setSpawnSuccess", "&7Server spawn has been set at {ac}{x} {y} {z}&7.", MessageStyle.MOVEMENT),
-    NO_SPAWN_SET("noSpawnSet", "{ac}The server spawn point is not set.", MessageStyle.ERROR)
+    NO_SPAWN_SET("noSpawnSet", "{ac}The server spawn point is not set.", MessageStyle.ERROR),
+    INVALID_DURATION_FORMAT("invalidDurationFormat", "{ac}The duration format is invalid. Use formats like '10s', '5m', '1h'.", MessageStyle.ERROR),
+    WEATHER_CHANGED_TIME("weatherChangedTime", "&7Weather changed to {ac}{weather}&7 for {ac}{duration} &7seconds.", MessageStyle.WORLDCONTROL),
+    WEATHER_CHANGED("weatherChanged", "&7Weather changed to {ac}{weather}&7.", MessageStyle.WORLDCONTROL),
+    DURATION_MUST_BE_POSITIVE("durationMustBePositive", "{ac}The duration must be a positive number.", MessageStyle.ERROR)
     /*
      * Still missing:
      * - communication
