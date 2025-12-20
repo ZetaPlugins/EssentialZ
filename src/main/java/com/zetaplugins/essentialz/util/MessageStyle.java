@@ -21,7 +21,8 @@ public enum MessageStyle {
     COMMUNICATION("communication"),
     TEAMCHAT("teamchat"),
     WORLDCONTROL("worldcontrol"),
-    ECONOMY("economy");
+    ECONOMY("economy"),
+    FUN("fun");
 
     public final String id;
 

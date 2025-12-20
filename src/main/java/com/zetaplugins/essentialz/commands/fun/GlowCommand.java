@@ -16,15 +16,14 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 @AutoRegisterCommand(
-        commands = "lightning",
-        description = "Strike a player with lightning.",
-        usage = "/lightning [player] [amount]",
-        permission = "essentialz.lightning"
+        commands = "glow",
+        description = "Make yourself or another player glow.",
+        usage = "/glow [player]",
+        permission = "essentialz.glow"
 )
-public class LightningCommand extends EszCommand {
-    private static final int MAX_LIGHTNING_STRIKES = 1000;
+public class GlowCommand extends EszCommand {
 
-    public LightningCommand(EssentialZ plugin) {
+    public GlowCommand(EssentialZ plugin) {
         super(plugin);
     }
 
@@ -34,31 +33,28 @@ public class LightningCommand extends EszCommand {
         if (targetPlayer == null && commandSender instanceof Player) targetPlayer = (Player) commandSender;
         else if (targetPlayer == null) throw new CommandSenderMustBeOrSpecifyPlayerException();
 
-        int amount = args.getInt(1, 1);
-        if (amount < 1 || amount > MAX_LIGHTNING_STRIKES) {
-            commandSender.sendMessage(getMessageManager().getAndFormatMsg(
-                    PluginMessage.INVALID_LIGHTNING_AMOUNT,
-                    new MessageManager.Replaceable<>("{max}", String.valueOf(MAX_LIGHTNING_STRIKES))
-            ));
-            return true;
-        }
-        for (int i = 0; i < amount; i++) targetPlayer.getWorld().strikeLightning(targetPlayer.getLocation());
+        boolean newGlowState = !targetPlayer.isGlowing();
+        targetPlayer.setGlowing(newGlowState);
 
-        commandSender.sendMessage(getMessageManager().getAndFormatMsg(
-                PluginMessage.LIGHTNING_STRIKES,
-                new MessageManager.Replaceable<>("{player}", targetPlayer.getName()),
-                new MessageManager.Replaceable<>("{amount}", String.valueOf(amount))
-        ));
+        if (newGlowState) {
+            commandSender.sendMessage(getMessageManager().getAndFormatMsg(
+                    PluginMessage.GLOW_ENABLED,
+                    new MessageManager.Replaceable<>("{player}", targetPlayer.getName())
+            ));
+        } else {
+            commandSender.sendMessage(getMessageManager().getAndFormatMsg(
+                    PluginMessage.GLOW_DISABLED,
+                    new MessageManager.Replaceable<>("{player}", targetPlayer.getName())
+            ));
+        }
 
         return true;
     }
 
     @Override
     public List<String> tabComplete(CommandSender commandSender, Command command, ArgumentList args) {
-        if (args.getCurrentArgIndex() == 0 && Permission.LIGHTNING.has(commandSender)) {
+        if (args.getCurrentArgIndex() == 0 && Permission.GLOW.has(commandSender)) {
             return getPlayerOptions(args.getCurrentArg());
-        } else if (args.getCurrentArgIndex() == 1 && Permission.LIGHTNING.has(commandSender)) {
-            return List.of("1", "2", "3", "4", "5");
         }
         return List.of();
     }

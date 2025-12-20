@@ -104,7 +104,10 @@ public enum PluginMessage {
     CURRENT_TIME("currentTime", "&7The current time is {ac}{time} &7({ticks} ticks).", MessageStyle.WORLDCONTROL),
     INVALID_TIME_FORMAT("invalidTimeFormat", "{ac}The time format is invalid. Use 'day', 'night', 'dawn', 'dusk', 'HH:MM', or 'Xticks'.", MessageStyle.ERROR),
     TIME_SET("timeSet", "&7Time set to {ac}{time} &7({ticks} ticks).", MessageStyle.WORLDCONTROL),
-    INVALID_LIGHTNING_AMOUNT("invalidLightningAmount", "{ac}The amount of lightning strikes must be between 1 and {max}.", MessageStyle.ERROR)
+    INVALID_LIGHTNING_AMOUNT("invalidLightningAmount", "{ac}The amount of lightning strikes must be between 1 and {max}.", MessageStyle.ERROR),
+    LIGHTNING_STRIKES("lightningStrikes", "&7Struck {ac}{player} &7with lightning {ac}{amount} &7time(s).", MessageStyle.FUN),
+    GLOW_ENABLED("glowEnabled", "&7Glow effect enabled for {ac}{player}&7.", MessageStyle.FUN),
+    GLOW_DISABLED("glowDisabled", "&7Glow effect disabled for {ac}{player}&7.", MessageStyle.FUN)
     /*
      * Still missing:
      * - communication

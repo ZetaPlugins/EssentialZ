@@ -69,7 +69,8 @@ public enum Permission implements PermissionNode {
     SETSPAWN("setspawn", PermissionDefault.OP, "Allows the user to set the server spawn point"),
     WEATHER("weather", PermissionDefault.OP, "Allows the user to change the weather in their world"),
     TIME("time", PermissionDefault.OP, "Allows the user to change the time in their world"),
-    LIGHTNING("lightning", PermissionDefault.OP, "Allows the user to strike lightning at a player's location")
+    LIGHTNING("lightning", PermissionDefault.OP, "Allows the user to strike lightning at a player's location"),
+    GLOW("glow", PermissionDefault.OP, "Allows the user to make themselves or another player glow"),
     ;
 
     private final String node;
