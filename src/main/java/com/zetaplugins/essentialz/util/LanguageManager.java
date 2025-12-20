@@ -16,7 +16,7 @@ import java.util.List;
 @Manager
 public class LanguageManager {
     private final JavaPlugin plugin;
-    public static final List<String> defaultLangs = List.of("en-US");
+    public static final List<String> defaultLangs = List.of("en-US", "pl-PL");
 
     private FileConfiguration langConfig;
 
