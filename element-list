@@ -2,6 +2,7 @@ com.zetaplugins.essentialz
 com.zetaplugins.essentialz.commands
 com.zetaplugins.essentialz.commands.communication
 com.zetaplugins.essentialz.commands.economy
+com.zetaplugins.essentialz.commands.fun
 com.zetaplugins.essentialz.commands.items
 com.zetaplugins.essentialz.commands.moderation
 com.zetaplugins.essentialz.commands.movement
