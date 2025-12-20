@@ -172,3 +172,8 @@ currentTime: "&7Aktualny czas to {ac}{time} &7({ticks} ticks)"
 invalidTimeFormat: "{ac}Format godziny jest nieprawidłowy. Użyj „day”, „night”, „dawn”,
   „dusk”, „HH:MM” lub „Xticks”."
 timeSet: "&7Czas ustawiono na {ac}{time} &7({ticks} ticków)."
+invalidLightningAmount: "{ac}Liczba uderzeń pioruna musi wynosić od 1 do {max}."
+lightningStrikes: "&7Uderzono {ac}{player} &7piorunem {ac}{amount} &7raz(y)."
+glowEnabled: "&7Efekt świecenia został włączony dla {ac}{player}&7."
+glowDisabled: "&7Efekt świecenia został wyłączony dla {ac}{player}&7."
+deathMessage: "&8[&c☠&8] &7{message}"
