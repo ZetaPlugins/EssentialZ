@@ -107,7 +107,8 @@ public enum PluginMessage {
     INVALID_LIGHTNING_AMOUNT("invalidLightningAmount", "{ac}The amount of lightning strikes must be between 1 and {max}.", MessageStyle.ERROR),
     LIGHTNING_STRIKES("lightningStrikes", "&7Struck {ac}{player} &7with lightning {ac}{amount} &7time(s).", MessageStyle.FUN),
     GLOW_ENABLED("glowEnabled", "&7Glow effect enabled for {ac}{player}&7.", MessageStyle.FUN),
-    GLOW_DISABLED("glowDisabled", "&7Glow effect disabled for {ac}{player}&7.", MessageStyle.FUN)
+    GLOW_DISABLED("glowDisabled", "&7Glow effect disabled for {ac}{player}&7.", MessageStyle.FUN),
+    DEATH_MESSAGE("deathMessage", "&8[&c☠&8] &7{message}", MessageStyle.NONE),
     /*
      * Still missing:
      * - communication

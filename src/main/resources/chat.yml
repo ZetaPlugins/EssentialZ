@@ -23,3 +23,7 @@ enableLeaveMessages: true
 # Wether to show a special message for first time joiners
 # You can configure the message in the lang files ("welcomeMessage")
 specialWelcomeJoinMessage: true
+
+# Wether to enable or disable death messages
+# You can configure the message format in the lang files ("deathMessage")
+enableDeathMessages: true

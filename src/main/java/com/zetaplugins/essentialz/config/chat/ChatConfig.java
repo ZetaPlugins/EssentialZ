@@ -11,6 +11,7 @@ public class ChatConfig {
     private boolean enableJoinMessages = true;
     private boolean enableLeaveMessages = true;
     private boolean specialWelcomeJoinMessage = true;
+    private boolean enableDeathMessages = true;
 
     public boolean isEnableCustomChat() {
         return enableCustomChat;
@@ -38,5 +39,9 @@ public class ChatConfig {
 
     public boolean isSpecialWelcomeJoinMessage() {
         return specialWelcomeJoinMessage;
+    }
+
+    public boolean isEnableDeathMessages() {
+        return enableDeathMessages;
     }
 }

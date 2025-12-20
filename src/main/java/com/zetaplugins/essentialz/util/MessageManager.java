@@ -145,10 +145,15 @@ public class MessageManager {
 
             msg = msg.replace(r.placeholder(), tagToken);
 
-            String valueStr = Objects.toString(r.value());
-            Component replacementComponent = r.deserialize()
-                    ? mm.deserialize(replaceColorCodes(valueStr, replacementStyle))
-                    : Component.text(valueStr);
+            Component replacementComponent;
+            if (r.value() instanceof Component component) {
+                replacementComponent = component;
+            } else {
+                String valueStr = Objects.toString(r.value());
+                replacementComponent = r.deserialize()
+                        ? mm.deserialize(replaceColorCodes(valueStr, replacementStyle))
+                        : Component.text(valueStr);
+            }
 
             resolvers.add(TagResolver.resolver(tagName, Tag.inserting(replacementComponent)));
         }
