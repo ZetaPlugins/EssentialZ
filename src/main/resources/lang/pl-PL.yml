@@ -1,0 +1,174 @@
+---
+noPermsError: "{ac}Nie masz uprawnień, aby to zrobić!"
+noCommandPermsError: "{ac}Nie masz uprawnień, aby wykonać to polecenie!"
+specifyPlayerOrBePlayer: "{ac}Aby użyć tego polecenia, musisz określić gracza lub
+  być graczem."
+bePlayerError: "{ac}Aby użyć tego polecenia, musisz być graczem."
+playerOnly: "{ac}Aby użyć tego polecenia, musisz być graczem."
+usageError: "{ac}Zastosowanie: {usage}"
+playerNotFound: "{ac}Gracz nie został odnaleziony."
+noOneWithNameFound: "{ac}Nie można znaleźć gracza online o nazwie lub pseudonimie
+  '{name}'!"
+playTime: "&7{player} grał przez {ac}{time}&7."
+playTimeSelf: "&7Grałeś przez {ac}{time}&7."
+skullGiven: "&7Poprawnie dano głowę {ac}{player}&7 {ac}{receiver}&7."
+skullReceived: "&7Otrzymałeś głowę {ac}{player}&7."
+testMessage: "&7To jest wiadomość testowa z {ac}akcentowym &7kolorem."
+mustHoldAnItem: "{ac}Musisz trzymać jakiś przedmiot!"
+itemNameSet: "&7Nazwa przedmiotu została zmieniona na '{name}&r&7'."
+itemNameTooLong: "{ac}Nazwa przedmiotu jest za długa! Maksymalna długość to {max}
+  znaków."
+loreTooLong: "{ac}Ten podpis jest za długi! Maksymalna długość to {max} wierszy."
+loreAdded: "&7Dodano '{lore}&r&7' do podpisu."
+loreLineDoesNotExist: "{ac}Ta linia podpisu nie istnieje!"
+loreSet: "&7Ustaw linię podpisu {ac}{line}&7 na '{lore}&r&7'."
+loreRemoved: "&7Usunięto linię podpisu {ac}{line}&7."
+loreInserted: "&7Wstawiono '{lore}&r&7' w linii {ac}{line}&7."
+allowedToFly: "&7Teraz możesz latać!"
+disallowedToFly: "&7Nie możesz już latać."
+allowedToFlyOther: "&7{ac}{player}&7 może teraz latać!"
+disallowedToFlyOther: "&7{ac}{player}&7 nie może już latać."
+flySpeedSet: "&7Ustaw prędkość lotu na {ac}{speed}&7."
+flySpeedSetOther: "&7Ustaw prędkość lotu {ac}{player}&7 na {ac}{speed}&7."
+walkSpeedSet: "&7Ustaw prędkość chodzenia na {ac}{speed}&7."
+walkSpeedSetOther: "&7Ustaw prędkość chodzenia {ac}{player}&7 na {ac}{speed}&7."
+gamemodeSet: "&7Ustaw tryb gry na {ac}{gamemode}&7."
+gamemodeSetOther: "&7Ustaw tryb gry {ac}{player}&7 na {ac}{gamemode}&7."
+creative: kreatywny
+survival: przetrwania
+adventure: przygoda
+spectator: widz
+godModeToggled: Godmode jest teraz {ac}{status}&7.
+godModeToggledOther: Godmode dla {ac}{player}&7 to teraz {ac}{status}&7.
+chatCleared: "{spaces}&7Czat został wyczyszczony przez {ac}{player}&7."
+invalidMaterial: "{ac}'{material}' nie jest prawidłowym materiałem."
+giveConfirmation: "&7Dano {ac}{amount}x {material}&7 graczowi {ac}{player}&7."
+giveYourselfConfirmation: "&7Otrzymałeś {ac}{amount}x {material}&7."
+cannotMessageYourself: "{ac}Nie możesz wysłać prywatnej wiadomości do siebie."
+privateMessageSent: "&7&8[&7Do &r{ac}{recipent}&7&8]&7: {message}"
+privateMessageReceived: "&7&8[&7Od &r{ac}{sender}&7&8]&7: {message}"
+noRecentMessages: "{ac}Nie masz żadnych ostatnich wiadomości, na które możesz odpowiedzieć."
+playerDmsDisabled: "{ac}{player} wyłączył prywatne wiadomości."
+yourDmsDisabled: "{ac}Wyłączyłeś prywatne wiadomości. Włącz je, używając komendy /msgtoggle,
+  aby wysyłać wiadomości."
+dmsEnabled: "{ac}Włączyłeś &7prywatne wiadomości ."
+dmsDisabled: "{ac}Wyłączyłeś &7prywatne wiadomości."
+tcEnabled: "{ac}Włączyłeś &7czat zespołowy."
+tcDisabled: "{ac}Wyłączyłeś &7czat zespołowy."
+yourTeamchatDisabled: "{ac}Wyłączyłeś czat zespołowy. Włącz go za pomocą /tctoggle,
+  aby wysyłać wiadomości."
+notAllowedToChat: "{ac}Nie masz uprawnień do czatowania."
+ignoreRemoved: "&7Odignorowałeś {ac}{player}&7."
+ignoreAdded: "&7Teraz ignorujesz {ac}{player}&7."
+playerIsIgnoringYou: "{ac}{player} Cię ignoruje. Twoja wiadomość nie została wysłana."
+youAreIgnoringPlayer: "{ac}Ignorujesz gracza {player}. Przestań go ignorować, aby
+  wysyłać wiadomości."
+cannotIgnoreYourself: "{ac}Nie możesz ignorować siebie."
+nicknameCleared: "&7Twój pseudonim został {ac}wyczyszczony&7."
+nicknameClearedOther: "{ac}Wyczyściłeś &7pseudonim &a{player}&7."
+nicknameSetSelf: "&7Twój pseudonim został ustawiony na '{ac}{nickname}&7'."
+nicknameSetOther: "&7Ustaw pseudonim {ac}{player}&7 na '{ac}{nickname}&7'."
+nicknameTooLong: "{ac}Pseudonim jest za długi! Maksymalna długość to {maxLength} znaków."
+notAllowedToNickOthers: "{ac}Nie masz uprawnień do ustawiania pseudonimów innych graczy."
+whoisInfo: |2
+
+  &8┌─ <#81C784>Informacje Whois&r&8 ─────────────────
+  &8│ &7Pseudonim: <#4CAF50>{displayname}
+  &8│ &7Prawdziwa nazwa: <#E9D502>{realname}
+  &8└────────────────────────────────
+trashInventoryTitle: "&8Kosz na śmieci"
+itemRepaired: "&7Trzymany przedmiot został naprawiony."
+itemsRepairedAll: "&7Naprawiono {ac}{count} &7przedmiotów w twoim ekwipunku."
+repairMustHoldAnItem: "{ac}Musisz trzymać przedmiot, aby go naprawić."
+repairItemNotRepairable: "{ac}Przedmiot, który trzymasz, nie nadaje się do naprawy."
+itemNotRepairable: "{ac}Nie można naprawić przedmiotu, który trzymasz."
+healedSelf: "&7Zostałeś całkowicie uzdrowiony."
+healedOther: "&7Przywróciłeś {ac}{player}&7 do pełnego zdrowia."
+noPermissionHealOthers: "{ac}Nie masz uprawnień do leczenia innych graczy."
+noPermissionFeedOthers: "{ac}Nie masz uprawnień do karmienia innych graczy."
+feededSelf: "&7Twój głód został całkowicie zaspokojony."
+feededOther: "&7Całkowicie przywróciłeś głód {ac}{player}&7."
+itemCannotBeStacked: "{ac}Nie można stackować przedmiotów, które trzymasz."
+stackedItems: "&7Zgromadzono {ac}{amount}&7 przedmiotów w twojej ręce."
+invalidMobType: "{ac}Musisz określić prawidłowy typ moba."
+givespawnerSuccess: "&7Dano {ac}{amount} {mobType} &7spawner(ów) graczowi {ac}{player}&7."
+enchantSuccess: "&7Pomyślnie zaczarowałeś swój przedmiot za pomocą {ac}{enchantment}
+  &7poziomu {ac}{level}&7."
+invalidEnchantment: "{ac}Zaklęcie '{enchantment}' nie istnieje."
+itemLacksEnchantment: "{ac}Przedmiot, który trzymasz, nie ma zaklęcia '{enchantment}'."
+unenchantSuccess: "&7Pomyślnie usunięto {ac}{enchantment} &7z Twojego przedmiotu."
+weather_CLEAR: słoneczna
+weather_RAIN: deszcz
+pweatherSet: "&7Twoja pogoda została ustawiona na {ac}{weather}&7."
+pweatherSetOther: "&7Ustawiłeś pogodę dla {ac}{player}&7 na {ac}{weather}&7."
+pweatherReset: "&7Pogoda została przywrócona do ustawień domyślnych serwera."
+pweatherResetOther: "&7Zresetowałeś pogodę użytkownika {ac}{player}&7 do ustawień
+  domyślnych serwera."
+sudoSuccess: "&7Pomyślnie wymuszono uruchomienie przez {ac}{player} &7polecenie: {ac}{command}&7."
+joinMessage: "&8[&a+&8] &7{player} dołączył do gry."
+quitMessage: "&8[&c-&8] &7{player} opuścił grę."
+welcomeMessage: "&8[&a+&8] &7Witamy {player} na serwerze po raz pierwszy!"
+hatSet: "&7Teraz nosisz trzymany przedmiot jako czapkę."
+warpNotFound: "{ac}Warp '{warpName}' nie istnieje."
+setWarpSucess: "&7Warp {ac}{warpName}&7 został ustawiony na {ac}{x} {y} {z}&7."
+deleteWarpSuccess: "&7Warp {ac}{warpName}&7 został usunięty."
+yourBalance: "&7Twoje saldo wynosi {ac}{balance}"
+otherPlayerBalance: Saldo {ac}{player}&7 wynosi {ac}{balance}
+setBalance: "&7Ustawiono saldo {ac}{player}&7 na {ac}{balance}"
+addBalance: "&7Dodano {ac}{amount} &7do salda {ac}{player}&7"
+removeBalance: "&7Usunięto {ac}{amount} &7z salda {ac}{player}&7"
+insufficientFundsWithdraw: "{ac}{player} nie ma wystarczających środków, aby usunąć
+  {amount}"
+insufficientFunds: "{ac}Nie masz wystarczających środków!"
+invalidNumber: "{ac}'{number}' nie jest prawidłową liczbą."
+paySender: "&7Zapłaciłeś {ac}{player} {amount}&7."
+payReceiver: "&7Otrzymałeś {ac}{amount} &7od {ac}{player}."
+balTopHeader: |2-
+
+  &8┌─ {ac}BalTop&r&8 ────────────────────
+balTopLine: "&8│ {ac}{rank}. &7{player} &8- {ac}{balance}"
+balTopFooter: "&8└──────────────────────────────\n"
+insufficientFundsCommandFee: "{ac}Nie masz wystarczających środków, aby zapłacić opłatę
+  za polecenie w wysokości {fee}!"
+playerDataNotFound: "{ac}Nie znaleziono danych gracza {player}. Spróbuj ponownie później."
+noRulesFileFound: "{ac}Nie znaleziono pliku zasad. Skontaktuj się z administratorem."
+errorReadingRulesFile: "{ac}Wystąpił błąd podczas odczytu pliku zasad."
+reloaded: "&7EssentialZ został pomyślnie przeładowany!"
+updateAvailable: "&7Nowa wersja {ac}EssentialZ &7 jest dostępna! Pobierz ją ze strony
+  {ac}{url}&7."
+aboutMessage: |2
+
+  {ac}<b><grey>></grey> EssentialZ</b> <grey>v%version%</grey>
+
+  {ac} <u><click:open_url:'https://docs.zetaplugins.com/essentialz/'>Dokumentacja</click></u> {ac}<u><click:open_url:'https://strassburger.org/discord'>Wsparcie Discord</click></u>
+setHomeSucess: "&7Dom {ac}{homeName}&7 został ustawiony na {ac}{x} {y} {z}&7."
+deleteHomeSuccess: "&7Dom {ac}{homeName}&7 został usunięty."
+homeDeleteFail: "{ac}Nie masz domu o nazwie '{homeName}'."
+homeNotFound: "{ac}Dom '{homeName}' nie istnieje."
+noHomesSet: "{ac}Nie ustawiłeś jeszcze żadnych domów."
+homesListHeader: |2-
+
+  &8┌─ {ac}Twoje domy&r&8 ─────────────────────
+homesListEntry: "&8│ &7{index}. {ac}{homeName} &8- &7{x} {y} {z}"
+homesListFooter: "&8└──────────────────────────────\n"
+homeSetMaxHomesReached: "{ac}Osiągnąłeś maksymalną liczbę domów, jaką możesz ustawić
+  ({maxHomes})."
+noEnderchestEditAccess: "{ac}Nie masz uprawnień do modyfikowania enderchestów innych
+  graczy."
+cannotInvseeSelf: "{ac}Nie możesz przeglądać własnego ekwipunku za pomocą /invsee."
+socialSpyEnabled: "&7Socialspy został włączony dla {ac}{player}&7."
+socialSpyDisabled: "&7Socialspy został wyłączony dla {ac}{player}&7."
+socialSpyDisabledAll: "&7Socialspy został wyłączony dla wszystkich wymienionych."
+socialSpyFormat: "&8[{ac}\U0001F441&8] &8[{ac}{sender} &7→ {ac}{recipent}&8] &7{message}"
+setSpawnSuccess: "&7Spawn serwera został ustawiony na {ac}{x} {y} {z}&7."
+noSpawnSet: "{ac}Spawn serwera nie jest ustawiony."
+invalidDurationFormat: "{ac}Format czasu trwania jest nieprawidłowy. Użyj formatów
+  takich jak „10s”, „5m”, „1h”."
+weatherChangedTime: "&7Pogoda została zmieniona na {ac}{weather}&7 na {ac}{duration}
+  &7sekund."
+weatherChanged: "&7Pogoda została zmieniona na {ac}{weather}&7."
+durationMustBePositive: "{ac}Czas trwania musi być liczbą dodatnią."
+currentTime: "&7Aktualny czas to {ac}{time} &7({ticks} ticks)"
+invalidTimeFormat: "{ac}Format godziny jest nieprawidłowy. Użyj „day”, „night”, „dawn”,
+  „dusk”, „HH:MM” lub „Xticks”."
+timeSet: "&7Czas ustawiono na {ac}{time} &7({ticks} ticków)."
