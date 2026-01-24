@@ -27,3 +27,7 @@ specialWelcomeJoinMessage: true
 # Wether to enable or disable death messages
 # You can configure the message format in the lang files ("deathMessage")
 enableDeathMessages: true
+
+# Whether to show advancement messages in chat and toasts
+# Set to false to disable advancement announcements
+enableAdvancementMessages: true
