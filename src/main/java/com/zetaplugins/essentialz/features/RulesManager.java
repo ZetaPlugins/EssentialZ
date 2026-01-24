@@ -8,6 +8,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -29,10 +30,24 @@ public class RulesManager {
         return new File(plugin.getDataFolder(), "rules.txt");
     }
 
+    private void createDefaultRulesFile() {
+        File rulesFile = getRulesFile();
+        rulesFile.getParentFile().mkdirs();
+        try {
+            rulesFile.createNewFile();
+        } catch (IOException e) {
+            plugin.getLogger().log(Level.SEVERE, "Failed to create default rules file: " + e.getMessage(), e);
+        }
+    }
+
     @Nullable
     private List<String> readLines() {
-        List<String > lines = new ArrayList<>();
-        try (Scanner scanner = new Scanner(getRulesFile())) {
+        File rulesFile = getRulesFile();
+        if (!rulesFile.exists()) {
+            createDefaultRulesFile();
+        }
+        List<String> lines = new ArrayList<>();
+        try (Scanner scanner = new Scanner(rulesFile)) {
             while (scanner.hasNextLine()) {
                 lines.add(scanner.nextLine());
             }
