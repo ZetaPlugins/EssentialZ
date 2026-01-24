@@ -68,3 +68,26 @@ styles:
 
 # This is the server spawn location. Use the format: world,x,y,z,yaw,pitch. You can also use the /setspawn command to set it.
 spawnLocation: ""
+
+# TPA (Teleport Ask) settings
+tpa:
+  # How long (in seconds) before a teleport request expires
+  requestExpiryTime: 120
+
+  # Sound settings for TPA events
+  sounds:
+    # Whether to play sounds for TPA events
+    enabled: true
+    # Sound played when a request is received
+    request: "ENTITY_EXPERIENCE_ORB_PICKUP"
+    # Sound played when a request is accepted
+    accept: "ENTITY_PLAYER_LEVELUP"
+    # Sound played when a request is denied
+    deny: "ENTITY_VILLAGER_NO"
+
+  # Bedrock Edition settings (requires Floodgate)
+  bedrock:
+    # Whether to use GUI forms for Bedrock players
+    formsEnabled: true
+    # Whether to show player heads in selection forms
+    showPlayerHeads: true

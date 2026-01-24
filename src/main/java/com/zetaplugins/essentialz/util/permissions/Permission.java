@@ -71,6 +71,12 @@ public enum Permission implements PermissionNode {
     TIME("time", PermissionDefault.OP, "Allows the user to change the time in their world"),
     LIGHTNING("lightning", PermissionDefault.OP, "Allows the user to strike lightning at a player's location"),
     GLOW("glow", PermissionDefault.OP, "Allows the user to make themselves or another player glow"),
+    TPA("tpa", PermissionDefault.TRUE, "Allows the user to request to teleport to another player"),
+    TPAHERE("tpahere", PermissionDefault.TRUE, "Allows the user to request another player to teleport to them"),
+    TPACCEPT("tpaccept", PermissionDefault.TRUE, "Allows the user to accept teleport requests"),
+    TPDENY("tpdeny", PermissionDefault.TRUE, "Allows the user to deny teleport requests"),
+    TPACANCEL("tpacancel", PermissionDefault.TRUE, "Allows the user to cancel outgoing teleport requests"),
+    TPATOGGLE("tpatoggle", PermissionDefault.TRUE, "Allows the user to toggle receiving teleport requests"),
     ;
 
     private final String node;
