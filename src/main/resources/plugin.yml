@@ -10,3 +10,4 @@ website: https://strassburger.org
 softdepend:
   - PlaceholderAPI
   - Vault
+  - floodgate

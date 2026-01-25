@@ -41,6 +41,7 @@ public final class EssentialZ extends ZetaCorePlugin {
 
     private final boolean hasPlaceholderApi = Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
     private final boolean hasVault = Bukkit.getPluginManager().getPlugin("Vault") != null;
+    private final boolean hasFloodgate = Bukkit.getPluginManager().getPlugin("floodgate") != null;
 
     @Override
     public void onEnable() {
@@ -64,8 +65,20 @@ public final class EssentialZ extends ZetaCorePlugin {
 
         initPlaceholderAPI();
         initBstats();
+        initFloodgate();
 
         getLogger().info("EssentialZ enabled!");
+    }
+
+    private void initFloodgate() {
+        if (hasFloodgate) {
+            boolean formsEnabled = getConfig().getBoolean("tpa.bedrock.formsEnabled", true);
+            if (formsEnabled) {
+                getLogger().info("Floodgate detected, TPA Bedrock forms enabled.");
+            } else {
+                getLogger().info("Floodgate detected, but TPA Bedrock forms are disabled in config.");
+            }
+        }
     }
 
     @Override

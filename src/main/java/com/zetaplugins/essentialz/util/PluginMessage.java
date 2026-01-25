@@ -109,10 +109,24 @@ public enum PluginMessage {
     GLOW_ENABLED("glowEnabled", "&7Glow effect enabled for {ac}{player}&7.", MessageStyle.FUN),
     GLOW_DISABLED("glowDisabled", "&7Glow effect disabled for {ac}{player}&7.", MessageStyle.FUN),
     DEATH_MESSAGE("deathMessage", "&8[&c☠&8] &7{message}", MessageStyle.NONE),
-    /*
-     * Still missing:
-     * - communication
-     */
+
+    // TPA Messages
+    TPA_REQUEST_SENT("tpaRequestSent", "&7Teleport request sent to {ac}{player}&7.", MessageStyle.MOVEMENT),
+    TPA_REQUEST_RECEIVED("tpaRequestReceived", "{ac}{player}&7 wants to {type}.", MessageStyle.MOVEMENT),
+    TPA_REQUEST_INSTRUCTIONS("tpaRequestInstructions", "&7Type <u><click:run_command:'/tpaccept'>{ac}/tpaccept</click></u> &7to accept or <u><click:run_command:'/tpdeny'>{ac}/tpdeny</click></u> &7to deny.", MessageStyle.MOVEMENT),
+    TPA_ACCEPTED_SENDER("tpaAcceptedSender", "{ac}{player}&7 accepted your teleport request.", MessageStyle.SUCCESS),
+    TPA_ACCEPTED_TARGET("tpaAcceptedTarget", "&7You accepted {ac}{player}&7's teleport request.", MessageStyle.SUCCESS),
+    TPA_DENIED_SENDER("tpaDeniedSender", "{ac}{player}&7 denied your teleport request.", MessageStyle.ERROR),
+    TPA_DENIED_TARGET("tpaDeniedTarget", "&7You denied the teleport request.", MessageStyle.MOVEMENT),
+    TPA_REQUEST_ALREADY_PENDING("tpaRequestAlreadyPending", "{ac}You already have a pending request to this player.", MessageStyle.ERROR),
+    TPA_NO_PENDING_REQUESTS("tpaNoPendingRequests", "{ac}You have no pending teleport requests.", MessageStyle.ERROR),
+    TPA_NO_OUTGOING_REQUESTS("tpaNoOutgoingRequests", "{ac}You have no outgoing teleport requests.", MessageStyle.ERROR),
+    TPA_REQUESTS_CANCELLED("tpaRequestsCancelled", "&7Cancelled {ac}{count}&7 outgoing request(s).", MessageStyle.MOVEMENT),
+    TPA_CANNOT_SELF("tpaCannotSelf", "{ac}You cannot teleport to yourself.", MessageStyle.ERROR),
+    TPA_DISABLED_TARGET("tpaDisabledTarget", "{ac}{player} has teleport requests disabled.", MessageStyle.ERROR),
+    TPA_TOGGLE_ENABLED("tpaToggleEnabled", "&7You have {ac}enabled&7 teleport requests.", MessageStyle.SUCCESS),
+    TPA_TOGGLE_DISABLED("tpaToggleDisabled", "&7You have {ac}disabled&7 teleport requests.", MessageStyle.WARNING),
+    TPA_REQUEST_EXPIRED("tpaRequestExpired", "&7Your teleport request to {ac}{player}&7 has expired.", MessageStyle.WARNING),
     ;
 
     private final String key;
