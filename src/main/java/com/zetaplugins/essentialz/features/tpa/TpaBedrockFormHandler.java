@@ -3,6 +3,8 @@ package com.zetaplugins.essentialz.features.tpa;
 import com.zetaplugins.essentialz.EssentialZ;
 import com.zetaplugins.essentialz.util.MessageManager;
 import com.zetaplugins.essentialz.util.PluginMessage;
+import com.zetaplugins.zetacore.annotations.InjectManager;
+import com.zetaplugins.zetacore.annotations.Manager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.geysermc.cumulus.form.ModalForm;
@@ -17,18 +19,22 @@ import java.util.List;
 /**
  * Handles Bedrock forms for TPA functionality.
  */
+@Manager
 public class TpaBedrockFormHandler {
 
     private final EssentialZ plugin;
-    private final TpaManager tpaManager;
-    private final TpaToggleManager toggleManager;
-    private final MessageManager messageManager;
 
-    public TpaBedrockFormHandler(EssentialZ plugin, TpaManager tpaManager, TpaToggleManager toggleManager, MessageManager messageManager) {
+    @InjectManager
+    private TpaManager tpaManager;
+
+    @InjectManager
+    private TpaToggleManager toggleManager;
+
+    @InjectManager
+    private MessageManager messageManager;
+
+    public TpaBedrockFormHandler(EssentialZ plugin) {
         this.plugin = plugin;
-        this.tpaManager = tpaManager;
-        this.toggleManager = toggleManager;
-        this.messageManager = messageManager;
     }
 
     /**

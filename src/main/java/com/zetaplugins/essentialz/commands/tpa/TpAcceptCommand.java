@@ -30,7 +30,9 @@ public class TpAcceptCommand extends EszCommand {
     @InjectManager
     private TpaToggleManager toggleManager;
 
+    @InjectManager
     private TpaBedrockFormHandler bedrockFormHandler;
+
     private boolean floodgateEnabled = false;
 
     public TpAcceptCommand(EssentialZ plugin) {
@@ -49,13 +51,6 @@ public class TpAcceptCommand extends EszCommand {
         }
     }
 
-    private TpaBedrockFormHandler getBedrockFormHandler() {
-        if (bedrockFormHandler == null && floodgateEnabled) {
-            bedrockFormHandler = new TpaBedrockFormHandler(getPlugin(), tpaManager, toggleManager, getMessageManager());
-        }
-        return bedrockFormHandler;
-    }
-
     @Override
     public boolean execute(CommandSender sender, Command command, String label, ArgumentList args) throws CommandSenderMustBePlayerException {
         if (!(sender instanceof Player player)) {
@@ -71,7 +66,7 @@ public class TpAcceptCommand extends EszCommand {
 
         // Bedrock player with multiple requests - show form
         if (floodgateEnabled && isBedrockPlayer(player) && requests.size() > 1) {
-            getBedrockFormHandler().sendPendingRequestsForm(player);
+            bedrockFormHandler.sendPendingRequestsForm(player);
             return true;
         }
 
