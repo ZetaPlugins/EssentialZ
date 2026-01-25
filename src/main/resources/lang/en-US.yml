@@ -147,3 +147,5 @@ lightningStrikes: "&7Struck {ac}{player} &7with lightning {ac}{amount} &7time(s)
 glowEnabled: "&7Glow effect enabled for {ac}{player}&7."
 glowDisabled: "&7Glow effect disabled for {ac}{player}&7."
 deathMessage: "&8[&c☠&8] &7{message}"
+playerKicked: "&7Player {ac}{player} &7has been kicked. Reason: {ac}{reason}"
+cannotKickPlayer: "{ac}You cannot kick this player."

@@ -1,0 +1,7 @@
+
+# The message template for when a user is kicked
+kickMessageTemplate: |
+  &7You have been temporarily kicked from the server.
+  
+  &8Reason:
+  &c&l{reason}

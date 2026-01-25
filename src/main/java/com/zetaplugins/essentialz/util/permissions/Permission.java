@@ -71,6 +71,7 @@ public enum Permission implements PermissionNode {
     TIME("time", PermissionDefault.OP, "Allows the user to change the time in their world"),
     LIGHTNING("lightning", PermissionDefault.OP, "Allows the user to strike lightning at a player's location"),
     GLOW("glow", PermissionDefault.OP, "Allows the user to make themselves or another player glow"),
+    MODERATION_BYPASS("modbypass", PermissionDefault.FALSE, "Allows the user to bypass moderation restrictions such as mutes and bans")
     ;
 
     private final String node;

@@ -109,6 +109,8 @@ public enum PluginMessage {
     GLOW_ENABLED("glowEnabled", "&7Glow effect enabled for {ac}{player}&7.", MessageStyle.FUN),
     GLOW_DISABLED("glowDisabled", "&7Glow effect disabled for {ac}{player}&7.", MessageStyle.FUN),
     DEATH_MESSAGE("deathMessage", "&8[&c☠&8] &7{message}", MessageStyle.NONE),
+    PLAYER_KICKED("playerKicked", "&7Player {ac}{player} &7has been kicked. Reason: {ac}{reason}", MessageStyle.MODERATION),
+    CANNOT_KICK_PLAYER("cannotKickPlayer", "{ac}You cannot kick this player.", MessageStyle.ERROR)
     /*
      * Still missing:
      * - communication
