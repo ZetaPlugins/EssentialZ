@@ -1,7 +1,7 @@
 # === Storage ===
 
 # The type of storage to use. You have the following options:
-# "SQLite", "MySQL", "MariaDB"
+# "SQLite", "MySQL"
 type: "SQLite"
 
 # This section is only relevant if you use a MySQL database
