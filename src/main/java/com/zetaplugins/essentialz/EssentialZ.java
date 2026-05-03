@@ -25,6 +25,9 @@ import com.zetaplugins.zetacore.services.events.AutoEventRegistrar;
 import com.zetaplugins.zetacore.services.papi.PapiExpansionService;
 import com.zetaplugins.zetacore.services.updatechecker.HangarUpdateChecker;
 import com.zetaplugins.zetacore.services.updatechecker.UpdateChecker;
+import dev.faststats.bukkit.BukkitMetrics;
+import dev.faststats.core.ErrorTracker;
+import dev.faststats.core.data.Metric;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -35,6 +38,12 @@ public final class EssentialZ extends ZetaCorePlugin {
     public static final UUID CONSOLE_UUID = UUID.fromString("00000000-0000-0000-0000-000000000000");
     private static final String PACKAGE_PREFIX = "com.zetaplugins.essentialz";
     private static final List<String> ECONOMY_COMMANDS = List.of("balance", "pay", "baltop");
+
+    private static final int BSTATS_PLUGIN_ID = 28226;
+    private static final String FASTSTATS_TOKEN = "e74ea63e83b6c70ddbd45a8d609f1a03";
+    public static final ErrorTracker FASTSTATS_ERROR_TRACKER = ErrorTracker.contextAware();
+
+    private dev.faststats.core.Metrics metrics;
 
     private ConfigService configManager;
     private ManagerRegistry managerRegistry;
@@ -64,12 +73,14 @@ public final class EssentialZ extends ZetaCorePlugin {
 
         initPlaceholderAPI();
         initBstats();
+        initFastStats();
 
         getLogger().info("EssentialZ enabled!");
     }
 
     @Override
     public void onDisable() {
+        if (metrics != null) metrics.shutdown();
         getLogger().info("EssentialZ disabled!");
     }
 
@@ -167,8 +178,7 @@ public final class EssentialZ extends ZetaCorePlugin {
     }
 
     private void initBstats() {
-        final int pluginId = 28226;
-        Metrics metrics = createBStatsMetrics(pluginId);
+        Metrics metrics = createBStatsMetrics(BSTATS_PLUGIN_ID);
 
         MainConfig mainConfig = configManager.getConfig(MainConfig.class);
 
@@ -186,5 +196,25 @@ public final class EssentialZ extends ZetaCorePlugin {
         }));
 
         getLogger().info("bStats metrics initialized.");
+    }
+
+    private void initFastStats() {
+        this.metrics = BukkitMetrics.factory()
+                .token(FASTSTATS_TOKEN)
+                .errorTracker(FASTSTATS_ERROR_TRACKER)
+                .addMetric(Metric.string("storage_type", () -> configManager.getConfig(StorageConfig.class).getType()))
+                .addMetric(Metric.string("language", () -> configManager.getConfig(MainConfig.class).getLanguage()))
+                .addMetric(Metric.string("economy_system", () -> {
+                    EconomyManager economyManager = managerRegistry.getOrCreate(EconomyManager.class);
+                    if (economyManager instanceof VaultEconomyManager) return "vault";
+                    else if (economyManager instanceof BuiltinEconomyManager) return "builtin";
+                    else return "disabled";
+                }))
+                .addMetric(Metric.bool("chat_enabled", () -> configManager.getConfig(ChatConfig.class).isEnableCustomChat()))
+                .create(this);
+
+        this.metrics.ready();
+
+        getLogger().info("FastStats metrics initialized.");
     }
 }

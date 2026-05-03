@@ -6,7 +6,7 @@
 
     <groupId>com.zetaplugins</groupId>
     <artifactId>EssentialZ</artifactId>
-    <version>1.0.0-alpha13</version>
+    <version>1.0.0-alpha14</version>
     <packaging>jar</packaging>
 
     <name>EssentialZ</name>
@@ -96,6 +96,10 @@
                             <pattern>org.reflections</pattern>
                             <shadedPattern>com.zetaplugins.essentialz.libs.reflections</shadedPattern>
                         </relocation>
+                        <relocation>
+                            <pattern>dev.faststats</pattern>
+                            <shadedPattern>com.zetaplugins.essentialz.libs.faststats</shadedPattern>
+                        </relocation>
                     </relocations>
                     <filters>
                         <filter>
@@ -106,6 +110,12 @@
                         </filter>
                         <filter>
                             <artifact>com.zetaplugins:zetacore</artifact>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                        </filter>
+                        <filter>
+                            <artifact>dev.faststats.metrics:bukkit</artifact>
                             <includes>
                                 <include>**/*</include>
                             </includes>
@@ -123,6 +133,8 @@
                         <includes>
                             <include>com.zaxxer:HikariCP</include>
                             <include>com.zetaplugins:zetacore</include>
+                            <include>dev.faststats.metrics:bukkit</include>
+                            <include>dev.faststats.metrics:core</include>
                         </includes>
                     </artifactSet>
                     <transformers>
@@ -162,6 +174,10 @@
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
+        </repository>
+        <repository>
+            <id>faststats-releases</id>
+            <url>https://repo.faststats.dev/releases</url>
         </repository>
     </repositories>
 
@@ -203,6 +219,16 @@
             <artifactId>VaultAPI</artifactId>
             <version>1.7</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>dev.faststats.metrics</groupId>
+            <artifactId>core</artifactId>
+            <version>0.22.0</version>
+        </dependency>
+        <dependency>
+            <groupId>dev.faststats.metrics</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>0.22.0</version>
         </dependency>
     </dependencies>
 </project>
