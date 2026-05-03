@@ -13,6 +13,7 @@ com.zetaplugins.essentialz.commands.worldcontrol.weather
 com.zetaplugins.essentialz.config.chat
 com.zetaplugins.essentialz.config.economy
 com.zetaplugins.essentialz.config.main
+com.zetaplugins.essentialz.config.moderation
 com.zetaplugins.essentialz.config.storage
 com.zetaplugins.essentialz.features
 com.zetaplugins.essentialz.features.economy
